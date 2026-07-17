@@ -821,8 +821,8 @@ function CTA() {
           <label className="flex items-start gap-3 cursor-pointer group">
             <input
               type="checkbox"
-              name="consentimento_lgpd"
-              required
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
               className="mt-1 h-4 w-4 accent-[color:var(--gold)] rounded border border-[rgba(242,184,23,0.45)] bg-transparent cursor-pointer"
             />
             <span className="text-xs text-muted-foreground font-light leading-relaxed">
