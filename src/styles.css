@@ -796,7 +796,7 @@
 .parxis-wordmark {
   position: absolute;
   left: 50%;
-  top: calc(50% + clamp(112px, 10.4vw, 158px));
+  top: calc(50% + clamp(58px, 6vw, 96px));
   transform: translate(-50%, 0);
   z-index: 2;
   width: clamp(285px, 31vw, 410px);
@@ -828,7 +828,7 @@
   }
 
   .parxis-wordmark {
-    top: calc(50% + 84px);
+    top: calc(50% + 46px);
     width: min(72vw, 305px);
     filter:
       saturate(0.58) hue-rotate(-12deg) brightness(1.06)
