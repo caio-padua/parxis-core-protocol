@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="PARXIS">
+  <defs>
+    <linearGradient id="pxGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4e4b8"/>
+      <stop offset="18%" stop-color="#e8cf8a"/>
+      <stop offset="42%" stop-color="#c9a86c"/>
+      <stop offset="62%" stop-color="#a6884b"/>
+      <stop offset="82%" stop-color="#7a5e2a"/>
+      <stop offset="100%" stop-color="#5a4620"/>
+    </linearGradient>
+    <linearGradient id="pxSheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff6d8" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#fff6d8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#pxGold)" font-family="'Cormorant Garamond', 'Playfair Display', 'Trajan Pro', Georgia, serif" font-weight="600" font-size="150" letter-spacing="22" text-anchor="middle" dominant-baseline="central">
+    <text x="500" y="102">PARXIS</text>
+  </g>
+  <g fill="url(#pxSheen)" font-family="'Cormorant Garamond', 'Playfair Display', 'Trajan Pro', Georgia, serif" font-weight="600" font-size="150" letter-spacing="22" text-anchor="middle" dominant-baseline="central" opacity="0.55">
+    <text x="500" y="102">PARXIS</text>
+  </g>
+</svg>
