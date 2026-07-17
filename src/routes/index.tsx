@@ -57,6 +57,7 @@ function Nav() {
           <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">Ecossistema</a>
         </nav>
         <div className="flex items-center gap-3">
+          <ContrastToggle />
           <MotionToggle />
           <a
             href="#contato"
@@ -130,6 +131,65 @@ function MotionToggle() {
             <path d="M5.6 18.4l2.1-2.1" />
             <path d="M16.3 7.7l2.1-2.1" />
             <circle cx="12" cy="12" r="3.5" />
+          </>
+        )}
+      </svg>
+    </button>
+  );
+}
+
+/* ————————————————— CONTRAST TOGGLE ————————————————— */
+type ContrastMode = "normal" | "high";
+
+function ContrastToggle() {
+  const [mode, setMode] = useState<ContrastMode | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("parxis-contrast") as ContrastMode | null;
+    const initial: ContrastMode = stored ?? "normal";
+    document.documentElement.dataset.contrast = initial;
+    setMode(initial);
+  }, []);
+
+  const toggle = () => {
+    const next: ContrastMode = mode === "high" ? "normal" : "high";
+    document.documentElement.dataset.contrast = next;
+    localStorage.setItem("parxis-contrast", next);
+    setMode(next);
+  };
+
+  if (mode === null) return null;
+  const high = mode === "high";
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={high}
+      aria-label={high ? "Usar contraste normal do fundo" : "Aumentar contraste do fundo"}
+      title={high ? "Contraste alto ativo — clique para normal" : "Contraste normal — clique para aumentar"}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+    >
+      <svg
+        aria-hidden="true"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {high ? (
+          <>
+            <path d="M12 2v20" />
+            <path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20z" />
+          </>
+        ) : (
+          <>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" />
           </>
         )}
       </svg>
