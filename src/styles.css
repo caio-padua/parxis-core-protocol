@@ -620,13 +620,13 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 .parxis-gold-text {
   background: linear-gradient(
     100deg,
-    #9A5700 0%,
-    #D99000 20%,
-    #F2B817 40%,
-    #FFD85A 50%,
-    #F2B817 60%,
-    #D99000 80%,
-    #9A5700 100%
+    var(--gold-deep) 0%,
+    var(--gold-medium) 20%,
+    var(--gold) 40%,
+    var(--gold-light) 50%,
+    var(--gold) 60%,
+    var(--gold-medium) 80%,
+    var(--gold-deep) 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
