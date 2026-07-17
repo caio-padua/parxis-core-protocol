@@ -1171,7 +1171,9 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.22) 42%,
         rgba(5, 2, 2, 0.84) 100%
       ),
-      var(--hero-bg-tablet);
+      var(--hero-bg-qhd);
+    background-size: 100% 100%, 82% auto;
+    background-position: center, center top;
   }
 }
 
@@ -1185,7 +1187,9 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.88) 78%,
         rgba(5, 2, 2, 0.96) 100%
       ),
-      var(--hero-bg-mobile);
+      var(--hero-bg-fhd);
+    background-size: 100% 100%, 84% auto;
+    background-position: center, center top;
   }
 }
 
