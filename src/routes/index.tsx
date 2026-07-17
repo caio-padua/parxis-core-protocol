@@ -375,10 +375,10 @@ function Technology() {
       <div className="mx-auto max-w-6xl px-6 lg:px-10">
         <div className="text-center mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Tecnologia · Chapitre II
+            Inteligência · Chapitre II
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight max-w-3xl mx-auto">
-            A engenharia sob o verniz de <em className="parxis-gold-text not-italic">ouro</em>.
+            O motor <em className="parxis-gold-text not-italic">PAWARDS MedCore®</em> — que trabalha enquanto você atende.
           </h2>
           <div className="parxis-gold-rule w-32 mx-auto mt-8" />
         </div>
