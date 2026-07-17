@@ -1028,9 +1028,9 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
       rgba(5, 2, 2, 0.05) 100%
     ),
     var(--hero-bg-qhd);
-  background-size: 100% 100%, 62% auto;
+  background-size: 100% 100%, cover;
   background-repeat: no-repeat;
-  background-position: center, center top;
+  background-position: center, right center;
   background-attachment: scroll;
   background-color: #050505;
 }
@@ -1038,12 +1038,12 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 /* Dentro do hero, os painéis parallax ficam bem discretos
    para não competir com a fotografia do atelier médico. */
 .parxis-hero .parxis-panel {
-  opacity: 0.14;
+  opacity: 0.28;
   mix-blend-mode: soft-light;
 }
 .parxis-hero .parxis-panel::before,
 .parxis-hero .parxis-panel::after {
-  opacity: 0.35;
+  opacity: 0.55;
 }
 
 @media (min-width: 2000px) {
@@ -1057,6 +1057,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.08) 100%
       ),
       var(--hero-bg-4k);
+    background-size: 100% 100%, cover;
+    background-position: center, right center;
   }
 }
 
@@ -1071,8 +1073,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.78) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 70% center;
     background-attachment: scroll;
   }
 }
@@ -1089,8 +1091,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 72% center;
     background-attachment: scroll;
   }
 }
@@ -1172,8 +1174,8 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.84) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 70% center;
   }
 }
 
@@ -1188,8 +1190,8 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 72% center;
   }
 }
 
