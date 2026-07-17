@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import parxisSymbol from "@/assets/parxis-symbol.png.asset.json";
-import parxisWordmark from "@/assets/parxis-wordmark.png.asset.json";
+import parxisWordmarkUrl from "@/assets/parxis-wordmark.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -15,7 +15,7 @@ function Index() {
       className="min-h-screen bg-background text-foreground overflow-x-hidden"
       style={{
         ["--parxis-symbol-url" as string]: `url(${parxisSymbol.url})`,
-        ["--parxis-wordmark-url" as string]: `url(${parxisWordmark.url})`,
+        ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
       }}
     >
       <Nav />
