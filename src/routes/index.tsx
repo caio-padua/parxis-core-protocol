@@ -26,6 +26,7 @@ function Index() {
       <ForClinics />
       <Testimonial />
       <Ecosystem />
+      <Scarcity />
       <CTA />
       <Footer />
     </main>
