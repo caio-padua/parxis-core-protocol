@@ -1454,7 +1454,7 @@ html[data-motion="reduce"] .parxis-panel {
   background-size: cover;
   background-attachment: fixed;
   background-color: #050505;
-  filter: saturate(0.95) contrast(1.08) brightness(0.92);
+  filter: saturate(1.08) contrast(1.12) brightness(1.02);
 }
 .parxis-fixed-veil {
   position: fixed;
@@ -1462,9 +1462,9 @@ html[data-motion="reduce"] .parxis-panel {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.32) 0%, transparent 60%),
-    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.42) 0%, transparent 65%),
-    rgba(5, 3, 3, 0.18);
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.18) 0%, transparent 62%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.24) 0%, transparent 68%),
+    rgba(5, 3, 3, 0.06);
 }
 
 /* Contraste alto → escurece o véu para dar mais peso ao dourado */
@@ -1490,9 +1490,8 @@ html[data-contrast="high"] .parxis-fixed-veil {
 .parxis-glass {
   position: relative;
   isolation: isolate;
-  background: rgba(9, 4, 4, 0.32);
-  backdrop-filter: blur(8px) saturate(115%);
-  -webkit-backdrop-filter: blur(8px) saturate(115%);
+  background: rgba(9, 4, 4, 0.18);
+  backdrop-filter: blur(3px) saturate(118%);
   border-top: 1px solid rgba(242,184,23,0.08);
   border-bottom: 1px solid rgba(242,184,23,0.08);
 }
@@ -1503,7 +1502,7 @@ html[data-contrast="high"] .parxis-fixed-veil {
   pointer-events: none;
   z-index: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, rgba(0,0,0,0.35) 100%);
+    linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 74%, rgba(0,0,0,0.22) 100%);
 }
 .parxis-glass > * {
   position: relative;
@@ -1513,15 +1512,15 @@ html[data-contrast="high"] .parxis-fixed-veil {
 /* Variante com stitch frame + textura mais quente (bordô discreto) */
 .parxis-glass-frame {
   background:
-    linear-gradient(180deg, rgba(38,10,14,0.28) 0%, rgba(10,4,4,0.36) 60%, rgba(6,3,3,0.42) 100%);
+    linear-gradient(180deg, rgba(38,10,14,0.18) 0%, rgba(10,4,4,0.24) 60%, rgba(6,3,3,0.28) 100%);
 }
 
 html[data-contrast="high"] .parxis-glass {
-  background: rgba(6, 3, 3, 0.55);
+  background: rgba(6, 3, 3, 0.42);
 }
 html[data-contrast="high"] .parxis-glass-frame {
   background:
-    linear-gradient(180deg, rgba(38,10,14,0.45) 0%, rgba(8,3,3,0.6) 60%, rgba(4,2,2,0.65) 100%);
+    linear-gradient(180deg, rgba(38,10,14,0.32) 0%, rgba(8,3,3,0.44) 60%, rgba(4,2,2,0.48) 100%);
 }
 
 /* Manifesto/Testimonial/Scarcity que antes usavam bg-background sólido
