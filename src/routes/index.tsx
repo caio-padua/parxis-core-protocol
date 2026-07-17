@@ -647,14 +647,14 @@ function CTA() {
               </div>
               <div className="md:col-span-2">
                 <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
-                  Necessidade em protocolos
+                  Quem o indicou · e por quê
                 </label>
                 <textarea
                   name="necessidade"
                   required
                   rows={4}
                   maxLength={2000}
-                  placeholder="Descreva brevemente os protocolos que sua clínica conduz, os desafios atuais (RAS, receituário, apresentação ao paciente) e o que espera do Parxis."
+                  placeholder="Se foi indicado, informe o nome do médico. Se não, descreva por que sua clínica se enquadra no padrão do Círculo Parxis — protocolos, volume mensal, o que a diferencia."
                   className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors resize-none"
                 />
               </div>
@@ -662,14 +662,14 @@ function CTA() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-                Suas informações são tratadas em caráter confidencial.
+                Análise confidencial · Sigilo profissional garantido
               </p>
               <button
                 type="submit"
                 disabled={loading}
                 className="inline-flex items-center justify-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-9 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? "Enviando…" : "Solicitar acesso privado"}
+                {loading ? "Enviando…" : "Enviar candidatura"}
                 {!loading && <span aria-hidden>→</span>}
               </button>
             </div>
@@ -677,7 +677,7 @@ function CTA() {
         )}
 
         <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          Resposta em até 48 horas · Contato pessoal
+          Resposta em até 48 horas · Apenas às candidaturas selecionadas
         </p>
       </div>
     </section>
