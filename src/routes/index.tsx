@@ -42,14 +42,15 @@ function Nav() {
             Parxis
           </span>
           <span className="hidden sm:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-            Motor Clínico
+            Por Indicação
           </span>
         </a>
         <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
           <a href="#manifesto" className="hover:text-[color:var(--gold)] transition-colors">Manifesto</a>
           <a href="#recursos" className="hover:text-[color:var(--gold)] transition-colors">Recursos</a>
-          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Tecnologia</a>
-          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">Para Clínicas</a>
+          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Inteligência</a>
+          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">O Círculo</a>
+          <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">Ecossistema</a>
         </nav>
         <div className="flex items-center gap-3">
           <MotionToggle />
@@ -57,7 +58,7 @@ function Nav() {
             href="#contato"
             className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] px-4 py-2 rounded-full hover:bg-[rgba(242,184,23,0.08)] transition-colors"
           >
-            Agendar demonstração
+            Solicitar indicação
           </a>
         </div>
       </div>
