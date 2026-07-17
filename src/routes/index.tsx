@@ -181,11 +181,15 @@ function ParxisMonogram() {
       {/* Símbolo — respira, gira suavemente, atrás do wordmark */}
       <div className="parxis-symbol-wrap" aria-hidden>
         <div className="parxis-symbol-tilt">
-          <div className="parxis-symbol-breathe">
+          <div className="parxis-symbol-levitate">
             <div className="parxis-symbol-img" role="img" aria-label="Símbolo Parxis" />
             {/* Luz-sweep prismática por cima do símbolo */}
             <div className="parxis-symbol-sheen" aria-hidden />
           </div>
+          {/* Sombra projetada na superfície */}
+          <div className="parxis-shadow" aria-hidden />
+          {/* Superfície onde o símbolo levita */}
+          <div className="parxis-surface" aria-hidden />
         </div>
       </div>
 
