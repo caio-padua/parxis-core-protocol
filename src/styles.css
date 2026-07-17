@@ -427,9 +427,19 @@
     height: min(78vw, 330px);
   }
 
+  /* Reforça o champagne suave no mobile: menos saturação e húe mais neutro. */
+  .parxis-symbol-img {
+    filter: saturate(0.58) hue-rotate(-12deg) brightness(1.06) !important;
+  }
+
   .parxis-wordmark {
     top: calc(50% + 84px);
     width: min(72vw, 305px);
+    filter:
+      saturate(0.58) hue-rotate(-12deg) brightness(1.06)
+      drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
+      drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%))
+      !important;
   }
 
   .parxis-shadow {
