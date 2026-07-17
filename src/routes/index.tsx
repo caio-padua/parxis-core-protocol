@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import parxisLogo from "@/assets/parxis-logo.png.asset.json";
+import { useEffect, useRef } from "react";
+import parxisSymbol from "@/assets/parxis-symbol.png.asset.json";
+import parxisWordmark from "@/assets/parxis-wordmark.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -9,7 +11,10 @@ function Index() {
   return (
     <main
       className="min-h-screen bg-background text-foreground overflow-x-hidden"
-      style={{ ["--parxis-logo-url" as string]: `url(${parxisLogo.url})` }}
+      style={{
+        ["--parxis-symbol-url" as string]: `url(${parxisSymbol.url})`,
+        ["--parxis-wordmark-url" as string]: `url(${parxisWordmark.url})`,
+      }}
     >
       <Nav />
       <Hero />
@@ -109,25 +114,82 @@ function Hero() {
         </div>
 
         {/* Símbolo flutuante */}
-        <div className="relative flex items-center justify-center min-h-[520px]">
-          <div className="parxis-aura" />
-          {/* Símbolo isolado (recorte do PNG oficial — só o monograma superior) */}
-          <div className="relative z-10 parxis-symbol-float">
-            <div
-              className="parxis-symbol-crop"
-              role="img"
-              aria-label="Símbolo Parxis"
-            />
-          </div>
-          {/* Wordmark oficial recortado (base do PNG) */}
-          <div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-10 parxis-wordmark-crop"
-            role="img"
-            aria-label="Parxis"
-          />
-        </div>
+        <ParxisMonogram />
       </div>
     </section>
+  );
+}
+
+/* ————————————————— MONOGRAMA VIVO —————————————————
+   Wordmark PARXIS estático em primeiro plano.
+   Símbolo respira atrás — se aproxima e se afasta —
+   com múltiplas auras em ritmos distintos, halo cônico
+   rotativo, luz-sweep prismática e parallax 3D no mouse. */
+function ParxisMonogram() {
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    let raf = 0;
+    let targetX = 0, targetY = 0, curX = 0, curY = 0;
+    const onMove = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    };
+    const onLeave = () => { targetX = 0; targetY = 0; };
+    const tick = () => {
+      curX += (targetX - curX) * 0.08;
+      curY += (targetY - curY) * 0.08;
+      el.style.setProperty("--mx", curX.toFixed(3));
+      el.style.setProperty("--my", curY.toFixed(3));
+      raf = requestAnimationFrame(tick);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerleave", onLeave);
+    tick();
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={stageRef}
+      className="parxis-stage relative flex items-center justify-center min-h-[560px] lg:min-h-[640px]"
+      aria-label="Parxis"
+    >
+      {/* Halo cônico rotativo — iridescência dourada */}
+      <div className="parxis-halo-conic" aria-hidden />
+      {/* Auras respirando em ritmos independentes */}
+      <div className="parxis-aura parxis-aura-1" aria-hidden />
+      <div className="parxis-aura parxis-aura-2" aria-hidden />
+      {/* Anel dourado etéreo */}
+      <div className="parxis-ring" aria-hidden />
+      {/* Partículas de ouro à deriva */}
+      <div className="parxis-particles" aria-hidden>
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span key={i} style={{ ["--i" as string]: i }} />
+        ))}
+      </div>
+
+      {/* Símbolo — respira, gira suavemente, atrás do wordmark */}
+      <div className="parxis-symbol-wrap" aria-hidden>
+        <div className="parxis-symbol-tilt">
+          <div className="parxis-symbol-breathe">
+            <div className="parxis-symbol-img" role="img" aria-label="Símbolo Parxis" />
+            {/* Luz-sweep prismática por cima do símbolo */}
+            <div className="parxis-symbol-sheen" aria-hidden />
+          </div>
+        </div>
+      </div>
+
+      {/* Wordmark PARXIS — estático, em primeiro plano, íntegro */}
+      <div className="parxis-wordmark" role="img" aria-label="PARXIS" />
+    </div>
   );
 }
 
