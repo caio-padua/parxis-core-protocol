@@ -294,33 +294,33 @@ function Manifesto() {
 const FEATURES = [
   {
     n: "01",
-    title: "Anamnese guiada em 14 etapas",
-    body: "Linha do tempo clínica com vídeos de ajuda por pergunta. Nada escapa, nada se perde — do primeiro sintoma à hipótese diagnóstica.",
+    title: "Cockpit unificado do médico",
+    body: "Uma única tela por cliente: prescrição de injetáveis, fórmulas manipuladas, pedidos de exames, evolução laboratorial e emissão de documentos. Você decide sem sair, sem abrir outro sistema, sem quebrar a linha do raciocínio.",
   },
   {
     n: "02",
-    title: "Protocolos injetáveis auditáveis",
-    body: "Da prescrição ao RAS assinado com rubrica de paciente e enfermagem. Datas dd/mm/aa, células coloridas, controlados isolados.",
+    title: "Lançador guiado de protocolos",
+    body: "Você define substâncias, frequências e datas. Em um único comando, o protocolo é criado, as sessões validadas e o formulário de auditoria da enfermagem é gerado — pronto para uma fiscalização sanitária a qualquer momento.",
   },
   {
     n: "03",
-    title: "Apresentação premium do protocolo",
-    body: "Documento em acabamento creme/dourado entregue ao paciente. Torna o protocolo tão elegante quanto o resultado clínico proposto.",
+    title: "Documento com validade jurídica nacional",
+    body: "Cada aplicação gera um documento clínico oficial assinado digitalmente no padrão jurídico brasileiro — equivalente ao reconhecimento de firma em cartório, sem papel. Arquivado, entregue por e-mail e disponível no app do cliente.",
   },
   {
     n: "04",
-    title: "Receituário e solicitação de exames",
-    body: "Emissão com marca da clínica, assinatura eletrônica, controle de vias e histórico completo por paciente.",
+    title: "Leitura de laudos por inteligência clínica",
+    body: "Envie o PDF do laudo. O motor extrai cada analito automaticamente e o compara com faixas próprias da medicina integrativa — não com o padrão populacional. Você mostra ao cliente onde ele está no espectro real de saúde.",
   },
   {
     n: "05",
-    title: "RAS FAP — folha de auditoria",
-    body: "Rastro completo do injetável, resistente a estresse de auditoria: 15 substâncias, 19 páginas, sem página em branco.",
+    title: "Mensageria cronobiológica",
+    body: "O sistema conhece o momento biologicamente correto de cada medicamento e envia o lembrete na hora certa. Adesão do cliente sobe, retrabalho da secretária cai, resultado clínico aparece.",
   },
   {
     n: "06",
-    title: "Portal do paciente e da clínica",
-    body: "Dois ambientes distintos: sério para paciente e equipe, e sofisticado para gestão. Cada perfil vê o que precisa ver.",
+    title: "Console de orçamento com três cenários",
+    body: "À vista, entrada com parcelas e parcelado — taxas já calculadas, escada de desconto por volume. A secretária apresenta. O cliente escolhe. Você fecha sem intermediar planilhas.",
   },
 ];
 
