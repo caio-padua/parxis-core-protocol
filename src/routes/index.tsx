@@ -359,14 +359,14 @@ function Features() {
 
 /* ————————————————— TECHNOLOGY ————————————————— */
 const TECH = [
-  { term: "Arquitetura multi-inquilino", desc: "cada clínica opera em seu próprio cofre de dados, sem cruzamento." },
-  { term: "Data binding em tempo real", desc: "o que a enfermagem registra aparece instantaneamente no prontuário do médico." },
-  { term: "Controle de acesso por papéis", desc: "médico, enfermagem, gestão e paciente veem apenas o que lhes cabe." },
-  { term: "Trilha de auditoria imutável", desc: "toda ação assinada, datada, resistente a estresse regulatório." },
-  { term: "Mapeamento semântico clínico", desc: "sintomas, hipóteses e substâncias falam a mesma língua entre módulos." },
-  { term: "Assinatura eletrônica com validade jurídica", desc: "RAS, receituário e solicitação em conformidade CFM." },
-  { term: "Isolamento de controlados", desc: "portaria 344 respeitada em fluxo próprio, com dupla checagem." },
-  { term: "API aberta", desc: "conecta o Parxis ao seu ERP, farmácia de manipulação e laboratório de exames." },
+  { term: "Questionário clínico por sistemas", desc: "anamnese progressiva — só o que é relevante para aquele cliente. Alertas críticos nunca são suprimidos." },
+  { term: "Motor de regras clínicas", desc: "biblioteca de raciocínio construída sobre décadas de prática. O motor lembra por você. A decisão final é sempre sua." },
+  { term: "Caminhos clínicos por queixa", desc: "você informa a queixa em foco. O sistema sugere quais exames pedir e quais tratamentos considerar — antes de você abrir a boca." },
+  { term: "Faixas de referência integrativas", desc: "excelente, ótimo, aceitável — pela ótica da medicina integrativa, não pelo padrão laboratorial convencional." },
+  { term: "Posologia cronobiológica", desc: "o motor conhece o momento certo de cada medicamento no dia — o esquema de uso e os lembretes saem prontos." },
+  { term: "Evolução clínica longitudinal", desc: "a cada consulta, o histórico cresce. Com o tempo, o banco de dados da sua clínica se torna um ativo estratégico real." },
+  { term: "Isolamento total entre clínicas", desc: "cada licenciado opera em cofre próprio. Nenhum concorrente enxerga, cruza ou toca seus dados." },
+  { term: "Assinatura com validade jurídica nacional", desc: "documentos clínicos com o padrão brasileiro de reconhecimento — equivalente a firma em cartório, sem papel." },
 ];
 
 function Technology() {
