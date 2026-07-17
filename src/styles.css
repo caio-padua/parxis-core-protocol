@@ -461,7 +461,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .parxis-symbol-breathe,
+  .parxis-symbol-levitate,
+  .parxis-shadow, .parxis-surface,
   .parxis-aura, .parxis-halo-conic, .parxis-ring,
   .parxis-symbol-sheen::after, .parxis-particles span {
     animation: none;
