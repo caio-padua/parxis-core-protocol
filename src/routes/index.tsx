@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main
-      className="parxis-app relative min-h-screen bg-background text-foreground overflow-x-hidden"
+      className="parxis-app relative min-h-screen text-foreground overflow-x-hidden"
       style={{
         ["--parxis-symbol-url" as string]: `url(${parxisSymbolUrl})`,
         ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
