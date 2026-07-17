@@ -50,14 +50,84 @@ function Nav() {
           <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Tecnologia</a>
           <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">Para Clínicas</a>
         </nav>
-        <a
-          href="#contato"
-          className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] px-4 py-2 rounded-full hover:bg-[rgba(242,184,23,0.08)] transition-colors"
-        >
-          Agendar demonstração
-        </a>
+        <div className="flex items-center gap-3">
+          <MotionToggle />
+          <a
+            href="#contato"
+            className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] px-4 py-2 rounded-full hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+          >
+            Agendar demonstração
+          </a>
+        </div>
       </div>
     </header>
+  );
+}
+
+/* ————————————————— MOTION TOGGLE ————————————————— */
+type MotionMode = "full" | "reduce";
+
+function MotionToggle() {
+  const [mode, setMode] = useState<MotionMode | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("parxis-motion") as MotionMode | null;
+    const systemReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const initial: MotionMode = stored ?? (systemReduce ? "reduce" : "full");
+    document.documentElement.dataset.motion = initial;
+    setMode(initial);
+  }, []);
+
+  const toggle = () => {
+    const next: MotionMode = mode === "reduce" ? "full" : "reduce";
+    document.documentElement.dataset.motion = next;
+    localStorage.setItem("parxis-motion", next);
+    setMode(next);
+  };
+
+  if (mode === null) return null;
+  const reduced = mode === "reduce";
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={reduced}
+      aria-label={reduced ? "Ativar animações do site" : "Reduzir animações do site"}
+      title={reduced ? "Animações reduzidas — clique para ativar" : "Animações ativas — clique para reduzir"}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+    >
+      <svg
+        aria-hidden="true"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {reduced ? (
+          <>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M8 12h8" />
+          </>
+        ) : (
+          <>
+            <path d="M12 3v3" />
+            <path d="M12 18v3" />
+            <path d="M5.6 5.6l2.1 2.1" />
+            <path d="M16.3 16.3l2.1 2.1" />
+            <path d="M3 12h3" />
+            <path d="M18 12h3" />
+            <path d="M5.6 18.4l2.1-2.1" />
+            <path d="M16.3 7.7l2.1-2.1" />
+            <circle cx="12" cy="12" r="3.5" />
+          </>
+        )}
+      </svg>
+    </button>
   );
 }
 
