@@ -470,14 +470,14 @@ function Testimonial() {
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <div className="font-serif text-[color:var(--gold)] text-6xl mb-6 opacity-60">“</div>
         <p className="font-serif text-2xl md:text-3xl leading-relaxed italic text-foreground">
-          Pela primeira vez, o documento entregue ao paciente carrega o mesmo cuidado que dedicamos à consulta. O Parxis não é software — é a extensão silenciosa da nossa clínica.
+          Fui indicado. Recebi o acesso em uma quarta-feira. Na sexta, entreguei o primeiro documento assinado com validade jurídica ao meu cliente. Ele me olhou de forma diferente. O Parxis não é software — é o que separa uma clínica de uma maison clínica.
         </p>
         <div className="parxis-gold-rule w-24 mx-auto my-10" />
         <div className="text-sm uppercase tracking-[0.32em] text-[color:var(--gold)]">
           Dr. Ricardo Almeida Ferreira
         </div>
         <div className="text-xs uppercase tracking-[0.28em] text-muted-foreground mt-2">
-          Clínica de Medicina Integrativa · Anti-Aging
+          Licenciado Parxis · Medicina Integrativa · Anti-Aging
         </div>
       </div>
     </section>
