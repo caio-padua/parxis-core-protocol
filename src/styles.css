@@ -389,9 +389,9 @@
   background: linear-gradient(
     100deg,
     transparent 0%,
-    rgba(255, 216, 90, 0.0) 30%,
-    rgba(255, 236, 170, 0.55) 50%,
-    rgba(255, 216, 90, 0.0) 70%,
+    color-mix(in oklch, var(--gold-light) 0%, transparent 100%) 30%,
+    color-mix(in oklch, var(--gold-light) 55%, transparent 45%) 50%,
+    color-mix(in oklch, var(--gold-light) 0%, transparent 100%) 70%,
     transparent 100%
   );
   animation: sheenSweep 6.5s ease-in-out infinite;
