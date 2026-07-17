@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
-import atelierUrl from "@/assets/atelier-tailoring.jpg";
+import ampoulesAtelierUrl from "@/assets/parxis-ampoules-atelier.jpg";
 import heroBg4K from "@/assets/PARXIS_fundo_desktop_4K_3840x2160.webp.asset.json";
 import heroBgQHD from "@/assets/PARXIS_fundo_desktop_QHD_2560x1440.webp.asset.json";
 import heroBgFHD from "@/assets/PARXIS_fundo_desktop_FHD_1920x1080.jpg.asset.json";
@@ -26,9 +26,9 @@ function Index() {
       style={{
         ["--parxis-symbol-url" as string]: `url(${parxisSymbolUrl})`,
         ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
-        ["--parxis-atelier-url" as string]: `url(${atelierUrl})`,
-        ["--parxis-wool-url" as string]: `url(${atelierUrl})`,
-        ["--parxis-leather-url" as string]: `url(${atelierUrl})`,
+        ["--parxis-atelier-url" as string]: `url(${ampoulesAtelierUrl})`,
+        ["--parxis-wool-url" as string]: `url(${ampoulesAtelierUrl})`,
+        ["--parxis-leather-url" as string]: `url(${ampoulesAtelierUrl})`,
       }}
     >
       <Nav />

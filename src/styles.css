@@ -4,13 +4,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ========== Bordô fabric (tecido de terno + costura aparente) ========== */
+/* ========== Atelier médico privado (ampolas + luxo clínico discreto) ========== */
 .parxis-bordo-fabric {
   position: relative;
   isolation: isolate;
   background-color: var(--bordo, #25070A);
 }
-/* Trama do tecido: dois padrões diagonais entrelaçados + variação tonal */
+/* Cena renderizada contínua: couro bordô, mármore preto e ampolas clínicas discretas */
 .parxis-bordo-fabric::before {
   content: "";
   position: absolute;
@@ -18,27 +18,28 @@
   pointer-events: none;
   z-index: 0;
   background-image:
-    /* vinheta escura para profundidade */
-    radial-gradient(120% 90% at 50% 0%, rgba(60, 12, 18, 0.35) 0%, transparent 55%),
-    radial-gradient(120% 90% at 50% 100%, rgba(6, 2, 3, 0.75) 0%, transparent 60%),
-    /* cena única de alfaiataria — o mesmo tecido sob medida */
+    linear-gradient(90deg, rgba(5, 2, 2, 0.84) 0%, rgba(12, 4, 4, 0.5) 42%, rgba(5, 2, 2, 0.28) 100%),
+    radial-gradient(120% 90% at 50% 0%, rgba(62, 13, 18, 0.34) 0%, transparent 58%),
+    radial-gradient(120% 90% at 50% 100%, rgba(4, 1, 2, 0.82) 0%, transparent 62%),
     var(--parxis-atelier-url, var(--parxis-wool-url, none));
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, scroll, fixed;
-  background-blend-mode: normal, normal, normal;
-  filter: saturate(1.05) contrast(1.02);
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, scroll, scroll, fixed;
+  background-blend-mode: normal, normal, normal, normal;
+  filter: saturate(0.92) contrast(1.08) brightness(0.82);
 }
-/* Grão fino / fibras irregulares */
+/* Grão fino de couro fosco / neblina volumétrica discreta */
 .parxis-bordo-fabric::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.55;
-  background-image: url("data:image/svg+xml;utf8,\
+  opacity: 0.42;
+  background-image:
+    radial-gradient(ellipse at 62% 26%, rgba(230, 190, 115, 0.08), transparent 34%),
+    url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'>\
 <filter id='f'>\
 <feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>\
@@ -46,8 +47,8 @@
 </filter>\
 <rect width='100%25' height='100%25' filter='url(%23f)'/>\
 </svg>");
-  background-size: 220px 220px;
-  mix-blend-mode: overlay;
+  background-size: 100% 100%, 220px 220px;
+  mix-blend-mode: screen, overlay;
 }
 /* Costura aparente (saddle stitch) — moldura passando pelo corpo do painel */
 .parxis-bordo-stitch-frame {
@@ -107,14 +108,15 @@
   inset: 0;
   z-index: 0;
   background-image:
-    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 55%),
-    radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.75) 0%, transparent 60%),
+    linear-gradient(90deg, rgba(5,2,2,0.74) 0%, rgba(9,3,3,0.44) 46%, rgba(5,2,2,0.26) 100%),
+    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.52) 0%, transparent 55%),
+    radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.78) 0%, transparent 60%),
     var(--parxis-atelier-url, var(--parxis-leather-url, none));
-  background-size: 100% 100%, 100% 100%, cover;
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, scroll, fixed;
-  filter: saturate(0.95) contrast(1.05);
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, scroll, scroll, fixed;
+  filter: saturate(0.9) contrast(1.08) brightness(0.84);
 }
 .parxis-leather-bg > * {
   position: relative;
@@ -1098,41 +1100,90 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
   }
 }
 
-/* Alto contraste: fundo mais denso e bordô mais vivo, para destacar o monograma */
-html[data-contrast="high"] .parxis-hero-bg {
-  background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      #4A1E24 0%,
-      #2C0D10 25%,
-      #120505 55%,
-      #050505 85%
-    ),
+/* Alto contraste: escurece o overlay e intensifica levemente o ouro — sem esconder a foto. */
+html[data-contrast="high"] .parxis-hero {
+  background-image:
     linear-gradient(
-      180deg,
-      #4A1E24 0%,
-      #120505 60%,
-      #050505 100%
-    );
+      90deg,
+      rgba(5, 2, 2, 0.84) 0%,
+      rgba(9, 3, 3, 0.58) 30%,
+      rgba(14, 5, 4, 0.18) 62%,
+      rgba(5, 2, 2, 0.08) 100%
+    ),
+    var(--hero-bg-qhd);
 }
 
 html[data-contrast="high"] .parxis-panel {
-  opacity: 0.98;
-  filter: saturate(1.25) brightness(1.1);
+  filter: saturate(1.08) brightness(1.04);
+}
+
+html[data-contrast="high"] .parxis-hero .parxis-panel {
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
 }
 
 html[data-contrast="high"] .parxis-panel::before {
-  border-color: color-mix(in oklch, var(--gold) 55%, transparent 45%);
-  box-shadow: 0 0 24px color-mix(in oklch, var(--gold) 25%, transparent 75%);
+  border-color: color-mix(in oklch, var(--gold) 38%, transparent 62%);
+  box-shadow: 0 0 16px color-mix(in oklch, var(--gold) 14%, transparent 86%);
 }
 
 html[data-contrast="high"] .parxis-panel::after {
-  border-color: color-mix(in oklch, var(--gold) 35%, transparent 65%);
-  opacity: 0.9;
+  border-color: color-mix(in oklch, var(--gold) 24%, transparent 76%);
+  opacity: 0.45;
 }
 
 html[data-contrast="high"] .parxis-panel-5 {
-  opacity: 0.85;
+  opacity: 0.12;
+}
+
+html[data-contrast="high"] .parxis-hero .parxis-panel-5 {
+  opacity: 0.06;
+}
+
+html[data-contrast="high"] .parxis-bordo-fabric::before,
+html[data-contrast="high"] .parxis-leather-bg::before {
+  filter: saturate(1.02) contrast(1.12) brightness(0.74);
+}
+
+@media (min-width: 2000px) {
+  html[data-contrast="high"] .parxis-hero {
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(5, 2, 2, 0.88) 0%,
+        rgba(9, 3, 3, 0.62) 34%,
+        rgba(14, 5, 4, 0.18) 68%,
+        rgba(5, 2, 2, 0.08) 100%
+      ),
+      var(--hero-bg-4k);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  html[data-contrast="high"] .parxis-hero {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(5, 2, 2, 0.5) 0%,
+        rgba(5, 2, 2, 0.22) 42%,
+        rgba(5, 2, 2, 0.84) 100%
+      ),
+      var(--hero-bg-tablet);
+  }
+}
+
+@media (max-width: 640px) {
+  html[data-contrast="high"] .parxis-hero {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(5, 2, 2, 0.48) 0%,
+        rgba(5, 2, 2, 0.22) 38%,
+        rgba(5, 2, 2, 0.88) 78%,
+        rgba(5, 2, 2, 0.96) 100%
+      ),
+      var(--hero-bg-mobile);
+  }
 }
 
 html[data-contrast="high"] .parxis-symbol-img {
