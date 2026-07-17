@@ -1431,3 +1431,132 @@ html[data-motion="reduce"] .parxis-gold-text {
 html[data-motion="reduce"] .parxis-panel {
   transform: none !important;
 }
+
+/* ========================================================================
+   PADCON techniques applied to Parxis
+   1) Fixed leather background (background-attachment: fixed) + global veil
+   2) Glass panels for every section past the Hero (semi-transparent
+      + backdrop-blur), so the fixed image reveals itself while content scrolls
+   3) Entrance animations in cascade (fadeSlideUp) + pulsing gold L-corners
+   ======================================================================== */
+
+/* ---- 1) Fixed leather + veil (behind everything, above <body> bg) ---- */
+.parxis-app { position: relative; }
+
+.parxis-fixed-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: var(--parxis-fixed-url, none);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #050505;
+  filter: saturate(0.9) contrast(1.06) brightness(0.72);
+}
+.parxis-fixed-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 55%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.75) 0%, transparent 60%),
+    rgba(5, 3, 3, 0.55);
+}
+
+/* Contraste alto → escurece o véu para dar mais peso ao dourado */
+html[data-contrast="high"] .parxis-fixed-veil {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.72) 0%, transparent 55%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.9) 0%, transparent 60%),
+    rgba(4, 2, 2, 0.7);
+}
+
+/* Fallback mobile: iOS Safari ignora background-attachment: fixed —
+   deixamos a imagem em scroll para não travar rendering. */
+@media (max-width: 767px) {
+  .parxis-fixed-bg {
+    background-attachment: scroll;
+    background-position: right center;
+  }
+}
+
+/* Motion reduzido: mantém tudo estático (o fixed já é estático) */
+
+/* ---- 2) Glass panels — semi-transparent + backdrop-blur ---- */
+.parxis-glass {
+  position: relative;
+  isolation: isolate;
+  background: rgba(9, 4, 4, 0.58);
+  backdrop-filter: blur(14px) saturate(120%);
+  border-top: 1px solid rgba(242,184,23,0.08);
+  border-bottom: 1px solid rgba(242,184,23,0.08);
+}
+.parxis-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 78%, rgba(0,0,0,0.35) 100%);
+}
+.parxis-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Variante com stitch frame + textura mais quente (bordô discreto) */
+.parxis-glass-frame {
+  background:
+    linear-gradient(180deg, rgba(38,10,14,0.42) 0%, rgba(10,4,4,0.62) 60%, rgba(6,3,3,0.68) 100%);
+}
+
+html[data-contrast="high"] .parxis-glass {
+  background: rgba(6, 3, 3, 0.72);
+}
+html[data-contrast="high"] .parxis-glass-frame {
+  background:
+    linear-gradient(180deg, rgba(38,10,14,0.6) 0%, rgba(8,3,3,0.78) 60%, rgba(4,2,2,0.82) 100%);
+}
+
+/* Manifesto/Testimonial/Scarcity que antes usavam bg-background sólido
+   agora precisam permanecer legíveis sobre o couro fixo — feito via
+   .parxis-glass. Ecosystem, Technology idem. */
+
+/* ---- 3) Entrance animations in cascade ---- */
+@keyframes parxisFadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.parxis-enter {
+  opacity: 0;
+  animation: parxisFadeSlideUp 900ms cubic-bezier(.2,.7,.2,1) forwards;
+}
+.parxis-enter-1 { animation-delay: 0ms; }
+.parxis-enter-2 { animation-delay: 200ms; }
+.parxis-enter-3 { animation-delay: 400ms; }
+.parxis-enter-4 { animation-delay: 600ms; }
+
+html[data-motion="reduce"] .parxis-enter {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---- Pulsing gold L-corners ---- */
+@keyframes parxisCornerPulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1;    }
+}
+.parxis-corner-pulse {
+  animation: parxisCornerPulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(242,184,23,0.35));
+}
+html[data-motion="reduce"] .parxis-corner-pulse {
+  animation: none !important;
+  opacity: 0.8;
+}
