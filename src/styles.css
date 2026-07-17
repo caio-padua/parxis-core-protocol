@@ -172,47 +172,67 @@
 }
 
 /* Símbolo levita: sobe/desce + leve rotação, sem crop nas laterais */
+/* O símbolo passa a maior parte do tempo pairando bem acima do wordmark
+   (que agora vive na base do palco). Uma única vez por ciclo ele mergulha
+   brevemente e cruza o nome PARXIS — o "encontro" acontece só nesse instante. */
 @keyframes symbolLevitate {
   0%, 100% {
-    transform: translateY(0) scale(0.92) rotate(-1.5deg);
-    filter:
-      drop-shadow(0 0 24px rgba(242, 184, 23, 0.22));
+    transform: translateY(calc(var(--parxis-hover, 90px) * -1)) scale(0.93) rotate(-1.2deg);
+    filter: drop-shadow(0 0 22px rgba(242, 184, 23, 0.22));
+  }
+  22% {
+    transform: translateY(calc(var(--parxis-hover, 90px) * -1.05)) scale(0.94) rotate(-0.6deg);
+    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
+  }
+  42% {
+    transform: translateY(calc(var(--parxis-hover, 90px) * -0.55)) scale(0.98) rotate(0.4deg);
+    filter: drop-shadow(0 0 40px rgba(242, 184, 23, 0.36));
   }
   50% {
-    transform: translateY(calc(var(--parxis-levitate, 38px) * -1)) scale(1.02) rotate(1.5deg);
-    filter:
-      drop-shadow(0 0 55px rgba(242, 184, 23, 0.45));
+    /* mergulho — cruza o wordmark por um breve instante */
+    transform: translateY(var(--parxis-dip, 40px)) scale(1.04) rotate(1.2deg);
+    filter: drop-shadow(0 0 60px rgba(242, 184, 23, 0.5));
+  }
+  58% {
+    transform: translateY(calc(var(--parxis-hover, 90px) * -0.55)) scale(0.98) rotate(0.6deg);
+    filter: drop-shadow(0 0 40px rgba(242, 184, 23, 0.36));
+  }
+  78% {
+    transform: translateY(calc(var(--parxis-hover, 90px) * -1.05)) scale(0.94) rotate(0.6deg);
+    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
   }
 }
 
-/* Sombra na superfície — cresce/desfoca quando o símbolo sobe */
+/* Sombra: mais nítida/densa quando o símbolo mergulha (50%),
+   difusa/leve enquanto ele paira alto. */
 @keyframes shadowLevitate {
   0%, 100% {
-    transform: translate(-50%, 0) scale(1, 1);
-    opacity: 0.78;
-    filter: blur(12px);
-  }
-  25% {
-    opacity: 0.6;
-    filter: blur(18px);
-    transform: translate(-50%, 0) scale(0.86, 0.94);
-  }
-  50% {
-    transform: translate(-50%, 0) scale(0.66, 0.88);
-    opacity: 0.3;
+    transform: translate(-50%, 0) scale(0.62, 0.85);
+    opacity: 0.28;
     filter: blur(32px);
   }
-  75% {
-    opacity: 0.6;
-    filter: blur(18px);
-    transform: translate(-50%, 0) scale(0.86, 0.94);
+  42% {
+    transform: translate(-50%, 0) scale(0.85, 0.94);
+    opacity: 0.55;
+    filter: blur(20px);
+  }
+  50% {
+    transform: translate(-50%, 0) scale(1.05, 1.02);
+    opacity: 0.82;
+    filter: blur(10px);
+  }
+  58% {
+    transform: translate(-50%, 0) scale(0.85, 0.94);
+    opacity: 0.55;
+    filter: blur(20px);
   }
 }
 
-/* Superfície: linha dourada sutil onde a sombra se apoia */
+/* Superfície: mais luminosa no momento do mergulho */
 @keyframes surfaceGlow {
-  0%, 100% { opacity: 0.32; filter: blur(0.3px); }
-  50%      { opacity: 0.78; filter: blur(1.2px); }
+  0%, 100% { opacity: 0.28; filter: blur(0.3px); }
+  42%, 58% { opacity: 0.55; filter: blur(0.8px); }
+  50%      { opacity: 0.9;  filter: blur(1.4px); }
 }
 
 @keyframes auraBreath1 {
@@ -272,10 +292,10 @@
 }
 .parxis-symbol-levitate {
   position: relative;
-  /* Distância de levitação proporcional ao tamanho do símbolo
-     (~8% do símbolo em qualquer viewport). O símbolo tem
-     width: min(72vw, 460px), então usamos a mesma progressão. */
-  --parxis-levitate: clamp(18px, 6vw, 38px);
+  /* Altura de flutuação (baseline elevado) e amplitude do mergulho.
+     Escalam com o viewport para manter proporções em mobile/desktop. */
+  --parxis-hover: clamp(60px, 12vw, 110px);
+  --parxis-dip:   clamp(24px, 6vw,  56px);
   animation: symbolLevitate 7s ease-in-out infinite;
   will-change: transform, filter;
 }
@@ -284,7 +304,8 @@
 .parxis-shadow {
   position: absolute;
   left: 50%;
-  top: calc(50% + min(30vw, 200px));
+  /* Ancora perto da base do palco, onde o símbolo desce ao cruzar o wordmark */
+  bottom: clamp(70px, 12%, 110px);
   width: min(60vw, 380px);
   height: 42px;
   transform: translate(-50%, 0);
@@ -303,7 +324,7 @@
 .parxis-surface {
   position: absolute;
   left: 50%;
-  top: calc(50% + min(30vw, 200px) + 18px);
+  bottom: calc(clamp(70px, 12%, 110px) - 18px);
   width: min(78vw, 520px);
   height: 1px;
   transform: translate(-50%, 0);
@@ -365,7 +386,10 @@
 
 /* Wordmark PARXIS — estático, primeiro plano, íntegro */
 .parxis-wordmark {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 4%, 40px);
+  transform: translateX(-50%);
   z-index: 2;
   width: min(78vw, 480px);
   aspect-ratio: 5 / 1;
@@ -508,13 +532,13 @@ html:is([data-motion="reduce"], :not([data-motion="full"])) {
   /* placeholder para especificidade */
 }
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .parxis-symbol-levitate { transform: none; filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+  html:not([data-motion="full"]) .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-hover, 90px) * -1)) scale(0.94) rotate(-1deg); filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
   html:not([data-motion="full"]) .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
   html:not([data-motion="full"]) .parxis-surface  { opacity: 0.5; }
   html:not([data-motion="full"]) .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
   html:not([data-motion="full"]) .parxis-aura-2   { opacity: 0.45; transform: translate(-50%, -50%) scale(0.95); }
 }
-html[data-motion="reduce"] .parxis-symbol-levitate { transform: none; filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+html[data-motion="reduce"] .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-hover, 90px) * -1)) scale(0.94) rotate(-1deg); filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
 html[data-motion="reduce"] .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
 html[data-motion="reduce"] .parxis-surface  { opacity: 0.5; }
 html[data-motion="reduce"] .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
