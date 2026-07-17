@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
+import bordoWoolUrl from "@/assets/bordo-wool.jpg";
+import leatherAtelierUrl from "@/assets/leather-atelier.jpg";
 
 const parxisSymbolUrl = parxisSymbolAsset.url;
 const parxisWordmarkUrl = parxisWordmarkAsset.url;
@@ -20,6 +22,8 @@ function Index() {
       style={{
         ["--parxis-symbol-url" as string]: `url(${parxisSymbolUrl})`,
         ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
+        ["--parxis-wool-url" as string]: `url(${bordoWoolUrl})`,
+        ["--parxis-leather-url" as string]: `url(${leatherAtelierUrl})`,
       }}
     >
       <Nav />
@@ -29,6 +33,7 @@ function Index() {
       <Technology />
       <ForClinics />
       <Testimonial />
+      <VideoTestimonials />
       <Ecosystem />
       <Scarcity />
       <CTA />
