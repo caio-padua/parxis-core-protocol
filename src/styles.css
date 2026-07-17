@@ -354,8 +354,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  /* Alinha o PNG do ouro antigo à paleta dourado neutro */
-  filter: saturate(0.55) hue-rotate(-14deg) brightness(1.06);
+  /* PNG já processado no tom dourado neutro; ajuste fino de consistência */
+  filter: saturate(0.95) hue-rotate(-1deg) brightness(1.01);
 }
 
 /* Luz-sweep prismática que atravessa o símbolo */
@@ -408,7 +408,7 @@
   background-size: contain;
   background-position: center;
   filter:
-    saturate(0.55) hue-rotate(-14deg) brightness(1.06)
+    saturate(0.95) hue-rotate(-1deg) brightness(1.01)
     drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
     drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%));
 }
@@ -424,20 +424,21 @@
     height: min(78vw, 330px);
   }
 
-  /* Reforça o dourado neutro no mobile */
+  /* PNG já processado; ajuste fino no mobile */
   .parxis-symbol-img {
-    filter: saturate(0.52) hue-rotate(-16deg) brightness(1.07) !important;
+    filter: saturate(0.92) hue-rotate(-2deg) brightness(1.02) !important;
   }
 
   .parxis-wordmark {
     top: calc(50% + 84px);
     width: min(72vw, 305px);
     filter:
-      saturate(0.52) hue-rotate(-16deg) brightness(1.07)
+      saturate(0.92) hue-rotate(-2deg) brightness(1.02)
       drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
       drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%))
       !important;
   }
+
 
 
 
