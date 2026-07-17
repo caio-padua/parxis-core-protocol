@@ -308,14 +308,14 @@
   text-shadow: 0 1px 0 rgba(255,240,190,0.55);
 }
 .parxis-btn-primary:hover {
-  filter: brightness(1.06) saturate(1.05);
+  filter: brightness(1.05) saturate(1.03);
   box-shadow:
-    inset 0 1px 0 rgba(255,250,220,1),
+    inset 0 1px 0 rgba(255,250,220,0.95),
     inset 0 -2px 0 rgba(60,40,10,0.55),
     inset 0 -8px 14px rgba(80,55,15,0.35),
     0 1px 0 rgba(0,0,0,0.4),
-    0 8px 0 -1px rgba(70,45,12,0.9),
-    0 14px 34px -6px rgba(242,184,23,0.45);
+    0 7px 0 -1px rgba(70,45,12,0.9),
+    0 12px 28px -6px rgba(0,0,0,0.55);
 }
 .parxis-btn-primary:active {
   box-shadow:
