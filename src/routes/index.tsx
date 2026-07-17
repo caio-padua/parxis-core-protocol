@@ -485,6 +485,39 @@ function Testimonial() {
 }
 
 /* ————————————————— CTA ————————————————— */
+function Ecosystem() {
+  return (
+    <section id="ecossistema" className="relative py-28 lg:py-36 bg-background">
+      <div className="mx-auto max-w-4xl px-6 lg:px-10">
+        <div className="parxis-card rounded-lg p-10 md:p-14 text-center">
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
+            Ecossistema · PADCOM
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl leading-tight">
+            Estes produtos fazem parte de um <em className="parxis-gold-text not-italic">ecossistema maior</em>.
+          </h2>
+          <div className="parxis-gold-rule w-24 mx-auto my-8" />
+          <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
+            A <span className="parxis-gold-text">PADCON Platform®</span> é a arquitetura corporativa que sustenta a PAWARDS MedCore® e o PARXIS — identidade unificada, segurança por cargo, trilhas de auditoria permanentes. Quatro setores. Dezoito sistemas em desenvolvimento. Três em produção real. Uma fundação só.
+          </p>
+          <div className="mt-10">
+            <a
+              href="https://padcon.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.45)] hover:bg-[color:var(--gold)] hover:text-[color:var(--obsidian)] transition-colors"
+            >
+              Conheça a PADCON Platform®
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ————————————————— CTA ————————————————— */
 function CTA() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
