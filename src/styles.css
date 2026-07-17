@@ -622,6 +622,54 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
   );
 }
 
+/* Alto contraste: fundo mais denso e bordô mais vivo, para destacar o monograma */
+html[data-contrast="high"] .parxis-hero-bg {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #4A1E24 0%,
+      #2C0D10 25%,
+      #120505 55%,
+      #050505 85%
+    ),
+    linear-gradient(
+      180deg,
+      #4A1E24 0%,
+      #120505 60%,
+      #050505 100%
+    );
+}
+
+html[data-contrast="high"] .parxis-panel {
+  opacity: 0.98;
+  filter: saturate(1.25) brightness(1.1);
+}
+
+html[data-contrast="high"] .parxis-panel::before {
+  border-color: color-mix(in oklch, var(--gold) 55%, transparent 45%);
+  box-shadow: 0 0 24px color-mix(in oklch, var(--gold) 25%, transparent 75%);
+}
+
+html[data-contrast="high"] .parxis-panel::after {
+  border-color: color-mix(in oklch, var(--gold) 35%, transparent 65%);
+  opacity: 0.9;
+}
+
+html[data-contrast="high"] .parxis-panel-5 {
+  opacity: 0.85;
+}
+
+html[data-contrast="high"] .parxis-symbol-img {
+  filter: saturate(0.85) hue-rotate(-6deg) brightness(1.12) drop-shadow(0 0 18px color-mix(in oklch, var(--gold) 45%, transparent 55%));
+}
+
+html[data-contrast="high"] .parxis-wordmark {
+  filter:
+    saturate(0.85) hue-rotate(-6deg) brightness(1.12)
+    drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 0 28px color-mix(in oklch, var(--gold-light) 42%, transparent 58%));
+}
+
 .parxis-gold-text {
   position: relative;
   display: inline-block;
