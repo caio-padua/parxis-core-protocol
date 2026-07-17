@@ -22,8 +22,8 @@
     radial-gradient(120% 90% at 50% 0%, rgba(62, 13, 18, 0.34) 0%, transparent 58%),
     radial-gradient(120% 90% at 50% 100%, rgba(4, 1, 2, 0.82) 0%, transparent 62%),
     var(--parxis-atelier-url, var(--parxis-wool-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
-  background-position: center, center, center, center 30%;
+  background-size: 100% 100%, 100% 100%, 100% 100%, contain;
+  background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
   background-blend-mode: normal, normal, normal, normal;
@@ -112,8 +112,8 @@
     radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.52) 0%, transparent 55%),
     radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.78) 0%, transparent 60%),
     var(--parxis-atelier-url, var(--parxis-leather-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
-  background-position: center, center, center, center 30%;
+  background-size: 100% 100%, 100% 100%, 100% 100%, contain;
+  background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
   filter: saturate(0.9) contrast(1.08) brightness(0.84);
@@ -1028,10 +1028,11 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
       rgba(5, 2, 2, 0.05) 100%
     ),
     var(--hero-bg-qhd);
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: 52% center;
+  background-position: center top;
   background-attachment: scroll;
+  background-color: #050505;
 }
 
 /* Dentro do hero, os painéis parallax ficam bem discretos
@@ -1070,7 +1071,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.78) 100%
       ),
       var(--hero-bg-tablet);
-    background-position: 51% center;
+    background-size: contain;
+    background-position: center top;
     background-attachment: scroll;
   }
 }
@@ -1087,7 +1089,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-mobile);
-    background-position: center center;
+    background-size: contain;
+    background-position: center top;
     background-attachment: scroll;
   }
 }
