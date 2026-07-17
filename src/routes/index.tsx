@@ -408,9 +408,65 @@ function Testimonial() {
 
 /* ————————————————— CTA ————————————————— */
 function CTA() {
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    const payload = {
+      nome: String(fd.get("nome") ?? "").trim(),
+      email: String(fd.get("email") ?? "").trim(),
+      telefone: String(fd.get("telefone") ?? "").trim() || null,
+      clinica: String(fd.get("clinica") ?? "").trim(),
+      especialidade: String(fd.get("especialidade") ?? "").trim(),
+      volume_protocolos: String(fd.get("volume_protocolos") ?? "").trim() || null,
+      necessidade: String(fd.get("necessidade") ?? "").trim(),
+    };
+
+    // Validação client-side espelhando o CHECK do banco
+    if (payload.nome.length < 2 || payload.nome.length > 120) {
+      toast.error("Informe seu nome completo.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      toast.error("Informe um email válido.");
+      return;
+    }
+    if (payload.clinica.length < 2) {
+      toast.error("Informe o nome da clínica.");
+      return;
+    }
+    if (payload.especialidade.length < 2) {
+      toast.error("Selecione ou informe a especialidade.");
+      return;
+    }
+    if (payload.necessidade.length < 5) {
+      toast.error("Descreva sua necessidade em protocolos.");
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await supabase.from("leads").insert(payload);
+    setLoading(false);
+
+    if (error) {
+      console.error(error);
+      toast.error("Não foi possível enviar agora. Tente novamente em instantes.");
+      return;
+    }
+
+    toast.success("Solicitação recebida. Retornaremos em até 48 horas.");
+    form.reset();
+    setSubmitted(true);
+  }
+
   return (
     <section id="contato" className="relative parxis-hero-bg py-32 lg:py-40 border-y border-[rgba(242,184,23,0.15)]">
-      <div className="mx-auto max-w-3xl px-6 lg:px-10 text-center relative">
+      <div className="mx-auto max-w-3xl px-6 lg:px-10 relative">
+       <div className="text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
           Convite Privado
         </p>
@@ -421,35 +477,123 @@ function CTA() {
         <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-xl mx-auto">
           Recebemos um número limitado de clínicas por trimestre. Se a excelência clínica é a sua assinatura, conversemos.
         </p>
+       </div>
 
-        <form
-          className="mt-12 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const email = (e.currentTarget.elements.namedItem("email") as HTMLInputElement)?.value;
-            window.location.href = `mailto:contato@parxis.com.br?subject=Demonstração Parxis&body=Solicito acesso privado. E-mail: ${encodeURIComponent(email || "")}`;
-          }}
-        >
-          <input
-            name="email"
-            type="email"
-            required
-            placeholder="seu@email.com.br"
-            className="flex-1 bg-transparent border border-[rgba(242,184,23,0.35)] rounded-full px-6 py-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
-          />
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center gap-2 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
-          >
-            Solicitar demonstração
-          </button>
-        </form>
+        {submitted ? (
+          <div className="mt-14 parxis-card rounded-lg p-10 text-center">
+            <div className="font-serif text-[color:var(--gold)] text-5xl mb-6 opacity-70">✦</div>
+            <h3 className="font-serif text-2xl md:text-3xl mb-4">Recebemos sua solicitação.</h3>
+            <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
+              Um consultor Parxis entrará em contato em até 48 horas, em caráter privado, com uma janela de demonstração reservada para sua clínica.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="mt-14 parxis-card rounded-lg p-8 md:p-10 text-left">
+            <div className="grid md:grid-cols-2 gap-5">
+              <LeadField label="Nome completo" name="nome" required autoComplete="name" placeholder="Dr(a). Nome Sobrenome" />
+              <LeadField label="Email profissional" name="email" type="email" required autoComplete="email" placeholder="voce@clinica.com.br" />
+              <LeadField label="Telefone / WhatsApp" name="telefone" type="tel" autoComplete="tel" placeholder="(11) 90000-0000" />
+              <LeadField label="Nome da clínica" name="clinica" required placeholder="Maison Clínica Integrativa" />
+              <div className="md:col-span-1">
+                <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+                  Especialidade
+                </label>
+                <select
+                  name="especialidade"
+                  required
+                  defaultValue=""
+                  className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
+                >
+                  <option value="" disabled className="bg-[#120505]">Selecione…</option>
+                  {[
+                    "Medicina Integrativa",
+                    "Estética / Injetáveis",
+                    "Longevidade / Anti-Aging",
+                    "Ortomolecular",
+                    "Endocrinologia",
+                    "Nutrologia",
+                    "Ginecologia Integrativa",
+                    "Outra",
+                  ].map((opt) => (
+                    <option key={opt} value={opt} className="bg-[#120505]">{opt}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:col-span-1">
+                <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+                  Protocolos injetáveis / mês
+                </label>
+                <select
+                  name="volume_protocolos"
+                  defaultValue=""
+                  className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
+                >
+                  <option value="" className="bg-[#120505]">Selecione (opcional)…</option>
+                  {["1 a 10", "11 a 30", "31 a 80", "81 a 200", "Mais de 200"].map((opt) => (
+                    <option key={opt} value={opt} className="bg-[#120505]">{opt}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+                  Necessidade em protocolos
+                </label>
+                <textarea
+                  name="necessidade"
+                  required
+                  rows={4}
+                  maxLength={2000}
+                  placeholder="Descreva brevemente os protocolos que sua clínica conduz, os desafios atuais (RAS, receituário, apresentação ao paciente) e o que espera do Parxis."
+                  className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors resize-none"
+                />
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+                Suas informações são tratadas em caráter confidencial.
+              </p>
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center justify-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-9 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? "Enviando…" : "Solicitar acesso privado"}
+                {!loading && <span aria-hidden>→</span>}
+              </button>
+            </div>
+          </form>
+        )}
 
         <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
           Resposta em até 48 horas · Contato pessoal
         </p>
       </div>
     </section>
+  );
+}
+
+function LeadField({
+  label, name, type = "text", required, placeholder, autoComplete,
+}: {
+  label: string; name: string; type?: string; required?: boolean;
+  placeholder?: string; autoComplete?: string;
+}) {
+  return (
+    <div>
+      <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+        {label}{required && <span className="text-[color:var(--gold)]/60"> ·</span>}
+      </label>
+      <input
+        type={type}
+        name={name}
+        required={required}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        maxLength={200}
+        className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
+      />
+    </div>
   );
 }
 
