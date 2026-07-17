@@ -22,8 +22,8 @@
     radial-gradient(120% 90% at 50% 0%, rgba(62, 13, 18, 0.34) 0%, transparent 58%),
     radial-gradient(120% 90% at 50% 100%, rgba(4, 1, 2, 0.82) 0%, transparent 62%),
     var(--parxis-atelier-url, var(--parxis-wool-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, 56% auto;
-  background-position: center, center, center, center top;
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, right center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
   background-blend-mode: normal, normal, normal, normal;
@@ -112,8 +112,8 @@
     radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.52) 0%, transparent 55%),
     radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.78) 0%, transparent 60%),
     var(--parxis-atelier-url, var(--parxis-leather-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, 56% auto;
-  background-position: center, center, center, center top;
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, right center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
   filter: saturate(0.9) contrast(1.08) brightness(0.84);
@@ -1028,9 +1028,9 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
       rgba(5, 2, 2, 0.05) 100%
     ),
     var(--hero-bg-qhd);
-  background-size: 100% 100%, 62% auto;
+  background-size: 100% 100%, cover;
   background-repeat: no-repeat;
-  background-position: center, center top;
+  background-position: center, right center;
   background-attachment: scroll;
   background-color: #050505;
 }
@@ -1038,12 +1038,12 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 /* Dentro do hero, os painéis parallax ficam bem discretos
    para não competir com a fotografia do atelier médico. */
 .parxis-hero .parxis-panel {
-  opacity: 0.14;
+  opacity: 0.28;
   mix-blend-mode: soft-light;
 }
 .parxis-hero .parxis-panel::before,
 .parxis-hero .parxis-panel::after {
-  opacity: 0.35;
+  opacity: 0.55;
 }
 
 @media (min-width: 2000px) {
@@ -1057,6 +1057,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.08) 100%
       ),
       var(--hero-bg-4k);
+    background-size: 100% 100%, cover;
+    background-position: center, right center;
   }
 }
 
@@ -1071,8 +1073,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.78) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 70% center;
     background-attachment: scroll;
   }
 }
@@ -1089,8 +1091,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 72% center;
     background-attachment: scroll;
   }
 }
@@ -1172,8 +1174,8 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.84) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 70% center;
   }
 }
 
@@ -1188,8 +1190,8 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 58% auto;
-    background-position: center, center top;
+    background-size: 100% 100%, cover;
+    background-position: center, 72% center;
   }
 }
 
