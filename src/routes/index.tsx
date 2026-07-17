@@ -276,14 +276,14 @@ function Manifesto() {
     <section id="manifesto" className="relative py-28 lg:py-40 bg-background">
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Manifesto
+          Manifesto · Da PADCOM
         </p>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight text-foreground">
-          Cada protocolo é uma <em className="parxis-gold-text not-italic">assinatura</em> — do médico, da clínica, do cuidado.
+          Construído por um médico que <em className="parxis-gold-text not-italic">cansou de esperar</em> que alguém construísse.
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
-          Nascemos do desejo de conduzir a medicina integrativa com o mesmo padrão das maisons que atravessam gerações. Um sistema não deve apenas registrar — deve elevar. Parxis existe para transformar cada consulta, cada RAS, cada apresentação de protocolo em um objeto de valor duradouro.
+          O PARXIS nasce dentro da PAWARDS MedCore® — a engenharia clínica da holding PADCOM, fundada por um médico endocrinologista que decidiu projetar os sistemas que o mercado nunca ofereceu. Não é um software adaptado à medicina. É medicina que se tornou sistema. E por isso não se replica: exige anos de prática clínica real somados a uma engenharia que poucos, no mundo, conseguem executar.
         </p>
       </div>
     </section>
