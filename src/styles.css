@@ -471,8 +471,8 @@
 .parxis-aura-1 {
   width: 620px; height: 620px;
   background: radial-gradient(circle,
-    rgba(242, 184, 23, 0.22) 0%,
-    rgba(154, 87, 0, 0.10) 38%,
+    color-mix(in oklch, var(--gold) 22%, transparent 78%) 0%,
+    color-mix(in oklch, var(--gold-deep) 10%, transparent 90%) 38%,
     rgba(37, 7, 10, 0) 72%);
   animation: auraBreath1 7s ease-in-out infinite;
 }
