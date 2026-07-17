@@ -25,6 +25,7 @@ function Index() {
       <Technology />
       <ForClinics />
       <Testimonial />
+      <Ecosystem />
       <CTA />
       <Footer />
     </main>
@@ -41,14 +42,15 @@ function Nav() {
             Parxis
           </span>
           <span className="hidden sm:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-            Motor Clínico
+            Por Indicação
           </span>
         </a>
         <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
           <a href="#manifesto" className="hover:text-[color:var(--gold)] transition-colors">Manifesto</a>
           <a href="#recursos" className="hover:text-[color:var(--gold)] transition-colors">Recursos</a>
-          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Tecnologia</a>
-          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">Para Clínicas</a>
+          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Inteligência</a>
+          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">O Círculo</a>
+          <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">Ecossistema</a>
         </nav>
         <div className="flex items-center gap-3">
           <MotionToggle />
@@ -56,7 +58,7 @@ function Nav() {
             href="#contato"
             className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] px-4 py-2 rounded-full hover:bg-[rgba(242,184,23,0.08)] transition-colors"
           >
-            Agendar demonstração
+            Solicitar indicação
           </a>
         </div>
       </div>
@@ -143,16 +145,15 @@ function Hero() {
         {/* Texto */}
         <div className="parxis-reveal">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-            Haute Médecine · Établi 2026
+            Um produto PAWARDS MedCore® · Uma empresa PADCOM
           </p>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-            O motor clínico das{" "}
-            <span className="parxis-gold-text italic">clínicas integrativas</span>{" "}
-            de alto padrão.
+            O sistema clínico que trabalha{" "}
+            <span className="parxis-gold-text italic">enquanto você cuida</span>.
           </h1>
           <div className="parxis-gold-rule w-32 my-10" />
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-light">
-            Parxis conduz o protocolo injetável do primeiro sinal clínico à assinatura eletrônica do RAS — com o rigor de um relojoeiro suíço e a elegância de um atendimento em maison.
+            Da primeira consulta ao arquivo definitivo — sem papel, sem retrabalho, sem risco jurídico. Um motor clínico reservado a um número restrito de médicos, admitidos apenas por indicação.
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4">
@@ -160,22 +161,22 @@ function Hero() {
               href="#contato"
               className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
             >
-              Solicitar acesso privado
+              Solicitar carta de indicação
               <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </a>
             <a
-              href="#recursos"
+              href="#clinicas"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] hover:bg-[rgba(242,184,23,0.06)] transition-colors"
             >
-              Explorar o sistema
+              Sobre o licenciamento
             </a>
           </div>
 
           <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
             {[
-              { k: "14", v: "etapas de anamnese" },
-              { k: "100%", v: "RAS auditável" },
-              { k: "1", v: "clique · assinatura" },
+              { k: "Por", v: "indicação apenas" },
+              { k: "12", v: "licenciados por safra" },
+              { k: "1", v: "só médico decide" },
             ].map((it) => (
               <div key={it.v}>
                 <div className="font-serif text-3xl text-[color:var(--gold)]">{it.k}</div>
@@ -275,14 +276,14 @@ function Manifesto() {
     <section id="manifesto" className="relative py-28 lg:py-40 bg-background">
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Manifesto
+          Manifesto · Da PADCOM
         </p>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight text-foreground">
-          Cada protocolo é uma <em className="parxis-gold-text not-italic">assinatura</em> — do médico, da clínica, do cuidado.
+          Construído por um médico que <em className="parxis-gold-text not-italic">cansou de esperar</em> que alguém construísse.
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
-          Nascemos do desejo de conduzir a medicina integrativa com o mesmo padrão das maisons que atravessam gerações. Um sistema não deve apenas registrar — deve elevar. Parxis existe para transformar cada consulta, cada RAS, cada apresentação de protocolo em um objeto de valor duradouro.
+          O PARXIS nasce dentro da PAWARDS MedCore® — a engenharia clínica da holding PADCOM, fundada por um médico endocrinologista que decidiu projetar os sistemas que o mercado nunca ofereceu. Não é um software adaptado à medicina. É medicina que se tornou sistema. E por isso não se replica: exige anos de prática clínica real somados a uma engenharia que poucos, no mundo, conseguem executar.
         </p>
       </div>
     </section>
@@ -293,33 +294,33 @@ function Manifesto() {
 const FEATURES = [
   {
     n: "01",
-    title: "Anamnese guiada em 14 etapas",
-    body: "Linha do tempo clínica com vídeos de ajuda por pergunta. Nada escapa, nada se perde — do primeiro sintoma à hipótese diagnóstica.",
+    title: "Cockpit unificado do médico",
+    body: "Uma única tela por cliente: prescrição de injetáveis, fórmulas manipuladas, pedidos de exames, evolução laboratorial e emissão de documentos. Você decide sem sair, sem abrir outro sistema, sem quebrar a linha do raciocínio.",
   },
   {
     n: "02",
-    title: "Protocolos injetáveis auditáveis",
-    body: "Da prescrição ao RAS assinado com rubrica de paciente e enfermagem. Datas dd/mm/aa, células coloridas, controlados isolados.",
+    title: "Lançador guiado de protocolos",
+    body: "Você define substâncias, frequências e datas. Em um único comando, o protocolo é criado, as sessões validadas e o formulário de auditoria da enfermagem é gerado — pronto para uma fiscalização sanitária a qualquer momento.",
   },
   {
     n: "03",
-    title: "Apresentação premium do protocolo",
-    body: "Documento em acabamento creme/dourado entregue ao paciente. Torna o protocolo tão elegante quanto o resultado clínico proposto.",
+    title: "Documento com validade jurídica nacional",
+    body: "Cada aplicação gera um documento clínico oficial assinado digitalmente no padrão jurídico brasileiro — equivalente ao reconhecimento de firma em cartório, sem papel. Arquivado, entregue por e-mail e disponível no app do cliente.",
   },
   {
     n: "04",
-    title: "Receituário e solicitação de exames",
-    body: "Emissão com marca da clínica, assinatura eletrônica, controle de vias e histórico completo por paciente.",
+    title: "Leitura de laudos por inteligência clínica",
+    body: "Envie o PDF do laudo. O motor extrai cada analito automaticamente e o compara com faixas próprias da medicina integrativa — não com o padrão populacional. Você mostra ao cliente onde ele está no espectro real de saúde.",
   },
   {
     n: "05",
-    title: "RAS FAP — folha de auditoria",
-    body: "Rastro completo do injetável, resistente a estresse de auditoria: 15 substâncias, 19 páginas, sem página em branco.",
+    title: "Mensageria cronobiológica",
+    body: "O sistema conhece o momento biologicamente correto de cada medicamento e envia o lembrete na hora certa. Adesão do cliente sobe, retrabalho da secretária cai, resultado clínico aparece.",
   },
   {
     n: "06",
-    title: "Portal do paciente e da clínica",
-    body: "Dois ambientes distintos: sério para paciente e equipe, e sofisticado para gestão. Cada perfil vê o que precisa ver.",
+    title: "Console de orçamento com três cenários",
+    body: "À vista, entrada com parcelas e parcelado — taxas já calculadas, escada de desconto por volume. A secretária apresenta. O cliente escolhe. Você fecha sem intermediar planilhas.",
   },
 ];
 
@@ -332,7 +333,7 @@ function Features() {
             Recursos · Chapitre I
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Um sistema desenhado como se fosse um <em className="parxis-gold-text not-italic">instrumento cirúrgico</em>.
+            Um sistema para operar. Um motor para pensar. Uma plataforma para <em className="parxis-gold-text not-italic">crescer</em>.
           </h2>
           <div className="parxis-gold-rule w-32 mt-8" />
         </div>
@@ -358,14 +359,14 @@ function Features() {
 
 /* ————————————————— TECHNOLOGY ————————————————— */
 const TECH = [
-  { term: "Arquitetura multi-inquilino", desc: "cada clínica opera em seu próprio cofre de dados, sem cruzamento." },
-  { term: "Data binding em tempo real", desc: "o que a enfermagem registra aparece instantaneamente no prontuário do médico." },
-  { term: "Controle de acesso por papéis", desc: "médico, enfermagem, gestão e paciente veem apenas o que lhes cabe." },
-  { term: "Trilha de auditoria imutável", desc: "toda ação assinada, datada, resistente a estresse regulatório." },
-  { term: "Mapeamento semântico clínico", desc: "sintomas, hipóteses e substâncias falam a mesma língua entre módulos." },
-  { term: "Assinatura eletrônica com validade jurídica", desc: "RAS, receituário e solicitação em conformidade CFM." },
-  { term: "Isolamento de controlados", desc: "portaria 344 respeitada em fluxo próprio, com dupla checagem." },
-  { term: "API aberta", desc: "conecta o Parxis ao seu ERP, farmácia de manipulação e laboratório de exames." },
+  { term: "Questionário clínico por sistemas", desc: "anamnese progressiva — só o que é relevante para aquele cliente. Alertas críticos nunca são suprimidos." },
+  { term: "Motor de regras clínicas", desc: "biblioteca de raciocínio construída sobre décadas de prática. O motor lembra por você. A decisão final é sempre sua." },
+  { term: "Caminhos clínicos por queixa", desc: "você informa a queixa em foco. O sistema sugere quais exames pedir e quais tratamentos considerar — antes de você abrir a boca." },
+  { term: "Faixas de referência integrativas", desc: "excelente, ótimo, aceitável — pela ótica da medicina integrativa, não pelo padrão laboratorial convencional." },
+  { term: "Posologia cronobiológica", desc: "o motor conhece o momento certo de cada medicamento no dia — o esquema de uso e os lembretes saem prontos." },
+  { term: "Evolução clínica longitudinal", desc: "a cada consulta, o histórico cresce. Com o tempo, o banco de dados da sua clínica se torna um ativo estratégico real." },
+  { term: "Isolamento total entre clínicas", desc: "cada licenciado opera em cofre próprio. Nenhum concorrente enxerga, cruza ou toca seus dados." },
+  { term: "Assinatura com validade jurídica nacional", desc: "documentos clínicos com o padrão brasileiro de reconhecimento — equivalente a firma em cartório, sem papel." },
 ];
 
 function Technology() {
@@ -374,10 +375,10 @@ function Technology() {
       <div className="mx-auto max-w-6xl px-6 lg:px-10">
         <div className="text-center mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Tecnologia · Chapitre II
+            Inteligência · Chapitre II
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight max-w-3xl mx-auto">
-            A engenharia sob o verniz de <em className="parxis-gold-text not-italic">ouro</em>.
+            O motor <em className="parxis-gold-text not-italic">PAWARDS MedCore®</em> — que trabalha enquanto você atende.
           </h2>
           <div className="parxis-gold-rule w-32 mx-auto mt-8" />
         </div>
@@ -401,27 +402,27 @@ function Technology() {
 function ForClinics() {
   const pillars = [
     {
-      title: "Para o médico integrativo",
+      title: "I · O Indicado",
       lines: [
-        "Anamnese profunda que respeita seu método clínico.",
-        "Protocolo injetável desenhado nutriente a nutriente.",
-        "RAS auditável — dorme tranquilo em qualquer fiscalização.",
+        "Não se compra o Parxis. Recebe-se uma carta de indicação.",
+        "Um médico já admitido reconhece em você o padrão da maison.",
+        "Sua candidatura passa por análise privada da PAWARDS MedCore®.",
       ],
     },
     {
-      title: "Para o dono da clínica",
+      title: "II · O Licenciado",
       lines: [
-        "Marca fortalecida em cada documento entregue.",
-        "Padrão único entre médicos, enfermagem e recepção.",
-        "Dados clínicos e operacionais em uma só visão.",
+        "Território clínico protegido — um licenciado por micro-região.",
+        "Marca da sua clínica em cada documento entregue ao cliente.",
+        "Acesso vitalício às evoluções do motor — sem custo adicional.",
       ],
     },
     {
-      title: "Para outras especialidades",
+      title: "III · O Sublicenciante",
       lines: [
-        "Estética, longevidade, ortomolecular, endocrinologia.",
-        "Protocolos parametrizáveis por especialidade.",
-        "Fluxos por perfil profissional, sem fricção.",
+        "Ao licenciado, um privilégio raro: sublicenciar outras clínicas.",
+        "Cada indicação sua abre uma nova fonte de receita recorrente.",
+        "Sua influência clínica passa a compor patrimônio, não apenas prática.",
       ],
     },
   ];
@@ -431,11 +432,14 @@ function ForClinics() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Para Clínicas · Chapitre III
+            O Círculo · Chapitre III
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Três olhares, uma <em className="parxis-gold-text not-italic">só maison</em>.
+            Três degraus, uma <em className="parxis-gold-text not-italic">só maison</em> — e um número limitado de assentos.
           </h2>
+          <p className="mt-6 text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl">
+            O PARXIS não é vendido em massa. É concedido, por licença, a um número restrito de médicos por safra. Você não escolhe entrar — é convidado. E, uma vez admitido, adquire o direito raro de decidir quem mais entra.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -466,14 +470,47 @@ function Testimonial() {
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <div className="font-serif text-[color:var(--gold)] text-6xl mb-6 opacity-60">“</div>
         <p className="font-serif text-2xl md:text-3xl leading-relaxed italic text-foreground">
-          Pela primeira vez, o documento entregue ao paciente carrega o mesmo cuidado que dedicamos à consulta. O Parxis não é software — é a extensão silenciosa da nossa clínica.
+          Fui indicado. Recebi o acesso em uma quarta-feira. Na sexta, entreguei o primeiro documento assinado com validade jurídica ao meu cliente. Ele me olhou de forma diferente. O Parxis não é software — é o que separa uma clínica de uma maison clínica.
         </p>
         <div className="parxis-gold-rule w-24 mx-auto my-10" />
         <div className="text-sm uppercase tracking-[0.32em] text-[color:var(--gold)]">
           Dr. Ricardo Almeida Ferreira
         </div>
         <div className="text-xs uppercase tracking-[0.28em] text-muted-foreground mt-2">
-          Clínica de Medicina Integrativa · Anti-Aging
+          Licenciado Parxis · Medicina Integrativa · Anti-Aging
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ————————————————— CTA ————————————————— */
+function Ecosystem() {
+  return (
+    <section id="ecossistema" className="relative py-28 lg:py-36 bg-background">
+      <div className="mx-auto max-w-4xl px-6 lg:px-10">
+        <div className="parxis-card rounded-lg p-10 md:p-14 text-center">
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
+            Ecossistema · PADCOM
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl leading-tight">
+            Estes produtos fazem parte de um <em className="parxis-gold-text not-italic">ecossistema maior</em>.
+          </h2>
+          <div className="parxis-gold-rule w-24 mx-auto my-8" />
+          <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
+            A <span className="parxis-gold-text">PADCON Platform®</span> é a arquitetura corporativa que sustenta a PAWARDS MedCore® e o PARXIS — identidade unificada, segurança por cargo, trilhas de auditoria permanentes. Quatro setores. Dezoito sistemas em desenvolvimento. Três em produção real. Uma fundação só.
+          </p>
+          <div className="mt-10">
+            <a
+              href="https://padcon.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.45)] hover:bg-[color:var(--gold)] hover:text-[color:var(--obsidian)] transition-colors"
+            >
+              Conheça a PADCON Platform®
+              <span aria-hidden>→</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -542,23 +579,23 @@ function CTA() {
       <div className="mx-auto max-w-3xl px-6 lg:px-10 relative">
        <div className="text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Convite Privado
+          Candidatura por Indicação
         </p>
         <h2 className="font-serif text-4xl md:text-6xl leading-tight">
-          Uma demonstração <em className="parxis-gold-text not-italic">à porta fechada</em>.
+          Uma conversa <em className="parxis-gold-text not-italic">à porta fechada</em>.
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-xl mx-auto">
-          Recebemos um número limitado de clínicas por trimestre. Se a excelência clínica é a sua assinatura, conversemos.
+          Recebemos até doze licenciados por safra. Se você foi indicado — ou acredita que o padrão da sua clínica justifica uma indicação — envie seu pedido. A PAWARDS MedCore® analisa cada candidatura pessoalmente.
         </p>
        </div>
 
         {submitted ? (
           <div className="mt-14 parxis-card rounded-lg p-10 text-center">
             <div className="font-serif text-[color:var(--gold)] text-5xl mb-6 opacity-70">✦</div>
-            <h3 className="font-serif text-2xl md:text-3xl mb-4">Recebemos sua solicitação.</h3>
+            <h3 className="font-serif text-2xl md:text-3xl mb-4">Sua candidatura foi recebida.</h3>
             <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
-              Um consultor Parxis entrará em contato em até 48 horas, em caráter privado, com uma janela de demonstração reservada para sua clínica.
+              Um responsável da PAWARDS MedCore® entrará em contato em até 48 horas, em caráter privado, apenas se sua candidatura avançar para a próxima etapa. O silêncio, se ocorrer, também é uma resposta respeitosa.
             </p>
           </div>
         ) : (
@@ -610,14 +647,14 @@ function CTA() {
               </div>
               <div className="md:col-span-2">
                 <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
-                  Necessidade em protocolos
+                  Quem o indicou · e por quê
                 </label>
                 <textarea
                   name="necessidade"
                   required
                   rows={4}
                   maxLength={2000}
-                  placeholder="Descreva brevemente os protocolos que sua clínica conduz, os desafios atuais (RAS, receituário, apresentação ao paciente) e o que espera do Parxis."
+                  placeholder="Se foi indicado, informe o nome do médico. Se não, descreva por que sua clínica se enquadra no padrão do Círculo Parxis — protocolos, volume mensal, o que a diferencia."
                   className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors resize-none"
                 />
               </div>
@@ -625,14 +662,14 @@ function CTA() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-                Suas informações são tratadas em caráter confidencial.
+                Análise confidencial · Sigilo profissional garantido
               </p>
               <button
                 type="submit"
                 disabled={loading}
                 className="inline-flex items-center justify-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-9 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? "Enviando…" : "Solicitar acesso privado"}
+                {loading ? "Enviando…" : "Enviar candidatura"}
                 {!loading && <span aria-hidden>→</span>}
               </button>
             </div>
@@ -640,7 +677,7 @@ function CTA() {
         )}
 
         <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          Resposta em até 48 horas · Contato pessoal
+          Resposta em até 48 horas · Apenas às candidaturas selecionadas
         </p>
       </div>
     </section>
@@ -683,7 +720,7 @@ function Footer() {
               Parxis
             </div>
             <p className="mt-4 text-xs text-muted-foreground leading-relaxed max-w-xs font-light">
-              Motor clínico para clínicas de medicina integrativa. Protocolos injetáveis com o rigor de uma maison.
+              Um produto PAWARDS MedCore® — uma empresa PADCOM. Concedido por indicação, mantido pelo padrão.
             </p>
           </div>
           <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em]">
