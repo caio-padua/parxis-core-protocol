@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 
@@ -265,7 +266,12 @@ function Hero() {
 function ParallaxPanels() {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef(0);
-  const speeds = [0.22, -0.32, 0.42, -0.18, 0.1];
+  const isMobile = useIsMobile();
+  const amplitude = isMobile ? 0.42 : 1;
+  const lerp = isMobile ? 0.08 : 0.12;
+  const speeds = isMobile
+    ? [0.09, -0.13, 0.17, -0.07, 0.04]
+    : [0.22, -0.32, 0.42, -0.18, 0.1];
 
   useEffect(() => {
     if (document.documentElement.dataset.motion === "reduce") return;
@@ -278,10 +284,10 @@ function ParallaxPanels() {
     };
 
     const tick = () => {
-      currentY += (targetY - currentY) * 0.12;
+      currentY += (targetY - currentY) * lerp;
       panelRefs.current.forEach((el, i) => {
         if (el) {
-          const y = currentY * speeds[i];
+          const y = currentY * speeds[i] * amplitude;
           el.style.transform = i === 4 ? `translate(-50%, ${y}px)` : `translateY(${y}px)`;
         }
       });
@@ -295,7 +301,7 @@ function ParallaxPanels() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [amplitude, lerp, speeds]);
 
   return (
     <div className="parxis-panels" aria-hidden>

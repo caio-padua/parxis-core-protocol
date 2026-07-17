@@ -871,13 +871,19 @@ html[data-motion="reduce"] .parxis-gold-text {
 @media (max-width: 767px) {
   .parxis-panel {
     width: 28vw;
-    opacity: 0.35;
+    opacity: 0.62;
   }
-  .parxis-panel-1 { left: -4%; }
-  .parxis-panel-2 { left: 82%; }
-  .parxis-panel-3 { left: 6%; width: 34vw; }
-  .parxis-panel-4 { left: 74%; }
-  .parxis-panel-5 { width: 60vw; opacity: 0.25; }
+  .parxis-panel::before {
+    border-color: color-mix(in oklch, var(--gold) 45%, transparent 55%);
+  }
+  .parxis-panel::after {
+    opacity: 0.85;
+  }
+  .parxis-panel-1 { left: -4%; opacity: 0.58; }
+  .parxis-panel-2 { left: 82%; opacity: 0.68; }
+  .parxis-panel-3 { left: 6%; width: 34vw; opacity: 0.5; }
+  .parxis-panel-4 { left: 74%; opacity: 0.7; }
+  .parxis-panel-5 { width: 60vw; opacity: 0.45; }
 }
 
 @media (prefers-reduced-motion: reduce) {
