@@ -720,7 +720,7 @@ function Footer() {
               Parxis
             </div>
             <p className="mt-4 text-xs text-muted-foreground leading-relaxed max-w-xs font-light">
-              Motor clínico para clínicas de medicina integrativa. Protocolos injetáveis com o rigor de uma maison.
+              Um produto PAWARDS MedCore® — uma empresa PADCOM. Concedido por indicação, mantido pelo padrão.
             </p>
           </div>
           <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em]">
