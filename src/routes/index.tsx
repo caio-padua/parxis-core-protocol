@@ -141,6 +141,7 @@ function MotionToggle() {
 function Hero() {
   return (
     <section id="top" className="relative parxis-hero-bg pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+      <ParallaxPanels />
       {/* linhas decorativas de moldura */}
       <div className="absolute inset-x-8 top-24 parxis-gold-rule opacity-60" />
       <div className="absolute inset-x-8 bottom-8 parxis-gold-rule opacity-40" />
