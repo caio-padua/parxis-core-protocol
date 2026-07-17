@@ -413,7 +413,7 @@
   filter:
     saturate(0.72) hue-rotate(-8deg) brightness(1.04)
     drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 0 22px rgba(232, 214, 170, 0.28));
+    drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%));
 }
 
 @media (max-width: 767px) {
