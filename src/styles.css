@@ -618,21 +618,75 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 }
 
 .parxis-gold-text {
+  position: relative;
+  display: inline-block;
   background: linear-gradient(
     100deg,
     var(--gold-deep) 0%,
-    var(--gold-medium) 20%,
-    var(--gold) 40%,
+    var(--gold-medium) 14%,
+    var(--gold) 30%,
+    #fff4cf 46%,
     var(--gold-light) 50%,
-    var(--gold) 60%,
-    var(--gold-medium) 80%,
+    #fff4cf 54%,
+    var(--gold) 70%,
+    var(--gold-medium) 86%,
     var(--gold-deep) 100%
   );
-  background-size: 200% 100%;
+  background-size: 260% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmerGold 8s ease-in-out infinite;
+  color: transparent;
+  /* Relevo 3D: sombra baixa escura + halo dourado sutil,
+     dando a impressão de texto moldado em ouro sobre a superfície. */
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 10px color-mix(in oklch, var(--gold) 32%, transparent 68%));
+  animation: shimmerGold 6.5s ease-in-out infinite;
+}
+
+/* Faísca — brilho estreito e nítido varrendo o texto da esquerda para a direita. */
+@keyframes goldSpark {
+  0%   { background-position: -180% 50%; opacity: 0; }
+  8%   { opacity: 1; }
+  55%  { opacity: 1; }
+  100% { background-position: 220% 50%; opacity: 0; }
+}
+
+.parxis-gold-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.15) 47%,
+    rgba(255, 250, 220, 0.95) 50%,
+    rgba(255, 255, 255, 0.15) 53%,
+    transparent 58%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  mix-blend-mode: screen;
+  animation: goldSpark 5.5s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .parxis-gold-text,
+  html:not([data-motion="full"]) .parxis-gold-text::after {
+    animation: none;
+  }
+}
+html[data-motion="reduce"] .parxis-gold-text,
+html[data-motion="reduce"] .parxis-gold-text::after {
+  animation: none !important;
 }
 
 .parxis-gold-rule {
