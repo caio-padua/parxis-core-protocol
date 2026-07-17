@@ -524,6 +524,111 @@ function Ecosystem() {
   );
 }
 
+/* ————————————————— SCARCITY ————————————————— */
+function Scarcity() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const deadline = new Date();
+    deadline.setDate(deadline.getDate() + 14);
+    deadline.setHours(23, 59, 59, 0);
+
+    const calc = () => {
+      const diff = deadline.getTime() - Date.now();
+      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      };
+    };
+
+    setTimeLeft(calc());
+    const id = setInterval(() => setTimeLeft(calc()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const slots = [
+    { label: "dias", value: timeLeft.days },
+    { label: "horas", value: timeLeft.hours },
+    { label: "min", value: timeLeft.minutes },
+    { label: "seg", value: timeLeft.seconds },
+  ];
+
+  return (
+    <section className="relative py-20 lg:py-28 bg-background overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full bg-[color:var(--gold)] opacity-[0.03] blur-3xl" />
+      </div>
+
+      <div className="mx-auto max-w-5xl px-6 lg:px-10 relative">
+        <div className="parxis-card rounded-2xl p-10 md:p-14 text-center border-[rgba(242,184,23,0.28)]">
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
+            Safra atual · Portas fechadas em breve
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <div className="text-center">
+              <div className="font-serif text-6xl md:text-7xl text-[color:var(--gold)]">12</div>
+              <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">
+                licenciados por safra
+              </div>
+            </div>
+
+            <div className="hidden md:block w-px h-20 bg-[rgba(242,184,23,0.25)]" />
+
+            <div>
+              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground mb-4">
+                Fechamento da candidatura
+              </div>
+              {mounted ? (
+                <div className="grid grid-cols-4 gap-3">
+                  {slots.map((s) => (
+                    <div
+                      key={s.label}
+                      className="min-w-[64px] px-3 py-4 rounded-lg bg-[rgba(242,184,23,0.08)] border border-[rgba(242,184,23,0.2)]"
+                    >
+                      <div className="font-serif text-2xl md:text-3xl text-[color:var(--gold)]">
+                        {String(s.value).padStart(2, "0")}
+                      </div>
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                        {s.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="h-[88px] flex items-center justify-center text-muted-foreground text-sm">
+                  Calculando prazo…
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="parxis-gold-rule w-40 mx-auto my-10 opacity-70" />
+
+          <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
+            As candidaturas recebidas após o fechamento são avaliadas apenas para a próxima safra. A escassez não é estratégia de vendas — é a única maneira de preservar a experiência e a integridade do Círculo.
+          </p>
+
+          <div className="mt-10">
+            <a
+              href="#contato"
+              className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
+            >
+              Solicitar carta de indicação
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ————————————————— CTA ————————————————— */
 function CTA() {
   const [loading, setLoading] = useState(false);
