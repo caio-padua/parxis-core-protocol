@@ -671,6 +671,10 @@ function CTA() {
       toast.error("Descreva sua necessidade em protocolos.");
       return;
     }
+    if (!consent) {
+      toast.error("É necessário aceitar os termos de elegibilidade e consentimento LGPD.");
+      return;
+    }
 
     setLoading(true);
     const { error } = await supabase.from("leads").insert(payload);
