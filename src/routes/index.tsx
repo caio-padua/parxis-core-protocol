@@ -416,7 +416,7 @@ function Features() {
             <article key={f.n} className="parxis-card rounded-lg p-8 lg:p-10">
               <div className="font-serif text-[color:var(--gold)] text-sm tracking-[0.4em] mb-6">{f.n}</div>
               <h3 className="font-serif text-2xl leading-snug mb-4">{tr(f.title, lang)}</h3>
-              <div className="parxis-gold-rule w-12 mb-5 opacity-60" />>
+              <div className="parxis-gold-rule w-12 mb-5 opacity-60" />
               <p className="text-sm text-muted-foreground leading-relaxed font-light">{tr(f.body, lang)}</p>
             </article>
           ))}
