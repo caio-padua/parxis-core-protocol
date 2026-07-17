@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import parxisSymbol from "@/assets/parxis-symbol.png.asset.json";
-import parxisWordmarkUrl from "@/assets/parxis-wordmark.png";
+import parxisSymbolUrl from "@/assets/parxis-symbol.svg?url";
+import parxisWordmarkUrl from "@/assets/parxis-wordmark.svg?url";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -14,7 +14,7 @@ function Index() {
     <main
       className="min-h-screen bg-background text-foreground overflow-x-hidden"
       style={{
-        ["--parxis-symbol-url" as string]: `url(${parxisSymbol.url})`,
+        ["--parxis-symbol-url" as string]: `url(${parxisSymbolUrl})`,
         ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
       }}
     >
