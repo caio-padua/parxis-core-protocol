@@ -6,6 +6,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 import atelierUrl from "@/assets/atelier-tailoring.jpg";
+import heroBg4K from "@/assets/PARXIS_fundo_desktop_4K_3840x2160.webp.asset.json";
+import heroBgQHD from "@/assets/PARXIS_fundo_desktop_QHD_2560x1440.webp.asset.json";
+import heroBgFHD from "@/assets/PARXIS_fundo_desktop_FHD_1920x1080.jpg.asset.json";
+import heroBgTablet from "@/assets/PARXIS_fundo_tablet_2048x1536.webp.asset.json";
+import heroBgMobile from "@/assets/PARXIS_fundo_mobile_1080x1920.webp.asset.json";
 
 const parxisSymbolUrl = parxisSymbolAsset.url;
 const parxisWordmarkUrl = parxisWordmarkAsset.url;
