@@ -365,7 +365,7 @@
 /* Small — para header */
 .parxis-btn-sm { padding: 0.55rem 1.05rem; font-size: 0.66rem; letter-spacing: 0.24em; }
 
-/* Sheen sweep on hover */
+/* Subtle surface sheen — contained, never crossing the button face */
 .parxis-btn > .parxis-btn-inner {
   position: relative;
   z-index: 1;
@@ -376,16 +376,16 @@
 .parxis-btn > .parxis-btn-inner::before {
   content: "";
   position: absolute;
-  inset: -50% -20%;
-  background: linear-gradient(115deg,
-    transparent 40%,
-    rgba(255,245,210,0.35) 50%,
-    transparent 60%);
-  transform: translateX(-120%);
-  transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+  inset: -30% -10%;
+  background: linear-gradient(105deg,
+    transparent 45%,
+    rgba(255,245,210,0.10) 55%,
+    transparent 65%);
+  transform: translateX(-110%);
+  transition: transform 1000ms cubic-bezier(.2,.7,.2,1);
   pointer-events: none;
 }
-.parxis-btn:hover > .parxis-btn-inner::before { transform: translateX(120%); }
+.parxis-btn:hover > .parxis-btn-inner::before { transform: translateX(110%); }
 
 @media (prefers-reduced-motion: reduce) {
   .parxis-btn, .parxis-btn:hover, .parxis-btn:active { transform: none; transition: none; }
