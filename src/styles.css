@@ -174,12 +174,12 @@
 /* Símbolo levita: sobe/desce + leve rotação, sem crop nas laterais */
 @keyframes symbolLevitate {
   0%, 100% {
-    transform: translateY(0px) scale(0.92) rotate(-1.5deg);
+    transform: translateY(0) scale(0.92) rotate(-1.5deg);
     filter:
       drop-shadow(0 0 24px rgba(242, 184, 23, 0.22));
   }
   50% {
-    transform: translateY(-38px) scale(1.02) rotate(1.5deg);
+    transform: translateY(calc(var(--parxis-levitate, 38px) * -1)) scale(1.02) rotate(1.5deg);
     filter:
       drop-shadow(0 0 55px rgba(242, 184, 23, 0.45));
   }
@@ -262,6 +262,10 @@
 }
 .parxis-symbol-levitate {
   position: relative;
+  /* Distância de levitação proporcional ao tamanho do símbolo
+     (~8% do símbolo em qualquer viewport). O símbolo tem
+     width: min(72vw, 460px), então usamos a mesma progressão. */
+  --parxis-levitate: clamp(18px, 6vw, 38px);
   animation: symbolLevitate 7s ease-in-out infinite;
   will-change: transform, filter;
 }
