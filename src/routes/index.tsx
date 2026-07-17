@@ -57,6 +57,7 @@ function Nav() {
           <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">Ecossistema</a>
         </nav>
         <div className="flex items-center gap-3">
+          <ContrastToggle />
           <MotionToggle />
           <a
             href="#contato"
