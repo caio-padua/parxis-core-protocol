@@ -7,7 +7,10 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main
+      className="min-h-screen bg-background text-foreground overflow-x-hidden"
+      style={{ ["--parxis-logo-url" as string]: `url(${parxisLogo.url})` }}
+    >
       <Nav />
       <Hero />
       <Manifesto />
@@ -110,19 +113,18 @@ function Hero() {
           <div className="parxis-aura" />
           {/* Símbolo isolado (recorte do PNG oficial — só o monograma superior) */}
           <div className="relative z-10 parxis-symbol-float">
-            <div className="parxis-symbol-crop">
-              <img
-                src={parxisLogo.url}
-                alt="Símbolo Parxis"
-                draggable={false}
-                className="select-none"
-              />
-            </div>
+            <div
+              className="parxis-symbol-crop"
+              role="img"
+              aria-label="Símbolo Parxis"
+            />
           </div>
           {/* Wordmark oficial recortado (base do PNG) */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 parxis-wordmark-crop">
-            <img src={parxisLogo.url} alt="Parxis" draggable={false} className="select-none" />
-          </div>
+          <div
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-10 parxis-wordmark-crop"
+            role="img"
+            aria-label="Parxis"
+          />
         </div>
       </div>
     </section>
