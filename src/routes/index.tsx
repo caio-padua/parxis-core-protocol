@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import parxisSymbol from "@/assets/parxis-symbol.png";
+import parxisLogo from "@/assets/parxis-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -7,7 +7,10 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main
+      className="min-h-screen bg-background text-foreground overflow-x-hidden"
+      style={{ ["--parxis-logo-url" as string]: `url(${parxisLogo.url})` }}
+    >
       <Nav />
       <Hero />
       <Manifesto />
@@ -108,25 +111,20 @@ function Hero() {
         {/* Símbolo flutuante */}
         <div className="relative flex items-center justify-center min-h-[520px]">
           <div className="parxis-aura" />
+          {/* Símbolo isolado (recorte do PNG oficial — só o monograma superior) */}
           <div className="relative z-10 parxis-symbol-float">
-            <img
-              src={parxisSymbol}
-              alt="Símbolo Parxis"
-              width={440}
-              height={440}
-              className="w-[280px] md:w-[380px] lg:w-[440px] h-auto select-none"
-              draggable={false}
+            <div
+              className="parxis-symbol-crop"
+              role="img"
+              aria-label="Símbolo Parxis"
             />
           </div>
-          {/* wordmark abaixo do símbolo */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center z-10">
-            <div className="parxis-gold-text font-serif text-4xl md:text-5xl tracking-[0.35em] uppercase">
-              Parxis
-            </div>
-            <div className="mt-2 text-[10px] uppercase tracking-[0.5em] text-muted-foreground">
-              Motor Clínico
-            </div>
-          </div>
+          {/* Wordmark oficial recortado (base do PNG) */}
+          <div
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-10 parxis-wordmark-crop"
+            role="img"
+            aria-label="Parxis"
+          />
         </div>
       </div>
     </section>
