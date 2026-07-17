@@ -21,11 +21,13 @@
     /* vinheta escura para profundidade */
     radial-gradient(120% 90% at 50% 0%, rgba(60, 12, 18, 0.35) 0%, transparent 55%),
     radial-gradient(120% 90% at 50% 100%, rgba(6, 2, 3, 0.75) 0%, transparent 60%),
-    /* imagem real de lã bordô */
-    var(--parxis-wool-url, none);
-  background-size: 100% 100%, 100% 100%, 900px auto;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, normal, multiply;
+    /* cena única de alfaiataria — o mesmo tecido sob medida */
+    var(--parxis-atelier-url, var(--parxis-wool-url, none));
+  background-size: 100% 100%, 100% 100%, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, scroll, fixed;
+  background-blend-mode: normal, normal, normal;
   filter: saturate(1.05) contrast(1.02);
 }
 /* Grão fino / fibras irregulares */
@@ -107,10 +109,11 @@
   background-image:
     radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 55%),
     radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.75) 0%, transparent 60%),
-    var(--parxis-leather-url, none);
+    var(--parxis-atelier-url, var(--parxis-leather-url, none));
   background-size: 100% 100%, 100% 100%, cover;
   background-position: center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, scroll, fixed;
   filter: saturate(0.95) contrast(1.05);
 }
 .parxis-leather-bg > * {
