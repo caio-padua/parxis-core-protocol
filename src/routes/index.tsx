@@ -26,6 +26,7 @@ function Index() {
       <ForClinics />
       <Testimonial />
       <Ecosystem />
+      <Scarcity />
       <CTA />
       <Footer />
     </main>
@@ -400,30 +401,21 @@ function Technology() {
 
 /* ————————————————— FOR CLINICS ————————————————— */
 function ForClinics() {
-  const pillars = [
+  const steps = [
     {
       title: "I · O Indicado",
-      lines: [
-        "Não se compra o Parxis. Recebe-se uma carta de indicação.",
-        "Um médico já admitido reconhece em você o padrão da maison.",
-        "Sua candidatura passa por análise privada da PAWARDS MedCore®.",
-      ],
+      lead: "A porta se abre por quem já pertence ao Círculo.",
+      body: "O Parxis não é vendido. É concedido. Receber uma carta de indicação significa que um médico licenciado reconheceu em sua clínica o mesmo padrão que a maison exige: discrição, excelência clínica e vontade de operar como uma casa, não como um consultório. A partir daí, sua candidatura entra para análise privada da PAWARDS MedCore®. Sem fila. Sem comercial. Apenas uma decisão cuidadosa.",
     },
     {
       title: "II · O Licenciado",
-      lines: [
-        "Território clínico protegido — um licenciado por micro-região.",
-        "Marca da sua clínica em cada documento entregue ao cliente.",
-        "Acesso vitalício às evoluções do motor — sem custo adicional.",
-      ],
+      lead: "Admitido, você recebe um território protegido.",
+      body: "Cada licenciado ocupa uma micro-região exclusiva: seus clientes, seus protocolos, sua marca em cada documento assinado digitalmente. O acesso é vitalício às evoluções do motor PAWARDS MedCore®, sem taxas de upgrade. O sistema aprende com sua prática, mas seus dados permanecem inacessíveis a qualquer outra clínica — inclusive às do próprio Círculo.",
     },
     {
       title: "III · O Sublicenciante",
-      lines: [
-        "Ao licenciado, um privilégio raro: sublicenciar outras clínicas.",
-        "Cada indicação sua abre uma nova fonte de receita recorrente.",
-        "Sua influência clínica passa a compor patrimônio, não apenas prática.",
-      ],
+      lead: "A admissão abre um privilégio raro: o poder de indicar.",
+      body: "Um licenciado Parxis pode sublicenciar outras clínicas, desde que aprovadas pela PAWARDS MedCore®. Cada nova indicação que você patrocina amplia a rede e gera uma participação recorrente sobre a licença daquela clínica. Sua reputação clínica deixa de ser apenas reputação: torna-se patrimônio, rendimento e legado dentro da maison.",
     },
   ];
 
@@ -438,25 +430,40 @@ function ForClinics() {
             Três degraus, uma <em className="parxis-gold-text not-italic">só maison</em> — e um número limitado de assentos.
           </h2>
           <p className="mt-6 text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl">
-            O PARXIS não é vendido em massa. É concedido, por licença, a um número restrito de médicos por safra. Você não escolhe entrar — é convidado. E, uma vez admitido, adquire o direito raro de decidir quem mais entra.
+            O PARXIS não é vendido em massa. É concedido, por licença, a uma pequena safra de médicos por vez. Você não escolhe entrar — é convidado. E, uma vez admitido, adquire o direito raro de decidir quem mais terá acesso.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {pillars.map((p) => (
-            <div key={p.title} className="parxis-card rounded-lg p-10 flex flex-col">
-              <h3 className="font-serif text-2xl mb-6">{p.title}</h3>
+          {steps.map((s) => (
+            <article key={s.title} className="parxis-card rounded-lg p-10 flex flex-col">
+              <h3 className="font-serif text-2xl mb-3">{s.title}</h3>
+              <p className="text-sm text-[color:var(--gold)] leading-relaxed mb-4">
+                {s.lead}
+              </p>
               <div className="parxis-gold-rule w-16 mb-6 opacity-60" />
-              <ul className="space-y-4 text-sm text-muted-foreground font-light leading-relaxed">
-                {p.lines.map((l) => (
-                  <li key={l} className="flex gap-3">
-                    <span aria-hidden className="text-[color:var(--gold)] mt-1">✦</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                {s.body}
+              </p>
+            </article>
           ))}
+        </div>
+
+        <div className="mt-16 parxis-card rounded-lg p-10 md:p-12 flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1">
+            <h4 className="font-serif text-2xl md:text-3xl mb-3">
+              O Círculo é pequeno por escolha — não por limitação.
+            </h4>
+            <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed">
+              Limitamos cada safra a doze licenciados para que cada admissão receba a atenção da engenharia, do suporte e da curadoria que o padrão exige. A escassez não é marketing. É a única forma de manter o que torna o Parxis valioso: ser raro.
+            </p>
+          </div>
+          <div className="shrink-0 text-center md:text-right">
+            <div className="font-serif text-5xl text-[color:var(--gold)]">12</div>
+            <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-1">
+              licenciados por safra
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -509,6 +516,111 @@ function Ecosystem() {
             >
               Conheça a PADCON Platform®
               <span aria-hidden>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ————————————————— SCARCITY ————————————————— */
+function Scarcity() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const deadline = new Date();
+    deadline.setDate(deadline.getDate() + 14);
+    deadline.setHours(23, 59, 59, 0);
+
+    const calc = () => {
+      const diff = deadline.getTime() - Date.now();
+      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      return {
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      };
+    };
+
+    setTimeLeft(calc());
+    const id = setInterval(() => setTimeLeft(calc()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const slots = [
+    { label: "dias", value: timeLeft.days },
+    { label: "horas", value: timeLeft.hours },
+    { label: "min", value: timeLeft.minutes },
+    { label: "seg", value: timeLeft.seconds },
+  ];
+
+  return (
+    <section className="relative py-20 lg:py-28 bg-background overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full bg-[color:var(--gold)] opacity-[0.03] blur-3xl" />
+      </div>
+
+      <div className="mx-auto max-w-5xl px-6 lg:px-10 relative">
+        <div className="parxis-card rounded-2xl p-10 md:p-14 text-center border-[rgba(242,184,23,0.28)]">
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
+            Safra atual · Portas fechadas em breve
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <div className="text-center">
+              <div className="font-serif text-6xl md:text-7xl text-[color:var(--gold)]">12</div>
+              <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">
+                licenciados por safra
+              </div>
+            </div>
+
+            <div className="hidden md:block w-px h-20 bg-[rgba(242,184,23,0.25)]" />
+
+            <div>
+              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground mb-4">
+                Fechamento da candidatura
+              </div>
+              {mounted ? (
+                <div className="grid grid-cols-4 gap-3">
+                  {slots.map((s) => (
+                    <div
+                      key={s.label}
+                      className="min-w-[64px] px-3 py-4 rounded-lg bg-[rgba(242,184,23,0.08)] border border-[rgba(242,184,23,0.2)]"
+                    >
+                      <div className="font-serif text-2xl md:text-3xl text-[color:var(--gold)]">
+                        {String(s.value).padStart(2, "0")}
+                      </div>
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">
+                        {s.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="h-[88px] flex items-center justify-center text-muted-foreground text-sm">
+                  Calculando prazo…
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="parxis-gold-rule w-40 mx-auto my-10 opacity-70" />
+
+          <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
+            As candidaturas recebidas após o fechamento são avaliadas apenas para a próxima safra. A escassez não é estratégia de vendas — é a única maneira de preservar a experiência e a integridade do Círculo.
+          </p>
+
+          <div className="mt-10">
+            <a
+              href="#contato"
+              className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
+            >
+              Solicitar carta de indicação
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>
         </div>
