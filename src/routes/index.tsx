@@ -402,27 +402,27 @@ function Technology() {
 function ForClinics() {
   const pillars = [
     {
-      title: "Para o médico integrativo",
+      title: "I · O Indicado",
       lines: [
-        "Anamnese profunda que respeita seu método clínico.",
-        "Protocolo injetável desenhado nutriente a nutriente.",
-        "RAS auditável — dorme tranquilo em qualquer fiscalização.",
+        "Não se compra o Parxis. Recebe-se uma carta de indicação.",
+        "Um médico já admitido reconhece em você o padrão da maison.",
+        "Sua candidatura passa por análise privada da PAWARDS MedCore®.",
       ],
     },
     {
-      title: "Para o dono da clínica",
+      title: "II · O Licenciado",
       lines: [
-        "Marca fortalecida em cada documento entregue.",
-        "Padrão único entre médicos, enfermagem e recepção.",
-        "Dados clínicos e operacionais em uma só visão.",
+        "Território clínico protegido — um licenciado por micro-região.",
+        "Marca da sua clínica em cada documento entregue ao cliente.",
+        "Acesso vitalício às evoluções do motor — sem custo adicional.",
       ],
     },
     {
-      title: "Para outras especialidades",
+      title: "III · O Sublicenciante",
       lines: [
-        "Estética, longevidade, ortomolecular, endocrinologia.",
-        "Protocolos parametrizáveis por especialidade.",
-        "Fluxos por perfil profissional, sem fricção.",
+        "Ao licenciado, um privilégio raro: sublicenciar outras clínicas.",
+        "Cada indicação sua abre uma nova fonte de receita recorrente.",
+        "Sua influência clínica passa a compor patrimônio, não apenas prática.",
       ],
     },
   ];
@@ -432,11 +432,14 @@ function ForClinics() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Para Clínicas · Chapitre III
+            O Círculo · Chapitre III
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Três olhares, uma <em className="parxis-gold-text not-italic">só maison</em>.
+            Três degraus, uma <em className="parxis-gold-text not-italic">só maison</em> — e um número limitado de assentos.
           </h2>
+          <p className="mt-6 text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl">
+            O PARXIS não é vendido em massa. É concedido, por licença, a um número restrito de médicos por safra. Você não escolhe entrar — é convidado. E, uma vez admitido, adquire o direito raro de decidir quem mais entra.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
