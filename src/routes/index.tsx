@@ -457,8 +457,7 @@ const FEATURES = [
 function Features() {
   return (
     <section id="recursos" className="parxis-bordo-fabric relative py-28 lg:py-36">
-      <div className="parxis-bordo-stitch-top" aria-hidden />
-      <div className="parxis-bordo-stitch-bottom" aria-hidden />
+      <div className="parxis-bordo-stitch-frame" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
@@ -552,8 +551,7 @@ function ForClinics() {
 
   return (
     <section id="clinicas" className="parxis-bordo-fabric relative py-28 lg:py-36">
-      <div className="parxis-bordo-stitch-top" aria-hidden />
-      <div className="parxis-bordo-stitch-bottom" aria-hidden />
+      <div className="parxis-bordo-stitch-frame" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
