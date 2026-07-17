@@ -198,6 +198,58 @@ function Hero() {
   );
 }
 
+/* ————————————————— PAINÉIS PARALLAX —————————————————
+   Camadas verticais que evocam couro, ferragens e arquivos
+   de uma oficina de manufatura Hermès. Movem-se em velocidades
+   distintas ao rolar, criando profundidade sem distrair. */
+function ParallaxPanels() {
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rafRef = useRef(0);
+  const speeds = [0.08, -0.12, 0.18, -0.06, 0.03];
+
+  useEffect(() => {
+    if (document.documentElement.dataset.motion === "reduce") return;
+
+    let targetY = 0;
+    let currentY = 0;
+
+    const onScroll = () => {
+      targetY = window.scrollY;
+    };
+
+    const tick = () => {
+      currentY += (targetY - currentY) * 0.12;
+      panelRefs.current.forEach((el, i) => {
+        if (el) {
+          const y = currentY * speeds[i];
+          el.style.transform = i === 4 ? `translate(-50%, ${y}px)` : `translateY(${y}px)`;
+        }
+      });
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <div className="parxis-panels" aria-hidden>
+      {[...Array(5)].map((_, i) => (
+        <div
+          key={i}
+          ref={(el) => { panelRefs.current[i] = el; }}
+          className={`parxis-panel parxis-panel-${i + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 /* ————————————————— MONOGRAMA VIVO —————————————————
    Wordmark PARXIS estático em primeiro plano.
    Símbolo respira atrás — se aproxima e se afasta —
