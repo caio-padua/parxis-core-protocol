@@ -280,3 +280,24 @@
 .parxis-reveal {
   animation: slowReveal 1.2s ease-out both;
 }
+
+/* ---- Recortes do logo oficial Parxis ---- */
+/* PNG original: 1536x1024. Símbolo centrado ~y 34%, wordmark ~y 73% */
+.parxis-symbol-crop {
+  width: min(78vw, 380px);
+  aspect-ratio: 1 / 1.05;
+  background-image: var(--parxis-logo-url);
+  background-repeat: no-repeat;
+  background-size: 320% auto;
+  background-position: 50% 22%;
+  /* isola só o monograma dourado; fundo bordô do PNG é acomodado pela sombra externa */
+}
+
+.parxis-wordmark-crop {
+  width: min(72vw, 380px);
+  aspect-ratio: 5 / 1;
+  background-image: var(--parxis-logo-url);
+  background-repeat: no-repeat;
+  background-size: 235% auto;
+  background-position: 50% 82%;
+}
