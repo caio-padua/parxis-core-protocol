@@ -145,16 +145,15 @@ function Hero() {
         {/* Texto */}
         <div className="parxis-reveal">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-            Haute Médecine · Établi 2026
+            Um produto PAWARDS MedCore® · Uma empresa PADCOM
           </p>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-            O motor clínico das{" "}
-            <span className="parxis-gold-text italic">clínicas integrativas</span>{" "}
-            de alto padrão.
+            O sistema clínico que trabalha{" "}
+            <span className="parxis-gold-text italic">enquanto você cuida</span>.
           </h1>
           <div className="parxis-gold-rule w-32 my-10" />
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-light">
-            Parxis conduz o protocolo injetável do primeiro sinal clínico à assinatura eletrônica do RAS — com o rigor de um relojoeiro suíço e a elegância de um atendimento em maison.
+            Da primeira consulta ao arquivo definitivo — sem papel, sem retrabalho, sem risco jurídico. Um motor clínico reservado a um número restrito de médicos, admitidos apenas por indicação.
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4">
@@ -162,22 +161,22 @@ function Hero() {
               href="#contato"
               className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
             >
-              Solicitar acesso privado
+              Solicitar carta de indicação
               <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </a>
             <a
-              href="#recursos"
+              href="#clinicas"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] hover:bg-[rgba(242,184,23,0.06)] transition-colors"
             >
-              Explorar o sistema
+              Sobre o licenciamento
             </a>
           </div>
 
           <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
             {[
-              { k: "14", v: "etapas de anamnese" },
-              { k: "100%", v: "RAS auditável" },
-              { k: "1", v: "clique · assinatura" },
+              { k: "Por", v: "indicação apenas" },
+              { k: "12", v: "licenciados por safra" },
+              { k: "1", v: "só médico decide" },
             ].map((it) => (
               <div key={it.v}>
                 <div className="font-serif text-3xl text-[color:var(--gold)]">{it.k}</div>
