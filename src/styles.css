@@ -594,7 +594,7 @@ html:is([data-motion="reduce"], :not([data-motion="full"])) {
   html:not([data-motion="full"]) .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
   html:not([data-motion="full"]) .parxis-aura-2   { opacity: 0.45; transform: translate(-50%, -50%) scale(0.95); }
 }
-html[data-motion="reduce"] .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+html[data-motion="reduce"] .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px color-mix(in oklch, var(--gold) 24%, transparent 76%)); }
 html[data-motion="reduce"] .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
 html[data-motion="reduce"] .parxis-surface  { opacity: 0.5; }
 html[data-motion="reduce"] .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
