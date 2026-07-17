@@ -646,46 +646,12 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
   animation: shimmerGold 6.5s ease-in-out infinite;
 }
 
-/* Faísca — brilho estreito e nítido varrendo o texto da esquerda para a direita. */
-@keyframes goldSpark {
-  0%   { background-position: -180% 50%; opacity: 0; }
-  8%   { opacity: 1; }
-  55%  { opacity: 1; }
-  100% { background-position: 220% 50%; opacity: 0; }
-}
-
-.parxis-gold-text::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    transparent 42%,
-    rgba(255, 255, 255, 0.15) 47%,
-    rgba(255, 250, 220, 0.95) 50%,
-    rgba(255, 255, 255, 0.15) 53%,
-    transparent 58%
-  );
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  mix-blend-mode: screen;
-  animation: goldSpark 5.5s ease-in-out infinite;
-  animation-delay: 1.2s;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .parxis-gold-text,
-  html:not([data-motion="full"]) .parxis-gold-text::after {
+  html:not([data-motion="full"]) .parxis-gold-text {
     animation: none;
   }
 }
-html[data-motion="reduce"] .parxis-gold-text,
-html[data-motion="reduce"] .parxis-gold-text::after {
+html[data-motion="reduce"] .parxis-gold-text {
   animation: none !important;
 }
 
