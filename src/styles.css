@@ -4,6 +4,110 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ========== Bordô fabric (tecido de terno + costura aparente) ========== */
+.parxis-bordo-fabric {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--bordo, #25070A);
+}
+/* Trama do tecido: dois padrões diagonais entrelaçados + variação tonal */
+.parxis-bordo-fabric::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 210, 170, 0.045) 0 1px,
+      rgba(0, 0, 0, 0.08) 1px 2px,
+      transparent 2px 3px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 210, 170, 0.035) 0 1px,
+      rgba(0, 0, 0, 0.09) 1px 2px,
+      transparent 2px 3px
+    ),
+    radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(80, 20, 24, 0.55) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      120% 80% at 50% 100%,
+      rgba(10, 3, 4, 0.6) 0%,
+      transparent 60%
+    );
+  background-size: 6px 6px, 6px 6px, 100% 100%, 100% 100%;
+  mix-blend-mode: normal;
+}
+/* Grão fino / fibras irregulares */
+.parxis-bordo-fabric::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'>\
+<filter id='f'>\
+<feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>\
+<feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.02  0 0 0 0 0.02  0 0 0 0.35 0'/>\
+</filter>\
+<rect width='100%25' height='100%25' filter='url(%23f)'/>\
+</svg>");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+}
+/* Costura aparente (saddle stitch) — topo e base */
+.parxis-bordo-stitch-top,
+.parxis-bordo-stitch-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    /* linha de costura tracejada em ouro */
+    linear-gradient(90deg,
+      rgba(242,184,23,0.85) 0 10px,
+      transparent 10px 18px
+    ) center / 18px 1.5px no-repeat,
+    /* sombra da dobra do tecido */
+    linear-gradient(180deg,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0) 100%);
+  background-repeat: repeat-x, no-repeat;
+  background-size: 18px 1.5px, 100% 100%;
+  background-position: center 7px, top;
+}
+.parxis-bordo-stitch-top { top: 0; }
+.parxis-bordo-stitch-bottom {
+  bottom: 0;
+  transform: scaleY(-1);
+}
+/* leve brilho ouro rente à costura */
+.parxis-bordo-stitch-top::after,
+.parxis-bordo-stitch-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 6px;
+  height: 3px;
+  background: radial-gradient(50% 100% at 50% 50%,
+    rgba(242,184,23,0.35) 0%, transparent 70%);
+  filter: blur(1.5px);
+}
+/* Garante que o conteúdo fique acima da textura */
+.parxis-bordo-fabric > *:not(.parxis-bordo-stitch-top):not(.parxis-bordo-stitch-bottom) {
+  position: relative;
+  z-index: 2;
+}
+
 /* ========== Parxis Bevel Buttons ========== */
 .parxis-btn {
   position: relative;
