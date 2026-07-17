@@ -723,14 +723,14 @@ html[data-motion="reduce"] .parxis-gold-text {
   height: 130%;
   border-radius: 2px;
   will-change: transform;
-  opacity: 0.55;
+  opacity: 0.9;
 }
 
 .parxis-panel::before {
   content: "";
   position: absolute;
   inset: 0;
-  border: 1px solid color-mix(in oklch, var(--gold) 16%, transparent 84%);
+  border: 1px solid color-mix(in oklch, var(--gold) 32%, transparent 68%);
   border-radius: inherit;
 }
 
@@ -738,18 +738,18 @@ html[data-motion="reduce"] .parxis-gold-text {
   content: "";
   position: absolute;
   inset: 10px;
-  border: 1px dashed color-mix(in oklch, var(--gold) 10%, transparent 90%);
-  opacity: 0.5;
+  border: 1px dashed color-mix(in oklch, var(--gold) 20%, transparent 80%);
+  opacity: 0.7;
 }
 
 /* Painel 1: couro obsidian à esquerda, desce devagar */
 .parxis-panel-1 {
   left: 2%;
-  width: 14vw;
+  width: 16vw;
   background: linear-gradient(
     180deg,
     color-mix(in oklch, var(--obsidian) 98%, transparent 2%) 0%,
-    color-mix(in oklch, var(--cognac) 30%, transparent 70%) 50%,
+    color-mix(in oklch, var(--cognac) 65%, transparent 35%) 50%,
     color-mix(in oklch, var(--obsidian) 98%, transparent 2%) 100%
   );
   box-shadow:
@@ -759,13 +759,13 @@ html[data-motion="reduce"] .parxis-gold-text {
 
 /* Painel 2: faixa cognac à direita, sobe suave */
 .parxis-panel-2 {
-  left: 86%;
-  width: 16vw;
+  left: 84%;
+  width: 18vw;
   background: linear-gradient(
     180deg,
-    color-mix(in oklch, var(--cognac) 38%, transparent 62%) 0%,
-    color-mix(in oklch, var(--cognac-dark) 48%, transparent 52%) 50%,
-    color-mix(in oklch, var(--cognac) 38%, transparent 62%) 100%
+    color-mix(in oklch, var(--cognac) 72%, transparent 28%) 0%,
+    color-mix(in oklch, var(--cognac-dark) 80%, transparent 20%) 50%,
+    color-mix(in oklch, var(--cognac) 72%, transparent 28%) 100%
   );
 }
 
@@ -776,15 +776,15 @@ html[data-motion="reduce"] .parxis-gold-text {
   background:
     radial-gradient(
       ellipse at 30% 20%,
-      color-mix(in oklch, var(--cognac-light) 10%, transparent 90%) 0%,
+      color-mix(in oklch, var(--cognac-light) 22%, transparent 78%) 0%,
       transparent 55%
     ),
     linear-gradient(
       180deg,
       color-mix(in oklch, var(--obsidian) 96%, transparent 4%) 0%,
-      color-mix(in oklch, var(--cognac) 20%, transparent 80%) 100%
+      color-mix(in oklch, var(--cognac) 45%, transparent 55%) 100%
     );
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 /* Painel 4: listras de ouro como régua de ourives */
@@ -796,13 +796,13 @@ html[data-motion="reduce"] .parxis-gold-text {
       90deg,
       transparent 0px,
       transparent 22px,
-      color-mix(in oklch, var(--gold) 5%, transparent 95%) 23px,
+      color-mix(in oklch, var(--gold) 18%, transparent 82%) 23px,
       transparent 24px
     ),
     linear-gradient(
       180deg,
-      color-mix(in oklch, var(--cognac-dark) 42%, transparent 58%) 0%,
-      color-mix(in oklch, var(--cognac) 32%, transparent 68%) 100%
+      color-mix(in oklch, var(--cognac-dark) 70%, transparent 30%) 0%,
+      color-mix(in oklch, var(--cognac) 55%, transparent 45%) 100%
     );
 }
 
@@ -813,11 +813,11 @@ html[data-motion="reduce"] .parxis-gold-text {
   transform: translateX(-50%);
   background: radial-gradient(
     ellipse at 50% 50%,
-    color-mix(in oklch, var(--cognac-light) 5%, transparent 95%) 0%,
+    color-mix(in oklch, var(--cognac-light) 14%, transparent 86%) 0%,
     transparent 70%
   );
-  opacity: 0.35;
-  border: 1px solid color-mix(in oklch, var(--gold) 8%, transparent 92%);
+  opacity: 0.55;
+  border: 1px solid color-mix(in oklch, var(--gold) 18%, transparent 82%);
 }
 
 @media (max-width: 767px) {

@@ -205,7 +205,7 @@ function Hero() {
 function ParallaxPanels() {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef(0);
-  const speeds = [0.08, -0.12, 0.18, -0.06, 0.03];
+  const speeds = [0.22, -0.32, 0.42, -0.18, 0.1];
 
   useEffect(() => {
     if (document.documentElement.dataset.motion === "reduce") return;
