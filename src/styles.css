@@ -357,6 +357,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  /* Suaviza o dourado do PNG — menos laranja, mais champagne */
+  filter: saturate(0.72) hue-rotate(-8deg) brightness(1.04);
 }
 
 /* Luz-sweep prismática que atravessa o símbolo */
@@ -409,8 +411,9 @@
   background-size: contain;
   background-position: center;
   filter:
+    saturate(0.72) hue-rotate(-8deg) brightness(1.04)
     drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 0 22px rgba(242, 184, 23, 0.28));
+    drop-shadow(0 0 22px rgba(232, 214, 170, 0.28));
 }
 
 @media (max-width: 767px) {
