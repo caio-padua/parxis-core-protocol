@@ -213,7 +213,7 @@ function Hero() {
   return (
     <section
       id="top"
-      className="parxis-hero relative parxis-hero-bg pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
+      className="parxis-hero relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
       style={{
         ["--hero-bg-4k" as string]: `url(${heroBg4K.url})`,
         ["--hero-bg-qhd" as string]: `url(${heroBgQHD.url})`,
