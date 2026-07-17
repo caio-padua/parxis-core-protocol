@@ -524,10 +524,10 @@
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  border: 1px solid rgba(242, 184, 23, 0.28);
+  border: 1px solid color-mix(in oklch, var(--gold) 28%, transparent 72%);
   box-shadow:
-    inset 0 0 40px rgba(242, 184, 23, 0.08),
-    0 0 60px rgba(242, 184, 23, 0.08);
+    inset 0 0 40px color-mix(in oklch, var(--gold) 8%, transparent 92%),
+    0 0 60px color-mix(in oklch, var(--gold) 8%, transparent 92%);
   pointer-events: none;
   z-index: 0;
   animation: ringPulse 6s ease-in-out infinite;
