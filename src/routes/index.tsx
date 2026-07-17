@@ -579,23 +579,23 @@ function CTA() {
       <div className="mx-auto max-w-3xl px-6 lg:px-10 relative">
        <div className="text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Convite Privado
+          Candidatura por Indicação
         </p>
         <h2 className="font-serif text-4xl md:text-6xl leading-tight">
-          Uma demonstração <em className="parxis-gold-text not-italic">à porta fechada</em>.
+          Uma conversa <em className="parxis-gold-text not-italic">à porta fechada</em>.
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-xl mx-auto">
-          Recebemos um número limitado de clínicas por trimestre. Se a excelência clínica é a sua assinatura, conversemos.
+          Recebemos até doze licenciados por safra. Se você foi indicado — ou acredita que o padrão da sua clínica justifica uma indicação — envie seu pedido. A PAWARDS MedCore® analisa cada candidatura pessoalmente.
         </p>
        </div>
 
         {submitted ? (
           <div className="mt-14 parxis-card rounded-lg p-10 text-center">
             <div className="font-serif text-[color:var(--gold)] text-5xl mb-6 opacity-70">✦</div>
-            <h3 className="font-serif text-2xl md:text-3xl mb-4">Recebemos sua solicitação.</h3>
+            <h3 className="font-serif text-2xl md:text-3xl mb-4">Sua candidatura foi recebida.</h3>
             <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
-              Um consultor Parxis entrará em contato em até 48 horas, em caráter privado, com uma janela de demonstração reservada para sua clínica.
+              Um responsável da PAWARDS MedCore® entrará em contato em até 48 horas, em caráter privado, apenas se sua candidatura avançar para a próxima etapa. O silêncio, se ocorrer, também é uma resposta respeitosa.
             </p>
           </div>
         ) : (
