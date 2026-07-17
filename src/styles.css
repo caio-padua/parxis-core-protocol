@@ -22,7 +22,7 @@
     radial-gradient(120% 90% at 50% 0%, rgba(62, 13, 18, 0.34) 0%, transparent 58%),
     radial-gradient(120% 90% at 50% 100%, rgba(4, 1, 2, 0.82) 0%, transparent 62%),
     var(--parxis-atelier-url, var(--parxis-wool-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, contain;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 76% auto;
   background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
@@ -112,7 +112,7 @@
     radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.52) 0%, transparent 55%),
     radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.78) 0%, transparent 60%),
     var(--parxis-atelier-url, var(--parxis-leather-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, contain;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 76% auto;
   background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
@@ -1013,8 +1013,8 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 }
 
 /* ————————————————— HERO INSTITUCIONAL PARXIS —————————————————
-   Fundo cinematográfico responsivo. Nunca deformar: usa cover.
-   Overlay em gradiente (não camada uniforme) para legibilidade. */
+   Fundo cinematográfico responsivo. Nunca deformar e nunca aproximar:
+   a fotografia fica menor que o palco, como um quadro aberto no ambiente. */
 .parxis-hero {
   isolation: isolate;
   min-height: min(100svh, 900px);
@@ -1028,9 +1028,9 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
       rgba(5, 2, 2, 0.05) 100%
     ),
     var(--hero-bg-qhd);
-  background-size: contain;
+  background-size: 100% 100%, 92% auto;
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center, center top;
   background-attachment: scroll;
   background-color: #050505;
 }
@@ -1070,9 +1070,9 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.15) 42%,
         rgba(5, 2, 2, 0.78) 100%
       ),
-      var(--hero-bg-tablet);
-    background-size: contain;
-    background-position: center top;
+      var(--hero-bg-qhd);
+    background-size: 100% 100%, 82% auto;
+    background-position: center, center top;
     background-attachment: scroll;
   }
 }
@@ -1088,9 +1088,9 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.86) 78%,
         rgba(5, 2, 2, 0.96) 100%
       ),
-      var(--hero-bg-mobile);
-    background-size: contain;
-    background-position: center top;
+      var(--hero-bg-fhd);
+    background-size: 100% 100%, 84% auto;
+    background-position: center, center top;
     background-attachment: scroll;
   }
 }
@@ -1171,7 +1171,9 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.22) 42%,
         rgba(5, 2, 2, 0.84) 100%
       ),
-      var(--hero-bg-tablet);
+      var(--hero-bg-qhd);
+    background-size: 100% 100%, 82% auto;
+    background-position: center, center top;
   }
 }
 
@@ -1185,7 +1187,9 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.88) 78%,
         rgba(5, 2, 2, 0.96) 100%
       ),
-      var(--hero-bg-mobile);
+      var(--hero-bg-fhd);
+    background-size: 100% 100%, 84% auto;
+    background-position: center, center top;
   }
 }
 
