@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import parxisSymbol from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmark from "@/assets/parxis-wordmark.png.asset.json";
 
