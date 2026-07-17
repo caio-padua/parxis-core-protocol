@@ -791,6 +791,40 @@ function CTA() {
         <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
           Resposta em até 48 horas · Apenas às candidaturas selecionadas
         </p>
+
+        <div className="mt-10 parxis-card rounded-lg p-8 md:p-10 text-left">
+          <h3 className="font-serif text-xl mb-5">
+            Termos de elegibilidade e consentimento
+          </h3>
+          <div className="parxis-gold-rule w-16 mb-6 opacity-60" />
+
+          <ul className="space-y-3 text-xs md:text-sm text-muted-foreground font-light leading-relaxed mb-6">
+            <li className="flex gap-3">
+              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
+              <span>Declaro ser médico responsável técnico por uma clínica em atividade, com CPF/CNPJ e registro profissional ativos.</span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
+              <span>Confirmo que a candidatura é analisada de forma privada e que o acesso ao Parxis depende de indicação aprovada pela PAWARDS MedCore®.</span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
+              <span>Entendo que o número de licenciados é limitado a 12 por safra e que o não recebimento de resposta também significa manutenção do padrão do Círculo.</span>
+            </li>
+          </ul>
+
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              name="consentimento_lgpd"
+              required
+              className="mt-1 h-4 w-4 accent-[color:var(--gold)] rounded border border-[rgba(242,184,23,0.45)] bg-transparent cursor-pointer"
+            />
+            <span className="text-xs text-muted-foreground font-light leading-relaxed">
+              Li e concordo com o uso dos dados acima para análise de elegibilidade, contato sobre minha candidatura e, se aprovado, ativação da licença Parxis, conforme a LGPD. Seus dados são tratados em sigilo, não são comercializados e podem ser solicitados para exclusão a qualquer momento pelo email <span className="text-[color:var(--gold)]">contato@parxis.com.br</span>.
+            </span>
+          </label>
+        </div>
       </div>
     </section>
   );
