@@ -547,8 +547,8 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,236,170,1) 0%, rgba(242,184,23,0.4) 55%, transparent 70%);
-  box-shadow: 0 0 8px rgba(255, 216, 90, 0.55);
+  background: radial-gradient(circle, var(--gold-light) 0%, color-mix(in oklch, var(--gold) 40%, transparent 60%) 55%, transparent 70%);
+  box-shadow: 0 0 8px color-mix(in oklch, var(--gold-light) 55%, transparent 45%);
   --dx: calc((sin(var(--i) * 1.7) * 140px));
   --dy: calc(-1 * (110px + (var(--i) * 12px)));
   animation: particleDrift calc(6s + (var(--i) * 0.35s)) ease-in-out infinite;
