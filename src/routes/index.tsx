@@ -211,7 +211,17 @@ function ContrastToggle() {
 /* ————————————————— HERO ————————————————— */
 function Hero() {
   return (
-    <section id="top" className="relative parxis-hero-bg pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+    <section
+      id="top"
+      className="parxis-hero relative parxis-hero-bg pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
+      style={{
+        ["--hero-bg-4k" as string]: `url(${heroBg4K.url})`,
+        ["--hero-bg-qhd" as string]: `url(${heroBgQHD.url})`,
+        ["--hero-bg-fhd" as string]: `url(${heroBgFHD.url})`,
+        ["--hero-bg-tablet" as string]: `url(${heroBgTablet.url})`,
+        ["--hero-bg-mobile" as string]: `url(${heroBgMobile.url})`,
+      }}
+    >
       <ParallaxPanels />
       {/* linhas decorativas de moldura */}
       <div className="absolute inset-x-8 top-24 parxis-gold-rule opacity-60" />
