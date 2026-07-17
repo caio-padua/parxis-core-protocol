@@ -402,7 +402,10 @@
     rgba(255, 236, 170, 0.10) 0%,
     rgba(217, 144, 0, 0.06) 40%,
     rgba(37, 7, 10, 0) 75%);
-  animation: auraBreath2 9s ease-in-out infinite;
+  /* Sincronizado com o levitar (7s) para o halo acompanhar o sobe/desce;
+     leve delay negativo mantém a contra-respiração sem sair do ritmo. */
+  animation: auraBreath2 7s ease-in-out infinite;
+  animation-delay: -1.4s;
 }
 
 /* Halo cônico iridescente */
