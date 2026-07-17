@@ -333,7 +333,7 @@ function Features() {
             Recursos · Chapitre I
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Um sistema desenhado como se fosse um <em className="parxis-gold-text not-italic">instrumento cirúrgico</em>.
+            Um sistema para operar. Um motor para pensar. Uma plataforma para <em className="parxis-gold-text not-italic">crescer</em>.
           </h2>
           <div className="parxis-gold-rule w-32 mt-8" />
         </div>
