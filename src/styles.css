@@ -1031,7 +1031,7 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 52% center;
-  background-attachment: fixed;
+  background-attachment: scroll;
 }
 
 /* Dentro do hero, os painéis parallax ficam bem discretos
