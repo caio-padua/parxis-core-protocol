@@ -22,7 +22,7 @@
     radial-gradient(120% 90% at 50% 0%, rgba(62, 13, 18, 0.34) 0%, transparent 58%),
     radial-gradient(120% 90% at 50% 100%, rgba(4, 1, 2, 0.82) 0%, transparent 62%),
     var(--parxis-atelier-url, var(--parxis-wool-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, 65% auto;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 42% auto;
   background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
@@ -112,7 +112,7 @@
     radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,0.52) 0%, transparent 55%),
     radial-gradient(120% 100% at 50% 100%, rgba(0,0,0,0.78) 0%, transparent 60%),
     var(--parxis-atelier-url, var(--parxis-leather-url, none));
-  background-size: 100% 100%, 100% 100%, 100% 100%, 65% auto;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 42% auto;
   background-position: center, center, center, center top;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, scroll, scroll, scroll;
@@ -1028,7 +1028,7 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
       rgba(5, 2, 2, 0.05) 100%
     ),
     var(--hero-bg-qhd);
-  background-size: 100% 100%, 78% auto;
+  background-size: 100% 100%, 51% auto;
   background-repeat: no-repeat;
   background-position: center, center top;
   background-attachment: scroll;
@@ -1071,7 +1071,7 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.78) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 70% auto;
+    background-size: 100% 100%, 46% auto;
     background-position: center, center top;
     background-attachment: scroll;
   }
@@ -1089,7 +1089,7 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 71% auto;
+    background-size: 100% 100%, 46% auto;
     background-position: center, center top;
     background-attachment: scroll;
   }
@@ -1172,7 +1172,7 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.84) 100%
       ),
       var(--hero-bg-qhd);
-    background-size: 100% 100%, 70% auto;
+    background-size: 100% 100%, 46% auto;
     background-position: center, center top;
   }
 }
@@ -1188,7 +1188,7 @@ html[data-contrast="high"] .parxis-leather-bg::before {
         rgba(5, 2, 2, 0.96) 100%
       ),
       var(--hero-bg-fhd);
-    background-size: 100% 100%, 71% auto;
+    background-size: 100% 100%, 46% auto;
     background-position: center, center top;
   }
 }
