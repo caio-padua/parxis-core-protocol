@@ -292,10 +292,10 @@
 }
 .parxis-symbol-levitate {
   position: relative;
-  /* Distância de levitação proporcional ao tamanho do símbolo
-     (~8% do símbolo em qualquer viewport). O símbolo tem
-     width: min(72vw, 460px), então usamos a mesma progressão. */
-  --parxis-levitate: clamp(18px, 6vw, 38px);
+  /* Altura de flutuação (baseline elevado) e amplitude do mergulho.
+     Escalam com o viewport para manter proporções em mobile/desktop. */
+  --parxis-hover: clamp(60px, 12vw, 110px);
+  --parxis-dip:   clamp(24px, 6vw,  56px);
   animation: symbolLevitate 7s ease-in-out infinite;
   will-change: transform, filter;
 }
@@ -304,7 +304,8 @@
 .parxis-shadow {
   position: absolute;
   left: 50%;
-  top: calc(50% + min(30vw, 200px));
+  /* Ancora perto da base do palco, onde o símbolo desce ao cruzar o wordmark */
+  bottom: clamp(70px, 12%, 110px);
   width: min(60vw, 380px);
   height: 42px;
   transform: translate(-50%, 0);
@@ -323,7 +324,7 @@
 .parxis-surface {
   position: absolute;
   left: 50%;
-  top: calc(50% + min(30vw, 200px) + 18px);
+  bottom: calc(clamp(70px, 12%, 110px) - 18px);
   width: min(78vw, 520px);
   height: 1px;
   transform: translate(-50%, 0);
@@ -385,7 +386,10 @@
 
 /* Wordmark PARXIS — estático, primeiro plano, íntegro */
 .parxis-wordmark {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 4%, 40px);
+  transform: translateX(-50%);
   z-index: 2;
   width: min(78vw, 480px);
   aspect-ratio: 5 / 1;
