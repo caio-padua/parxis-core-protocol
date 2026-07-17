@@ -7,6 +7,10 @@ import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide.jpg.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide.jpg.asset.json";
+import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext";
+import { content } from "@/content/parxis";
+import { GoldCorners } from "@/components/GoldCorners";
+
 const ampoulesAtelierUrl = ampoulesWideAsset.url;
 const heroBg4K = atelierWideAsset;
 const heroBgQHD = atelierWideAsset;
@@ -24,15 +28,22 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main
-      className="min-h-screen bg-background text-foreground overflow-x-hidden"
+      className="parxis-app relative min-h-screen bg-background text-foreground overflow-x-hidden"
       style={{
         ["--parxis-symbol-url" as string]: `url(${parxisSymbolUrl})`,
         ["--parxis-wordmark-url" as string]: `url(${parxisWordmarkUrl})`,
         ["--parxis-atelier-url" as string]: `url(${ampoulesAtelierUrl})`,
         ["--parxis-wool-url" as string]: `url(${ampoulesAtelierUrl})`,
         ["--parxis-leather-url" as string]: `url(${ampoulesAtelierUrl})`,
+        ["--parxis-fixed-url" as string]: `url(${ampoulesAtelierUrl})`,
       }}
     >
+      {/* Camada 1 — couro travado no viewport (background-attachment: fixed).
+          Fica atrás de tudo. O Hero, sendo opaco, tapa esta camada na primeira dobra;
+          a partir daí, todas as seções são vidro fumê e deixam esta imagem aparecer. */}
+      <div className="parxis-fixed-bg" aria-hidden />
+      <div className="parxis-fixed-veil" aria-hidden />
+
       <Nav />
       <Hero />
       <Manifesto />
@@ -51,23 +62,25 @@ function Index() {
 
 /* ————————————————— NAV ————————————————— */
 function Nav() {
+  const { lang } = useLang();
+  const c = content.nav;
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[rgba(5,5,5,0.55)] border-b border-[rgba(242,184,23,0.12)]">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-3">
           <span className="text-[color:var(--gold)] font-serif tracking-[0.28em] text-sm uppercase">
-            Parxis
+            {tr(c.brand, lang)}
           </span>
           <span className="hidden sm:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-            Por Indicação
+            {tr(c.tagline, lang)}
           </span>
         </a>
         <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-          <a href="#manifesto" className="hover:text-[color:var(--gold)] transition-colors">Manifesto</a>
-          <a href="#recursos" className="hover:text-[color:var(--gold)] transition-colors">Recursos</a>
-          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">Inteligência</a>
-          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">O Círculo</a>
-          <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">Ecossistema</a>
+          <a href="#manifesto" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.manifesto, lang)}</a>
+          <a href="#recursos" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.features, lang)}</a>
+          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.technology, lang)}</a>
+          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.circle, lang)}</a>
+          <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.ecosystem, lang)}</a>
         </nav>
         <div className="flex items-center gap-3">
           <ContrastToggle />
@@ -76,7 +89,7 @@ function Nav() {
             href="#contato"
             className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden md:inline-flex"
           >
-            <span className="parxis-btn-inner">Solicitar indicação</span>
+            <span className="parxis-btn-inner">{tr(c.cta, lang)}</span>
           </a>
         </div>
       </div>
@@ -86,8 +99,8 @@ function Nav() {
 
 /* ————————————————— MOTION TOGGLE ————————————————— */
 type MotionMode = "full" | "reduce";
-
 function MotionToggle() {
+  const { lang } = useLang();
   const [mode, setMode] = useState<MotionMode | null>(null);
 
   useEffect(() => {
@@ -107,27 +120,18 @@ function MotionToggle() {
 
   if (mode === null) return null;
   const reduced = mode === "reduce";
+  const title = reduced ? tr(content.nav.a11y.motionOff, lang) : tr(content.nav.a11y.motionOn, lang);
 
   return (
     <button
       type="button"
       onClick={toggle}
       aria-pressed={reduced}
-      aria-label={reduced ? "Ativar animações do site" : "Reduzir animações do site"}
-      title={reduced ? "Animações reduzidas — clique para ativar" : "Animações ativas — clique para reduzir"}
+      aria-label={title}
+      title={title}
       className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
     >
-      <svg
-        aria-hidden="true"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         {reduced ? (
           <>
             <circle cx="12" cy="12" r="9" />
@@ -153,8 +157,8 @@ function MotionToggle() {
 
 /* ————————————————— CONTRAST TOGGLE ————————————————— */
 type ContrastMode = "normal" | "high";
-
 function ContrastToggle() {
+  const { lang } = useLang();
   const [mode, setMode] = useState<ContrastMode | null>(null);
 
   useEffect(() => {
@@ -173,27 +177,18 @@ function ContrastToggle() {
 
   if (mode === null) return null;
   const high = mode === "high";
+  const title = high ? tr(content.nav.a11y.contrastOn, lang) : tr(content.nav.a11y.contrastOff, lang);
 
   return (
     <button
       type="button"
       onClick={toggle}
       aria-pressed={high}
-      aria-label={high ? "Usar contraste normal do fundo" : "Aumentar contraste do fundo"}
-      title={high ? "Contraste alto ativo — clique para normal" : "Contraste normal — clique para aumentar"}
+      aria-label={title}
+      title={title}
       className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
     >
-      <svg
-        aria-hidden="true"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         {high ? (
           <>
             <path d="M12 2v20" />
@@ -212,6 +207,8 @@ function ContrastToggle() {
 
 /* ————————————————— HERO ————————————————— */
 function Hero() {
+  const { lang } = useLang();
+  const c = content.hero;
   return (
     <section
       id="top"
@@ -225,68 +222,53 @@ function Hero() {
       }}
     >
       <ParallaxPanels />
-      {/* linhas decorativas de moldura */}
+      <GoldCorners inset={20} size={34} thickness={2} />
       <div className="absolute inset-x-8 top-24 parxis-gold-rule opacity-60" />
       <div className="absolute inset-x-8 bottom-8 parxis-gold-rule opacity-40" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center relative">
-        {/* Texto */}
         <div className="parxis-reveal">
-          <p className="text-[10px] md:text-xs uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-            Um produto PAWARDS MedCore® · Uma empresa PADCOM
+          <p className="parxis-enter parxis-enter-1 text-[10px] md:text-xs uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
+            {tr(c.eyebrow, lang)}
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-            O sistema clínico que trabalha{" "}
-            <span className="parxis-gold-text italic">enquanto você cuida</span>.
+          <h1 className="parxis-enter parxis-enter-2 font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
+            {tr(c.titlePre, lang)}{" "}
+            <span className="parxis-gold-text italic">{tr(c.titleGold, lang)}</span>{tr(c.titlePost, lang)}
           </h1>
-          <div className="parxis-gold-rule w-32 my-10" />
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-light">
-            Da primeira consulta ao arquivo definitivo — sem papel, sem retrabalho, sem risco jurídico. Um motor clínico reservado a um número restrito de médicos, admitidos apenas por indicação.
+          <div className="parxis-enter parxis-enter-3 parxis-gold-rule w-32 my-10" />
+          <p className="parxis-enter parxis-enter-3 text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl font-light">
+            {tr(c.lead, lang)}
           </p>
 
-          <div className="mt-12 flex flex-wrap gap-4">
-            <a
-              href="#contato"
-              className="parxis-btn parxis-btn-primary group"
-            >
+          <div className="parxis-enter parxis-enter-4 mt-12 flex flex-wrap gap-4">
+            <a href="#contato" className="parxis-btn parxis-btn-primary group">
               <span className="parxis-btn-inner">
-                Solicitar carta de indicação
+                {tr(c.ctaPrimary, lang)}
                 <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
               </span>
             </a>
-            <a
-              href="#clinicas"
-              className="parxis-btn parxis-btn-ghost"
-            >
-              <span className="parxis-btn-inner">Sobre o licenciamento</span>
+            <a href="#clinicas" className="parxis-btn parxis-btn-ghost">
+              <span className="parxis-btn-inner">{tr(c.ctaSecondary, lang)}</span>
             </a>
           </div>
 
-          <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
-            {[
-              { k: "Por", v: "indicação apenas" },
-              { k: "12", v: "licenciados por safra" },
-              { k: "1", v: "só médico decide" },
-            ].map((it) => (
-              <div key={it.v}>
-                <div className="font-serif text-3xl text-[color:var(--gold)]">{it.k}</div>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1 leading-snug">{it.v}</div>
+          <div className="parxis-enter parxis-enter-4 mt-14 grid grid-cols-3 gap-6 max-w-md">
+            {c.stats.map((it, i) => (
+              <div key={i}>
+                <div className="font-serif text-3xl text-[color:var(--gold)]">{tr(it.k, lang)}</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1 leading-snug">{tr(it.v, lang)}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Símbolo flutuante */}
         <ParxisMonogram />
       </div>
     </section>
   );
 }
 
-/* ————————————————— PAINÉIS PARALLAX —————————————————
-   Camadas verticais que evocam couro, ferragens e arquivos
-   de uma oficina de manufatura Hermès. Movem-se em velocidades
-   distintas ao rolar, criando profundidade sem distrair. */
+/* ————————————————— PAINÉIS PARALLAX ————————————————— */
 function ParallaxPanels() {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef(0);
@@ -299,14 +281,9 @@ function ParallaxPanels() {
 
   useEffect(() => {
     if (document.documentElement.dataset.motion === "reduce") return;
-
     let targetY = 0;
     let currentY = 0;
-
-    const onScroll = () => {
-      targetY = window.scrollY;
-    };
-
+    const onScroll = () => { targetY = window.scrollY; };
     const tick = () => {
       currentY += (targetY - currentY) * lerp;
       panelRefs.current.forEach((el, i) => {
@@ -317,10 +294,8 @@ function ParallaxPanels() {
       });
       rafRef.current = requestAnimationFrame(tick);
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafRef.current);
@@ -340,14 +315,9 @@ function ParallaxPanels() {
   );
 }
 
-/* ————————————————— MONOGRAMA VIVO —————————————————
-   Wordmark PARXIS estático em primeiro plano.
-   Símbolo respira atrás — se aproxima e se afasta —
-   com múltiplas auras em ritmos distintos, halo cônico
-   rotativo, luz-sweep prismática e parallax 3D no mouse. */
+/* ————————————————— MONOGRAMA ————————————————— */
 function ParxisMonogram() {
   const stageRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
@@ -377,41 +347,26 @@ function ParxisMonogram() {
   }, []);
 
   return (
-    <div
-      ref={stageRef}
-      className="parxis-stage relative flex items-center justify-center min-h-[560px] lg:min-h-[640px]"
-      aria-label="Parxis"
-    >
-      {/* Halo cônico rotativo — iridescência dourada */}
+    <div ref={stageRef} className="parxis-stage relative flex items-center justify-center min-h-[560px] lg:min-h-[640px]" aria-label="Parxis">
       <div className="parxis-halo-conic" aria-hidden />
-      {/* Auras respirando em ritmos independentes */}
       <div className="parxis-aura parxis-aura-1" aria-hidden />
       <div className="parxis-aura parxis-aura-2" aria-hidden />
-      {/* Anel dourado etéreo */}
       <div className="parxis-ring" aria-hidden />
-      {/* Partículas de ouro à deriva */}
       <div className="parxis-particles" aria-hidden>
         {Array.from({ length: 14 }).map((_, i) => (
           <span key={i} style={{ ["--i" as string]: i }} />
         ))}
       </div>
-
-      {/* Símbolo — respira, gira suavemente, atrás do wordmark */}
       <div className="parxis-symbol-wrap" aria-hidden>
         <div className="parxis-symbol-tilt">
           <div className="parxis-symbol-levitate">
             <div className="parxis-symbol-img" role="img" aria-label="Símbolo Parxis" />
-            {/* Luz-sweep prismática por cima do símbolo */}
             <div className="parxis-symbol-sheen" aria-hidden />
           </div>
-          {/* Sombra projetada na superfície */}
           <div className="parxis-shadow" aria-hidden />
-          {/* Superfície onde o símbolo levita */}
           <div className="parxis-surface" aria-hidden />
         </div>
       </div>
-
-      {/* Wordmark PARXIS — estático, em primeiro plano, íntegro */}
       <div className="parxis-wordmark" role="img" aria-label="PARXIS" />
     </div>
   );
@@ -419,18 +374,20 @@ function ParxisMonogram() {
 
 /* ————————————————— MANIFESTO ————————————————— */
 function Manifesto() {
+  const { lang } = useLang();
+  const c = content.manifesto;
   return (
-    <section id="manifesto" className="relative py-28 lg:py-40 bg-background">
+    <section id="manifesto" className="parxis-glass relative py-28 lg:py-40">
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Manifesto · Da PADCOM
+          {tr(c.eyebrow, lang)}
         </p>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight text-foreground">
-          Construído por um médico que <em className="parxis-gold-text not-italic">cansou de esperar</em> que alguém construísse.
+          {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
-          O PARXIS nasce dentro da PAWARDS MedCore® — a engenharia clínica da holding PADCOM, fundada por um médico endocrinologista que decidiu projetar os sistemas que o mercado nunca ofereceu. Não é um software adaptado à medicina. É medicina que se tornou sistema. E por isso não se replica: exige anos de prática clínica real somados a uma engenharia que poucos, no mundo, conseguem executar.
+          {tr(c.body, lang)}
         </p>
       </div>
     </section>
@@ -438,65 +395,29 @@ function Manifesto() {
 }
 
 /* ————————————————— FEATURES ————————————————— */
-const FEATURES = [
-  {
-    n: "01",
-    title: "Cockpit unificado do médico",
-    body: "Uma única tela por cliente: prescrição de injetáveis, fórmulas manipuladas, pedidos de exames, evolução laboratorial e emissão de documentos. Você decide sem sair, sem abrir outro sistema, sem quebrar a linha do raciocínio.",
-  },
-  {
-    n: "02",
-    title: "Lançador guiado de protocolos",
-    body: "Você define substâncias, frequências e datas. Em um único comando, o protocolo é criado, as sessões validadas e o formulário de auditoria da enfermagem é gerado — pronto para uma fiscalização sanitária a qualquer momento.",
-  },
-  {
-    n: "03",
-    title: "Documento com validade jurídica nacional",
-    body: "Cada aplicação gera um documento clínico oficial assinado digitalmente no padrão jurídico brasileiro — equivalente ao reconhecimento de firma em cartório, sem papel. Arquivado, entregue por e-mail e disponível no app do cliente.",
-  },
-  {
-    n: "04",
-    title: "Leitura de laudos por inteligência clínica",
-    body: "Envie o PDF do laudo. O motor extrai cada analito automaticamente e o compara com faixas próprias da medicina integrativa — não com o padrão populacional. Você mostra ao cliente onde ele está no espectro real de saúde.",
-  },
-  {
-    n: "05",
-    title: "Mensageria cronobiológica",
-    body: "O sistema conhece o momento biologicamente correto de cada medicamento e envia o lembrete na hora certa. Adesão do cliente sobe, retrabalho da secretária cai, resultado clínico aparece.",
-  },
-  {
-    n: "06",
-    title: "Console de orçamento com três cenários",
-    body: "À vista, entrada com parcelas e parcelado — taxas já calculadas, escada de desconto por volume. A secretária apresenta. O cliente escolhe. Você fecha sem intermediar planilhas.",
-  },
-];
-
 function Features() {
+  const { lang } = useLang();
+  const c = content.features;
   return (
-    <section id="recursos" className="parxis-bordo-fabric relative py-28 lg:py-36">
+    <section id="recursos" className="parxis-glass parxis-glass-frame relative py-28 lg:py-36">
       <div className="parxis-bordo-stitch-frame" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Recursos · Chapitre I
+            {tr(c.eyebrow, lang)}
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Um sistema para operar. Um motor para pensar. Uma plataforma para <em className="parxis-gold-text not-italic">crescer</em>.
+            {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
           </h2>
           <div className="parxis-gold-rule w-32 mt-8" />
         </div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {FEATURES.map((f) => (
+          {c.items.map((f) => (
             <article key={f.n} className="parxis-card rounded-lg p-8 lg:p-10">
-              <div className="font-serif text-[color:var(--gold)] text-sm tracking-[0.4em] mb-6">
-                {f.n}
-              </div>
-              <h3 className="font-serif text-2xl leading-snug mb-4">{f.title}</h3>
+              <div className="font-serif text-[color:var(--gold)] text-sm tracking-[0.4em] mb-6">{f.n}</div>
+              <h3 className="font-serif text-2xl leading-snug mb-4">{tr(f.title, lang)}</h3>
               <div className="parxis-gold-rule w-12 mb-5 opacity-60" />
-              <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                {f.body}
-              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed font-light">{tr(f.body, lang)}</p>
             </article>
           ))}
         </div>
@@ -506,38 +427,26 @@ function Features() {
 }
 
 /* ————————————————— TECHNOLOGY ————————————————— */
-const TECH = [
-  { term: "Questionário clínico por sistemas", desc: "anamnese progressiva — só o que é relevante para aquele cliente. Alertas críticos nunca são suprimidos." },
-  { term: "Motor de regras clínicas", desc: "biblioteca de raciocínio construída sobre décadas de prática. O motor lembra por você. A decisão final é sempre sua." },
-  { term: "Caminhos clínicos por queixa", desc: "você informa a queixa em foco. O sistema sugere quais exames pedir e quais tratamentos considerar — antes de você abrir a boca." },
-  { term: "Faixas de referência integrativas", desc: "excelente, ótimo, aceitável — pela ótica da medicina integrativa, não pelo padrão laboratorial convencional." },
-  { term: "Posologia cronobiológica", desc: "o motor conhece o momento certo de cada medicamento no dia — o esquema de uso e os lembretes saem prontos." },
-  { term: "Evolução clínica longitudinal", desc: "a cada consulta, o histórico cresce. Com o tempo, o banco de dados da sua clínica se torna um ativo estratégico real." },
-  { term: "Isolamento total entre clínicas", desc: "cada licenciado opera em cofre próprio. Nenhum concorrente enxerga, cruza ou toca seus dados." },
-  { term: "Assinatura com validade jurídica nacional", desc: "documentos clínicos com o padrão brasileiro de reconhecimento — equivalente a firma em cartório, sem papel." },
-];
-
 function Technology() {
+  const { lang } = useLang();
+  const c = content.technology;
   return (
-    <section id="tecnologia" className="relative py-28 lg:py-36 bg-background">
+    <section id="tecnologia" className="parxis-glass relative py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6 lg:px-10">
         <div className="text-center mb-20">
           <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Inteligência · Chapitre II
+            {tr(c.eyebrow, lang)}
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight max-w-3xl mx-auto">
-            O motor <em className="parxis-gold-text not-italic">PAWARDS MedCore®</em> — que trabalha enquanto você atende.
+            {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
           </h2>
           <div className="parxis-gold-rule w-32 mx-auto mt-8" />
         </div>
-
         <dl className="grid md:grid-cols-2 gap-x-16 gap-y-10">
-          {TECH.map((t) => (
-            <div key={t.term} className="border-l border-[rgba(242,184,23,0.25)] pl-6">
-              <dt className="font-serif text-lg text-[color:var(--gold)]">{t.term}</dt>
-              <dd className="mt-2 text-sm text-muted-foreground leading-relaxed font-light">
-                {t.desc}
-              </dd>
+          {c.items.map((t, i) => (
+            <div key={i} className="border-l border-[rgba(242,184,23,0.25)] pl-6">
+              <dt className="font-serif text-lg text-[color:var(--gold)]">{tr(t.term, lang)}</dt>
+              <dd className="mt-2 text-sm text-muted-foreground leading-relaxed font-light">{tr(t.desc, lang)}</dd>
             </div>
           ))}
         </dl>
@@ -548,69 +457,39 @@ function Technology() {
 
 /* ————————————————— FOR CLINICS ————————————————— */
 function ForClinics() {
-  const steps = [
-    {
-      title: "I · O Indicado",
-      lead: "A porta se abre por quem já pertence ao Círculo.",
-      body: "O Parxis não é vendido. É concedido. Receber uma carta de indicação significa que um médico licenciado reconheceu em sua clínica o mesmo padrão que a maison exige: discrição, excelência clínica e vontade de operar como uma casa, não como um consultório. A partir daí, sua candidatura entra para análise privada da PAWARDS MedCore®. Sem fila. Sem comercial. Apenas uma decisão cuidadosa.",
-    },
-    {
-      title: "II · O Licenciado",
-      lead: "Admitido, você recebe um território protegido.",
-      body: "Cada licenciado ocupa uma micro-região exclusiva: seus clientes, seus protocolos, sua marca em cada documento assinado digitalmente. O acesso é vitalício às evoluções do motor PAWARDS MedCore®, sem taxas de upgrade. O sistema aprende com sua prática, mas seus dados permanecem inacessíveis a qualquer outra clínica — inclusive às do próprio Círculo.",
-    },
-    {
-      title: "III · O Sublicenciante",
-      lead: "A admissão abre um privilégio raro: o poder de indicar.",
-      body: "Um licenciado Parxis pode sublicenciar outras clínicas, desde que aprovadas pela PAWARDS MedCore®. Cada nova indicação que você patrocina amplia a rede e gera uma participação recorrente sobre a licença daquela clínica. Sua reputação clínica deixa de ser apenas reputação: torna-se patrimônio, rendimento e legado dentro da maison.",
-    },
-  ];
-
+  const { lang } = useLang();
+  const c = content.circle;
   return (
-    <section id="clinicas" className="parxis-bordo-fabric relative py-28 lg:py-36">
+    <section id="clinicas" className="parxis-glass parxis-glass-frame relative py-28 lg:py-36">
       <div className="parxis-bordo-stitch-frame" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl mb-20">
-          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            O Círculo · Chapitre III
-          </p>
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">{tr(c.eyebrow, lang)}</p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Três degraus, uma <em className="parxis-gold-text not-italic">só maison</em> — e um número limitado de assentos.
+            {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
           </h2>
           <p className="mt-6 text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl">
-            O PARXIS não é vendido em massa. É concedido, por licença, a uma pequena safra de médicos por vez. Você não escolhe entrar — é convidado. E, uma vez admitido, adquire o direito raro de decidir quem mais terá acesso.
+            {tr(c.lead, lang)}
           </p>
         </div>
-
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {steps.map((s) => (
-            <article key={s.title} className="parxis-card rounded-lg p-10 flex flex-col">
-              <h3 className="font-serif text-2xl mb-3">{s.title}</h3>
-              <p className="text-sm text-[color:var(--gold)] leading-relaxed mb-4">
-                {s.lead}
-              </p>
+          {c.steps.map((s, i) => (
+            <article key={i} className="parxis-card rounded-lg p-10 flex flex-col">
+              <h3 className="font-serif text-2xl mb-3">{tr(s.title, lang)}</h3>
+              <p className="text-sm text-[color:var(--gold)] leading-relaxed mb-4">{tr(s.lead, lang)}</p>
               <div className="parxis-gold-rule w-16 mb-6 opacity-60" />
-              <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                {s.body}
-              </p>
+              <p className="text-sm text-muted-foreground font-light leading-relaxed">{tr(s.body, lang)}</p>
             </article>
           ))}
         </div>
-
         <div className="mt-16 parxis-card rounded-lg p-10 md:p-12 flex flex-col md:flex-row items-center gap-8">
           <div className="flex-1">
-            <h4 className="font-serif text-2xl md:text-3xl mb-3">
-              O Círculo é pequeno por escolha — não por limitação.
-            </h4>
-            <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed">
-              Limitamos cada safra a doze licenciados para que cada admissão receba a atenção da engenharia, do suporte e da curadoria que o padrão exige. A escassez não é marketing. É a única forma de manter o que torna o Parxis valioso: ser raro.
-            </p>
+            <h4 className="font-serif text-2xl md:text-3xl mb-3">{tr(c.smallByChoice.title, lang)}</h4>
+            <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed">{tr(c.smallByChoice.body, lang)}</p>
           </div>
           <div className="shrink-0 text-center md:text-right">
-            <div className="font-serif text-5xl text-[color:var(--gold)]">12</div>
-            <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-1">
-              licenciados por safra
-            </div>
+            <div className="font-serif text-5xl text-[color:var(--gold)]">{tr(c.smallByChoice.count, lang)}</div>
+            <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-1">{tr(c.smallByChoice.unit, lang)}</div>
           </div>
         </div>
       </div>
@@ -620,48 +499,25 @@ function ForClinics() {
 
 /* ————————————————— TESTIMONIAL ————————————————— */
 function Testimonial() {
+  const { lang } = useLang();
+  const c = content.testimonial;
   return (
-    <section className="relative py-32 lg:py-44 bg-background overflow-hidden">
+    <section className="parxis-glass relative py-32 lg:py-44 overflow-hidden">
       <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center">
         <div className="font-serif text-[color:var(--gold)] text-6xl mb-6 opacity-60">“</div>
-        <p className="font-serif text-2xl md:text-3xl leading-relaxed italic text-foreground">
-          Fui indicado. Recebi o acesso em uma quarta-feira. Na sexta, entreguei o primeiro documento assinado com validade jurídica ao meu cliente. Ele me olhou de forma diferente. O Parxis não é software — é o que separa uma clínica de uma maison clínica.
-        </p>
+        <p className="font-serif text-2xl md:text-3xl leading-relaxed italic text-foreground">{tr(c.quote, lang)}</p>
         <div className="parxis-gold-rule w-24 mx-auto my-10" />
-        <div className="text-sm uppercase tracking-[0.32em] text-[color:var(--gold)]">
-          Dr. Ricardo Almeida Ferreira
-        </div>
-        <div className="text-xs uppercase tracking-[0.28em] text-muted-foreground mt-2">
-          Licenciado Parxis · Medicina Integrativa · Anti-Aging
-        </div>
+        <div className="text-sm uppercase tracking-[0.32em] text-[color:var(--gold)]">{tr(c.name, lang)}</div>
+        <div className="text-xs uppercase tracking-[0.28em] text-muted-foreground mt-2">{tr(c.role, lang)}</div>
       </div>
     </section>
   );
 }
 
 /* ————————————————— VIDEO TESTIMONIALS ————————————————— */
-const VIDEO_TESTIMONIALS = [
-  {
-    id: "01",
-    title: "Depoimento 01",
-    role: "Médico(a)",
-    quote: "Do primeiro protocolo à cobrança automática — em uma semana minha clínica passou a operar como uma maison.",
-  },
-  {
-    id: "02",
-    title: "Depoimento 02",
-    role: "Gestão de Clínica",
-    quote: "Nunca imaginei um sistema que a equipe adotasse por prazer. Hoje ninguém abre outra tela.",
-  },
-  {
-    id: "03",
-    title: "Depoimento 03",
-    role: "Operação em Saúde",
-    quote: "A cada consulta, o banco clínico da casa fica mais forte. O Parxis transformou dados em patrimônio.",
-  },
-];
-
 function VideoTestimonials() {
+  const { lang } = useLang();
+  const c = content.videos;
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -680,8 +536,8 @@ function VideoTestimonials() {
       const cards = Array.from(el.children) as HTMLElement[];
       const center = el.scrollLeft + el.clientWidth / 2;
       let best = 0, bestDist = Infinity;
-      cards.forEach((c, i) => {
-        const cc = c.offsetLeft + c.clientWidth / 2 - el.offsetLeft;
+      cards.forEach((cd, i) => {
+        const cc = cd.offsetLeft + cd.clientWidth / 2 - el.offsetLeft;
         const d = Math.abs(cc - center);
         if (d < bestDist) { bestDist = d; best = i; }
       });
@@ -692,51 +548,40 @@ function VideoTestimonials() {
   }, []);
 
   return (
-    <section className="parxis-leather-bg relative py-28 lg:py-40 overflow-hidden">
+    <section className="parxis-glass parxis-glass-frame relative py-28 lg:py-40 overflow-hidden">
       <div className="parxis-bordo-stitch-frame parxis-stitch-on-leather" aria-hidden />
       <div className="mx-auto max-w-7xl px-6 lg:px-10 relative">
         <div className="text-center mb-14">
-          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Vozes do Círculo · Médicos e Clínicas
-          </p>
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">{tr(c.eyebrow, lang)}</p>
           <h2 className="font-serif text-3xl md:text-5xl leading-tight">
-            Ouça de quem já <em className="parxis-gold-text not-italic">opera como maison</em>.
+            {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
           </h2>
           <div className="parxis-gold-rule w-32 mx-auto mt-8" />
         </div>
-
-        <div
-          ref={trackRef}
-          className="parxis-video-track"
-        >
-          {VIDEO_TESTIMONIALS.map((v, i) => (
+        <div ref={trackRef} className="parxis-video-track">
+          {c.items.map((v, i) => (
             <article key={v.id} className={`parxis-video-card ${i === active ? "is-active" : ""}`}>
-              <button type="button" className="parxis-video-play" aria-label={`Reproduzir ${v.title}`}>
+              <button type="button" className="parxis-video-play" aria-label={`${tr(c.playAria, lang)} ${tr(v.title, lang)}`}>
                 <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden>
                   <path d="M8 5v14l11-7z" fill="currentColor" />
                 </svg>
               </button>
               <div className="parxis-video-meta">
-                <div className="font-serif text-xl text-[color:var(--gold)]">{v.title}</div>
-                <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">
-                  {v.role}
-                </div>
-                <p className="mt-4 text-sm text-foreground/80 leading-relaxed italic font-light">
-                  "{v.quote}"
-                </p>
+                <div className="font-serif text-xl text-[color:var(--gold)]">{tr(v.title, lang)}</div>
+                <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">{tr(v.role, lang)}</div>
+                <p className="mt-4 text-sm text-foreground/80 leading-relaxed italic font-light">"{tr(v.quote, lang)}"</p>
               </div>
             </article>
           ))}
         </div>
-
         <div className="mt-10 flex items-center justify-center gap-3">
-          {VIDEO_TESTIMONIALS.map((_, i) => (
+          {c.items.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => scrollTo(i)}
               className={`parxis-video-dot ${i === active ? "is-active" : ""}`}
-              aria-label={`Ir para depoimento ${i + 1}`}
+              aria-label={`${tr(c.dotAria, lang)} ${i + 1}`}
             />
           ))}
         </div>
@@ -745,31 +590,27 @@ function VideoTestimonials() {
   );
 }
 
-/* ————————————————— CTA ————————————————— */
+/* ————————————————— ECOSYSTEM ————————————————— */
 function Ecosystem() {
+  const { lang } = useLang();
+  const c = content.ecosystem;
   return (
-    <section id="ecossistema" className="relative py-28 lg:py-36 bg-background">
+    <section id="ecossistema" className="parxis-glass relative py-28 lg:py-36">
       <div className="mx-auto max-w-4xl px-6 lg:px-10">
-        <div className="parxis-card rounded-lg p-10 md:p-14 text-center">
-          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Ecossistema · PADCOM
-          </p>
+        <div className="parxis-card rounded-lg p-10 md:p-14 text-center relative">
+          <GoldCorners inset={14} size={22} thickness={1.5} />
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">{tr(c.eyebrow, lang)}</p>
           <h2 className="font-serif text-3xl md:text-4xl leading-tight">
-            Estes produtos fazem parte de um <em className="parxis-gold-text not-italic">ecossistema maior</em>.
+            {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
           </h2>
           <div className="parxis-gold-rule w-24 mx-auto my-8" />
           <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
-            A <span className="parxis-gold-text">PADCON Platform®</span> é a arquitetura corporativa que sustenta a PAWARDS MedCore® e o PARXIS — identidade unificada, segurança por cargo, trilhas de auditoria permanentes. Quatro setores. Dezoito sistemas em desenvolvimento. Três em produção real. Uma fundação só.
+            {tr(c.body, lang)}
           </p>
           <div className="mt-10">
-            <a
-              href="https://padcon.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="parxis-btn parxis-btn-ghost"
-            >
+            <a href="https://padcon.com.br" target="_blank" rel="noopener noreferrer" className="parxis-btn parxis-btn-ghost">
               <span className="parxis-btn-inner">
-                Conheça a PADCON Platform®
+                {tr(c.cta, lang)}
                 <span aria-hidden>→</span>
               </span>
             </a>
@@ -782,6 +623,8 @@ function Ecosystem() {
 
 /* ————————————————— SCARCITY ————————————————— */
 function Scarcity() {
+  const { lang } = useLang();
+  const c = content.scarcity;
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
 
@@ -801,82 +644,58 @@ function Scarcity() {
         seconds: Math.floor((diff % 60000) / 1000),
       };
     };
-
     setTimeLeft(calc());
     const id = setInterval(() => setTimeLeft(calc()), 1000);
     return () => clearInterval(id);
   }, []);
 
   const slots = [
-    { label: "dias", value: timeLeft.days },
-    { label: "horas", value: timeLeft.hours },
-    { label: "min", value: timeLeft.minutes },
-    { label: "seg", value: timeLeft.seconds },
+    { label: tr(c.slotLabels.days, lang), value: timeLeft.days },
+    { label: tr(c.slotLabels.hours, lang), value: timeLeft.hours },
+    { label: tr(c.slotLabels.minutes, lang), value: timeLeft.minutes },
+    { label: tr(c.slotLabels.seconds, lang), value: timeLeft.seconds },
   ];
 
   return (
-    <section className="relative py-20 lg:py-28 bg-background overflow-hidden">
+    <section className="parxis-glass relative py-20 lg:py-28 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full bg-[color:var(--gold)] opacity-[0.03] blur-3xl" />
       </div>
-
       <div className="mx-auto max-w-5xl px-6 lg:px-10 relative">
         <div className="parxis-card rounded-2xl p-10 md:p-14 text-center border-[rgba(242,184,23,0.28)]">
-          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
-            Safra atual · Portas fechadas em breve
-          </p>
-
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">{tr(c.eyebrow, lang)}</p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             <div className="text-center">
-              <div className="font-serif text-6xl md:text-7xl text-[color:var(--gold)]">12</div>
-              <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">
-                licenciados por safra
-              </div>
+              <div className="font-serif text-6xl md:text-7xl text-[color:var(--gold)]">{tr(c.seats, lang)}</div>
+              <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">{tr(c.seatsLabel, lang)}</div>
             </div>
-
             <div className="hidden md:block w-px h-20 bg-[rgba(242,184,23,0.25)]" />
-
             <div>
-              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground mb-4">
-                Fechamento da candidatura
-              </div>
+              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground mb-4">{tr(c.closingLabel, lang)}</div>
               {mounted ? (
                 <div className="grid grid-cols-4 gap-3">
                   {slots.map((s) => (
-                    <div
-                      key={s.label}
-                      className="min-w-[64px] px-3 py-4 rounded-lg bg-[rgba(242,184,23,0.08)] border border-[rgba(242,184,23,0.2)]"
-                    >
+                    <div key={s.label} className="min-w-[64px] px-3 py-4 rounded-lg bg-[rgba(242,184,23,0.08)] border border-[rgba(242,184,23,0.2)]">
                       <div className="font-serif text-2xl md:text-3xl text-[color:var(--gold)]">
                         {String(s.value).padStart(2, "0")}
                       </div>
-                      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">
-                        {s.label}
-                      </div>
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">{s.label}</div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="h-[88px] flex items-center justify-center text-muted-foreground text-sm">
-                  Calculando prazo…
-                </div>
+                <div className="h-[88px] flex items-center justify-center text-muted-foreground text-sm">{tr(c.calculating, lang)}</div>
               )}
             </div>
           </div>
-
           <div className="parxis-gold-rule w-40 mx-auto my-10 opacity-70" />
-
           <p className="text-sm md:text-base text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
-            As candidaturas recebidas após o fechamento são avaliadas apenas para a próxima safra. A escassez não é estratégia de vendas — é a única maneira de preservar a experiência e a integridade do Círculo.
+            {tr(c.body, lang)}
           </p>
-
           <div className="mt-10">
-            <a
-              href="#contato"
-              className="parxis-btn parxis-btn-primary group"
-            >
+            <a href="#contato" className="parxis-btn parxis-btn-primary group">
               <span className="parxis-btn-inner">
-                Solicitar carta de indicação
+                {tr(c.cta, lang)}
                 <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
               </span>
             </a>
@@ -889,6 +708,8 @@ function Scarcity() {
 
 /* ————————————————— CTA ————————————————— */
 function CTA() {
+  const { lang } = useLang();
+  const c = content.cta;
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
@@ -908,29 +729,28 @@ function CTA() {
       necessidade: String(fd.get("necessidade") ?? "").trim(),
     };
 
-    // Validação client-side espelhando o CHECK do banco
     if (payload.nome.length < 2 || payload.nome.length > 120) {
-      toast.error("Informe seu nome completo.");
+      toast.error(tr(c.toasts.nameShort, lang));
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
-      toast.error("Informe um email válido.");
+      toast.error(tr(c.toasts.email, lang));
       return;
     }
     if (payload.clinica.length < 2) {
-      toast.error("Informe o nome da clínica.");
+      toast.error(tr(c.toasts.clinic, lang));
       return;
     }
     if (payload.especialidade.length < 2) {
-      toast.error("Selecione ou informe a especialidade.");
+      toast.error(tr(c.toasts.specialty, lang));
       return;
     }
     if (payload.necessidade.length < 5) {
-      toast.error("Descreva sua necessidade em protocolos.");
+      toast.error(tr(c.toasts.referrer, lang));
       return;
     }
     if (!consent) {
-      toast.error("É necessário aceitar os termos de elegibilidade e consentimento LGPD.");
+      toast.error(tr(c.toasts.consent, lang));
       return;
     }
 
@@ -940,49 +760,48 @@ function CTA() {
 
     if (error) {
       console.error(error);
-      toast.error("Não foi possível enviar agora. Tente novamente em instantes.");
+      toast.error(tr(c.toasts.error, lang));
       return;
     }
 
-    toast.success("Solicitação recebida. Retornaremos em até 48 horas.");
+    toast.success(tr(c.toasts.success, lang));
     form.reset();
     setSubmitted(true);
   }
 
   return (
-    <section id="contato" className="relative parxis-hero-bg py-32 lg:py-40 border-y border-[rgba(242,184,23,0.15)]">
+    <section id="contato" className="parxis-glass relative py-32 lg:py-40 border-y border-[rgba(242,184,23,0.15)]">
       <div className="mx-auto max-w-3xl px-6 lg:px-10 relative">
        <div className="text-center">
-        <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">
-          Candidatura por Indicação
-        </p>
+        <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-8">{tr(c.eyebrow, lang)}</p>
         <h2 className="font-serif text-4xl md:text-6xl leading-tight">
-          Uma conversa <em className="parxis-gold-text not-italic">à porta fechada</em>.
+          {tr(c.titlePre, lang)}<em className="parxis-gold-text not-italic">{tr(c.titleGold, lang)}</em>{tr(c.titlePost, lang)}
         </h2>
         <div className="parxis-gold-rule w-40 mx-auto my-10" />
         <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed max-w-xl mx-auto">
-          Recebemos até doze licenciados por safra. Se você foi indicado — ou acredita que o padrão da sua clínica justifica uma indicação — envie seu pedido. A PAWARDS MedCore® analisa cada candidatura pessoalmente.
+          {tr(c.lead, lang)}
         </p>
        </div>
 
         {submitted ? (
           <div className="mt-14 parxis-card rounded-lg p-10 text-center">
             <div className="font-serif text-[color:var(--gold)] text-5xl mb-6 opacity-70">✦</div>
-            <h3 className="font-serif text-2xl md:text-3xl mb-4">Sua candidatura foi recebida.</h3>
+            <h3 className="font-serif text-2xl md:text-3xl mb-4">{tr(c.submitted.title, lang)}</h3>
             <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
-              Um responsável da PAWARDS MedCore® entrará em contato em até 48 horas, em caráter privado, apenas se sua candidatura avançar para a próxima etapa. O silêncio, se ocorrer, também é uma resposta respeitosa.
+              {tr(c.submitted.body, lang)}
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-14 parxis-card rounded-lg p-8 md:p-10 text-left">
+          <form onSubmit={handleSubmit} className="mt-14 parxis-card rounded-lg p-8 md:p-10 text-left relative">
+            <GoldCorners inset={10} size={18} thickness={1.5} />
             <div className="grid md:grid-cols-2 gap-5">
-              <LeadField label="Nome completo" name="nome" required autoComplete="name" placeholder="Dr(a). Nome Sobrenome" />
-              <LeadField label="Email profissional" name="email" type="email" required autoComplete="email" placeholder="voce@clinica.com.br" />
-              <LeadField label="Telefone / WhatsApp" name="telefone" type="tel" autoComplete="tel" placeholder="(11) 90000-0000" />
-              <LeadField label="Nome da clínica" name="clinica" required placeholder="Maison Clínica Integrativa" />
+              <LeadField label={tr(c.fields.name, lang)} name="nome" required autoComplete="name" placeholder={tr(c.fields.namePh, lang)} />
+              <LeadField label={tr(c.fields.email, lang)} name="email" type="email" required autoComplete="email" placeholder={tr(c.fields.emailPh, lang)} />
+              <LeadField label={tr(c.fields.phone, lang)} name="telefone" type="tel" autoComplete="tel" placeholder={tr(c.fields.phonePh, lang)} />
+              <LeadField label={tr(c.fields.clinic, lang)} name="clinica" required placeholder={tr(c.fields.clinicPh, lang)} />
               <div className="md:col-span-1">
                 <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
-                  Especialidade
+                  {tr(c.fields.specialty, lang)}
                 </label>
                 <select
                   name="especialidade"
@@ -990,46 +809,37 @@ function CTA() {
                   defaultValue=""
                   className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
                 >
-                  <option value="" disabled className="bg-[#120505]">Selecione…</option>
-                  {[
-                    "Medicina Integrativa",
-                    "Estética / Injetáveis",
-                    "Longevidade / Anti-Aging",
-                    "Ortomolecular",
-                    "Endocrinologia",
-                    "Nutrologia",
-                    "Ginecologia Integrativa",
-                    "Outra",
-                  ].map((opt) => (
-                    <option key={opt} value={opt} className="bg-[#120505]">{opt}</option>
+                  <option value="" disabled className="bg-[#120505]">{tr(c.fields.selectPh, lang)}</option>
+                  {c.specialties.map((opt, i) => (
+                    <option key={i} value={tr(opt, lang)} className="bg-[#120505]">{tr(opt, lang)}</option>
                   ))}
                 </select>
               </div>
               <div className="md:col-span-1">
                 <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
-                  Protocolos injetáveis / mês
+                  {tr(c.fields.volume, lang)}
                 </label>
                 <select
                   name="volume_protocolos"
                   defaultValue=""
                   className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors"
                 >
-                  <option value="" className="bg-[#120505]">Selecione (opcional)…</option>
-                  {["1 a 10", "11 a 30", "31 a 80", "81 a 200", "Mais de 200"].map((opt) => (
-                    <option key={opt} value={opt} className="bg-[#120505]">{opt}</option>
+                  <option value="" className="bg-[#120505]">{tr(c.fields.selectOptional, lang)}</option>
+                  {c.volumes.map((opt, i) => (
+                    <option key={i} value={tr(opt, lang)} className="bg-[#120505]">{tr(opt, lang)}</option>
                   ))}
                 </select>
               </div>
               <div className="md:col-span-2">
                 <label className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
-                  Quem o indicou · e por quê
+                  {tr(c.fields.referrer, lang)}
                 </label>
                 <textarea
                   name="necessidade"
                   required
                   rows={4}
                   maxLength={2000}
-                  placeholder="Se foi indicado, informe o nome do médico. Se não, descreva por que sua clínica se enquadra no padrão do Círculo Parxis — protocolos, volume mensal, o que a diferencia."
+                  placeholder={tr(c.fields.referrerPh, lang)}
                   className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[color:var(--gold)] transition-colors resize-none"
                 />
               </div>
@@ -1037,7 +847,7 @@ function CTA() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-                Análise confidencial · Sigilo profissional garantido
+                {tr(c.confidential, lang)}
               </p>
               <button
                 type="submit"
@@ -1045,7 +855,7 @@ function CTA() {
                 className="parxis-btn parxis-btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <span className="parxis-btn-inner">
-                  {loading ? "Enviando…" : "Enviar candidatura"}
+                  {loading ? tr(c.sending, lang) : tr(c.submit, lang)}
                   {!loading && <span aria-hidden>→</span>}
                 </span>
               </button>
@@ -1054,30 +864,20 @@ function CTA() {
         )}
 
         <p className="mt-6 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          Resposta em até 48 horas · Apenas às candidaturas selecionadas
+          {tr(c.afterHint, lang)}
         </p>
 
         <div className="mt-10 parxis-card rounded-lg p-8 md:p-10 text-left">
-          <h3 className="font-serif text-xl mb-5">
-            Termos de elegibilidade e consentimento
-          </h3>
+          <h3 className="font-serif text-xl mb-5">{tr(c.terms.title, lang)}</h3>
           <div className="parxis-gold-rule w-16 mb-6 opacity-60" />
-
           <ul className="space-y-3 text-xs md:text-sm text-muted-foreground font-light leading-relaxed mb-6">
-            <li className="flex gap-3">
-              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
-              <span>Declaro ser médico responsável técnico por uma clínica em atividade, com CPF/CNPJ e registro profissional ativos.</span>
-            </li>
-            <li className="flex gap-3">
-              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
-              <span>Confirmo que a candidatura é analisada de forma privada e que o acesso ao Parxis depende de indicação aprovada pela PAWARDS MedCore®.</span>
-            </li>
-            <li className="flex gap-3">
-              <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
-              <span>Entendo que o número de licenciados é limitado a 12 por safra e que o não recebimento de resposta também significa manutenção do padrão do Círculo.</span>
-            </li>
+            {c.terms.items.map((it, i) => (
+              <li key={i} className="flex gap-3">
+                <span aria-hidden className="text-[color:var(--gold)] mt-0.5">✦</span>
+                <span>{tr(it, lang)}</span>
+              </li>
+            ))}
           </ul>
-
           <label className="flex items-start gap-3 cursor-pointer group">
             <input
               type="checkbox"
@@ -1086,7 +886,7 @@ function CTA() {
               className="mt-1 h-4 w-4 accent-[color:var(--gold)] rounded border border-[rgba(242,184,23,0.45)] bg-transparent cursor-pointer"
             />
             <span className="text-xs text-muted-foreground font-light leading-relaxed">
-              Li e concordo com o uso dos dados acima para análise de elegibilidade, contato sobre minha candidatura e, se aprovado, ativação da licença Parxis, conforme a LGPD. Seus dados são tratados em sigilo, não são comercializados e podem ser solicitados para exclusão a qualquer momento pelo email <span className="text-[color:var(--gold)]">contato@parxis.com.br</span>.
+              {tr(c.terms.consent, lang)}<span className="text-[color:var(--gold)]">{tr(c.terms.email, lang)}</span>.
             </span>
           </label>
         </div>
@@ -1121,34 +921,38 @@ function LeadField({
 
 /* ————————————————— FOOTER ————————————————— */
 function Footer() {
+  const { lang } = useLang();
+  const c = content.footer;
   return (
-    <footer className="bg-[color:var(--obsidian)] py-16">
+    <footer className="bg-[color:var(--obsidian)] py-16 relative z-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="parxis-gold-rule mb-12" />
         <div className="grid md:grid-cols-3 gap-10 items-start">
           <div>
-            <div className="parxis-gold-text font-serif text-2xl tracking-[0.35em] uppercase">
-              Parxis
-            </div>
+            <div className="parxis-gold-text font-serif text-2xl tracking-[0.35em] uppercase">Parxis</div>
             <p className="mt-4 text-xs text-muted-foreground leading-relaxed max-w-xs font-light">
-              Um produto PAWARDS MedCore® — uma empresa PADCOM. Concedido por indicação, mantido pelo padrão.
+              {tr(c.tagline, lang)}
             </p>
           </div>
           <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em]">
-            <div>parxis.com.br</div>
-            <div>contato@parxis.com.br</div>
+            <div>{tr(c.domain, lang)}</div>
+            <div>{tr(c.email, lang)}</div>
           </div>
           <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em] md:text-right">
-            <div>Établi 2026</div>
-            <div>São Paulo · Brasil</div>
+            <div>{tr(c.established, lang)}</div>
+            <div>{tr(c.place, lang)}</div>
           </div>
         </div>
         <div className="parxis-gold-rule mt-12 opacity-40" />
         <div className="mt-6 flex flex-col md:flex-row justify-between gap-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          <span>© 2026 Parxis · Todos os direitos reservados</span>
-          <span>Feito com precisão</span>
+          <span>{tr(c.rights, lang)}</span>
+          <span>{tr(c.signature, lang)}</span>
         </div>
       </div>
     </footer>
   );
 }
+
+// keep types imported (silence unused): use formatNumber & Lang if future scarcity count formatting is needed
+void formatNumber;
+void ({} as Lang);
