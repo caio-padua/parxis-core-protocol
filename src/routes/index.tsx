@@ -62,9 +62,9 @@ function Nav() {
           <MotionToggle />
           <a
             href="#contato"
-            className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] px-4 py-2 rounded-full hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+            className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden md:inline-flex"
           >
-            Solicitar indicação
+            <span className="parxis-btn-inner">Solicitar indicação</span>
           </a>
         </div>
       </div>
@@ -225,16 +225,18 @@ function Hero() {
           <div className="mt-12 flex flex-wrap gap-4">
             <a
               href="#contato"
-              className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
+              className="parxis-btn parxis-btn-primary group"
             >
-              Solicitar carta de indicação
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              <span className="parxis-btn-inner">
+                Solicitar carta de indicação
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
             </a>
             <a
               href="#clinicas"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.35)] hover:bg-[rgba(242,184,23,0.06)] transition-colors"
+              className="parxis-btn parxis-btn-ghost"
             >
-              Sobre o licenciamento
+              <span className="parxis-btn-inner">Sobre o licenciamento</span>
             </a>
           </div>
 
@@ -634,10 +636,12 @@ function Ecosystem() {
               href="https://padcon.com.br"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] text-[color:var(--gold)] border border-[rgba(242,184,23,0.45)] hover:bg-[color:var(--gold)] hover:text-[color:var(--obsidian)] transition-colors"
+              className="parxis-btn parxis-btn-ghost"
             >
-              Conheça a PADCON Platform®
-              <span aria-hidden>→</span>
+              <span className="parxis-btn-inner">
+                Conheça a PADCON Platform®
+                <span aria-hidden>→</span>
+              </span>
             </a>
           </div>
         </div>
@@ -739,10 +743,12 @@ function Scarcity() {
           <div className="mt-10">
             <a
               href="#contato"
-              className="group inline-flex items-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-8 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors"
+              className="parxis-btn parxis-btn-primary group"
             >
-              Solicitar carta de indicação
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              <span className="parxis-btn-inner">
+                Solicitar carta de indicação
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
             </a>
           </div>
         </div>
@@ -906,10 +912,12 @@ function CTA() {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center justify-center gap-3 bg-[color:var(--gold)] text-[color:var(--obsidian)] px-9 py-4 rounded-full text-xs uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--gold-light)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="parxis-btn parxis-btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? "Enviando…" : "Enviar candidatura"}
-                {!loading && <span aria-hidden>→</span>}
+                <span className="parxis-btn-inner">
+                  {loading ? "Enviando…" : "Enviar candidatura"}
+                  {!loading && <span aria-hidden>→</span>}
+                </span>
               </button>
             </div>
           </form>
