@@ -479,8 +479,8 @@
 .parxis-aura-2 {
   width: 780px; height: 780px;
   background: radial-gradient(circle,
-    rgba(255, 236, 170, 0.10) 0%,
-    rgba(217, 144, 0, 0.06) 40%,
+    color-mix(in oklch, var(--gold-light) 10%, transparent 90%) 0%,
+    color-mix(in oklch, var(--gold-medium) 6%, transparent 94%) 40%,
     rgba(37, 7, 10, 0) 75%);
   /* Sincronizado com o levitar (7s) para o halo acompanhar o sobe/desce;
      leve delay negativo mantém a contra-respiração sem sair do ritmo. */
