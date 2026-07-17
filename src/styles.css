@@ -180,28 +180,28 @@
 @keyframes symbolLevitate {
   0%, 100% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.7deg);
-    filter: drop-shadow(0 0 24px rgba(242, 184, 23, 0.24));
+    filter: drop-shadow(0 0 24px color-mix(in oklch, var(--gold) 24%, transparent 76%));
   }
   34% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1.22)) scale(0.955) rotate(-0.35deg);
-    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
+    filter: drop-shadow(0 0 26px color-mix(in oklch, var(--gold) 26%, transparent 74%));
   }
   46% {
     transform: translateY(calc(var(--parxis-float, 42px) * -0.55)) scale(0.985) rotate(0.25deg);
-    filter: drop-shadow(0 0 34px rgba(242, 184, 23, 0.34));
+    filter: drop-shadow(0 0 34px color-mix(in oklch, var(--gold) 34%, transparent 66%));
   }
   49.25%, 50.75% {
     /* mergulho breve — só a base (~15%) passa atrás do PARXIS */
     transform: translateY(var(--parxis-dip, 30px)) scale(1.018) rotate(0.7deg);
-    filter: drop-shadow(0 0 52px rgba(242, 184, 23, 0.46));
+    filter: drop-shadow(0 0 52px color-mix(in oklch, var(--gold) 46%, transparent 54%));
   }
   54% {
     transform: translateY(calc(var(--parxis-float, 42px) * -0.55)) scale(0.985) rotate(0.3deg);
-    filter: drop-shadow(0 0 34px rgba(242, 184, 23, 0.34));
+    filter: drop-shadow(0 0 34px color-mix(in oklch, var(--gold) 34%, transparent 66%));
   }
   66% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1.16)) scale(0.958) rotate(0.35deg);
-    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
+    filter: drop-shadow(0 0 26px color-mix(in oklch, var(--gold) 26%, transparent 74%));
   }
 }
 
