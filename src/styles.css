@@ -643,7 +643,7 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
     drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
     drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 10px color-mix(in oklch, var(--gold) 32%, transparent 68%));
-  animation: shimmerGold 6.5s ease-in-out infinite;
+  animation: shimmerGold 14s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
