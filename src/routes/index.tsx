@@ -622,6 +622,112 @@ function Testimonial() {
   );
 }
 
+/* ————————————————— VIDEO TESTIMONIALS ————————————————— */
+const VIDEO_TESTIMONIALS = [
+  {
+    id: "01",
+    title: "Depoimento 01",
+    role: "Médico(a)",
+    quote: "Do primeiro protocolo à cobrança automática — em uma semana minha clínica passou a operar como uma maison.",
+  },
+  {
+    id: "02",
+    title: "Depoimento 02",
+    role: "Gestão de Clínica",
+    quote: "Nunca imaginei um sistema que a equipe adotasse por prazer. Hoje ninguém abre outra tela.",
+  },
+  {
+    id: "03",
+    title: "Depoimento 03",
+    role: "Operação em Saúde",
+    quote: "A cada consulta, o banco clínico da casa fica mais forte. O Parxis transformou dados em patrimônio.",
+  },
+];
+
+function VideoTestimonials() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const scrollTo = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.children[i] as HTMLElement | undefined;
+    if (!card) return;
+    el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const cards = Array.from(el.children) as HTMLElement[];
+      const center = el.scrollLeft + el.clientWidth / 2;
+      let best = 0, bestDist = Infinity;
+      cards.forEach((c, i) => {
+        const cc = c.offsetLeft + c.clientWidth / 2 - el.offsetLeft;
+        const d = Math.abs(cc - center);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      setActive(best);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <section className="parxis-leather-bg relative py-28 lg:py-40 overflow-hidden">
+      <div className="parxis-bordo-stitch-frame parxis-stitch-on-leather" aria-hidden />
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 relative">
+        <div className="text-center mb-14">
+          <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-6">
+            Vozes do Círculo · Médicos e Clínicas
+          </p>
+          <h2 className="font-serif text-3xl md:text-5xl leading-tight">
+            Ouça de quem já <em className="parxis-gold-text not-italic">opera como maison</em>.
+          </h2>
+          <div className="parxis-gold-rule w-32 mx-auto mt-8" />
+        </div>
+
+        <div
+          ref={trackRef}
+          className="parxis-video-track"
+        >
+          {VIDEO_TESTIMONIALS.map((v, i) => (
+            <article key={v.id} className={`parxis-video-card ${i === active ? "is-active" : ""}`}>
+              <button type="button" className="parxis-video-play" aria-label={`Reproduzir ${v.title}`}>
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden>
+                  <path d="M8 5v14l11-7z" fill="currentColor" />
+                </svg>
+              </button>
+              <div className="parxis-video-meta">
+                <div className="font-serif text-xl text-[color:var(--gold)]">{v.title}</div>
+                <div className="text-[10px] uppercase tracking-[0.32em] text-muted-foreground mt-2">
+                  {v.role}
+                </div>
+                <p className="mt-4 text-sm text-foreground/80 leading-relaxed italic font-light">
+                  "{v.quote}"
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-10 flex items-center justify-center gap-3">
+          {VIDEO_TESTIMONIALS.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollTo(i)}
+              className={`parxis-video-dot ${i === active ? "is-active" : ""}`}
+              aria-label={`Ir para depoimento ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ————————————————— CTA ————————————————— */
 function Ecosystem() {
   return (
