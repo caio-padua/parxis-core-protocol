@@ -270,19 +270,19 @@
 .parxis-btn::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -2px;
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 320ms ease;
+  transition: opacity 420ms ease;
+  background: radial-gradient(ellipse at 50% 0%, rgba(242,184,23,0.14), transparent 70%);
   box-shadow:
-    0 0 0 1px rgba(255,225,150,0.55),
-    0 0 22px rgba(242,184,23,0.55),
-    0 0 48px rgba(242,184,23,0.35),
-    inset 0 0 22px rgba(255,225,150,0.25);
-  z-index: 3;
+    0 0 0 1px rgba(255,225,150,0.22),
+    0 10px 32px -8px rgba(242,184,23,0.18),
+    0 0 18px -6px rgba(242,184,23,0.12);
+  z-index: -1;
 }
-.parxis-btn:hover { transform: translateY(-2px); }
+.parxis-btn:hover { transform: translateY(-1px); }
 .parxis-btn:hover::after { opacity: 1; }
 .parxis-btn:active { transform: translateY(1px); transition-duration: 90ms; }
 .parxis-btn:focus-visible { outline: none; }
