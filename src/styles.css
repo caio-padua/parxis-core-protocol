@@ -180,28 +180,28 @@
 @keyframes symbolLevitate {
   0%, 100% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.7deg);
-    filter: drop-shadow(0 0 24px rgba(242, 184, 23, 0.24));
+    filter: drop-shadow(0 0 24px color-mix(in oklch, var(--gold) 24%, transparent 76%));
   }
   34% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1.22)) scale(0.955) rotate(-0.35deg);
-    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
+    filter: drop-shadow(0 0 26px color-mix(in oklch, var(--gold) 26%, transparent 74%));
   }
   46% {
     transform: translateY(calc(var(--parxis-float, 42px) * -0.55)) scale(0.985) rotate(0.25deg);
-    filter: drop-shadow(0 0 34px rgba(242, 184, 23, 0.34));
+    filter: drop-shadow(0 0 34px color-mix(in oklch, var(--gold) 34%, transparent 66%));
   }
   49.25%, 50.75% {
     /* mergulho breve — só a base (~15%) passa atrás do PARXIS */
     transform: translateY(var(--parxis-dip, 30px)) scale(1.018) rotate(0.7deg);
-    filter: drop-shadow(0 0 52px rgba(242, 184, 23, 0.46));
+    filter: drop-shadow(0 0 52px color-mix(in oklch, var(--gold) 46%, transparent 54%));
   }
   54% {
     transform: translateY(calc(var(--parxis-float, 42px) * -0.55)) scale(0.985) rotate(0.3deg);
-    filter: drop-shadow(0 0 34px rgba(242, 184, 23, 0.34));
+    filter: drop-shadow(0 0 34px color-mix(in oklch, var(--gold) 34%, transparent 66%));
   }
   66% {
     transform: translateY(calc(var(--parxis-float, 42px) * -1.16)) scale(0.958) rotate(0.35deg);
-    filter: drop-shadow(0 0 26px rgba(242, 184, 23, 0.26));
+    filter: drop-shadow(0 0 26px color-mix(in oklch, var(--gold) 26%, transparent 74%));
   }
 }
 
@@ -340,12 +340,12 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(242, 184, 23, 0.0) 8%,
-    rgba(242, 184, 23, 0.55) 50%,
-    rgba(242, 184, 23, 0.0) 92%,
+    color-mix(in oklch, var(--gold) 0%, transparent 100%) 8%,
+    color-mix(in oklch, var(--gold) 55%, transparent 45%) 50%,
+    color-mix(in oklch, var(--gold) 0%, transparent 100%) 92%,
     transparent 100%
   );
-  box-shadow: 0 0 18px rgba(242, 184, 23, 0.25);
+  box-shadow: 0 0 18px color-mix(in oklch, var(--gold) 25%, transparent 75%);
   animation: surfaceGlow 20s ease-in-out infinite;
   z-index: 0;
   pointer-events: none;
@@ -389,9 +389,9 @@
   background: linear-gradient(
     100deg,
     transparent 0%,
-    rgba(255, 216, 90, 0.0) 30%,
-    rgba(255, 236, 170, 0.55) 50%,
-    rgba(255, 216, 90, 0.0) 70%,
+    color-mix(in oklch, var(--gold-light) 0%, transparent 100%) 30%,
+    color-mix(in oklch, var(--gold-light) 55%, transparent 45%) 50%,
+    color-mix(in oklch, var(--gold-light) 0%, transparent 100%) 70%,
     transparent 100%
   );
   animation: sheenSweep 6.5s ease-in-out infinite;
@@ -413,7 +413,7 @@
   filter:
     saturate(0.72) hue-rotate(-8deg) brightness(1.04)
     drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 0 22px rgba(232, 214, 170, 0.28));
+    drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%));
 }
 
 @media (max-width: 767px) {
@@ -427,9 +427,19 @@
     height: min(78vw, 330px);
   }
 
+  /* Reforça o champagne suave no mobile: menos saturação e húe mais neutro. */
+  .parxis-symbol-img {
+    filter: saturate(0.58) hue-rotate(-12deg) brightness(1.06) !important;
+  }
+
   .parxis-wordmark {
     top: calc(50% + 84px);
     width: min(72vw, 305px);
+    filter:
+      saturate(0.58) hue-rotate(-12deg) brightness(1.06)
+      drop-shadow(0 14px 30px rgba(0, 0, 0, 0.75))
+      drop-shadow(0 0 22px color-mix(in oklch, var(--gold-light) 28%, transparent 72%))
+      !important;
   }
 
   .parxis-shadow {
@@ -461,16 +471,16 @@
 .parxis-aura-1 {
   width: 620px; height: 620px;
   background: radial-gradient(circle,
-    rgba(242, 184, 23, 0.22) 0%,
-    rgba(154, 87, 0, 0.10) 38%,
+    color-mix(in oklch, var(--gold) 22%, transparent 78%) 0%,
+    color-mix(in oklch, var(--gold-deep) 10%, transparent 90%) 38%,
     rgba(37, 7, 10, 0) 72%);
   animation: auraBreath1 7s ease-in-out infinite;
 }
 .parxis-aura-2 {
   width: 780px; height: 780px;
   background: radial-gradient(circle,
-    rgba(255, 236, 170, 0.10) 0%,
-    rgba(217, 144, 0, 0.06) 40%,
+    color-mix(in oklch, var(--gold-light) 10%, transparent 90%) 0%,
+    color-mix(in oklch, var(--gold-medium) 6%, transparent 94%) 40%,
     rgba(37, 7, 10, 0) 75%);
   /* Sincronizado com o levitar (7s) para o halo acompanhar o sobe/desce;
      leve delay negativo mantém a contra-respiração sem sair do ritmo. */
@@ -490,14 +500,14 @@
   z-index: 0;
   background: conic-gradient(
     from 0deg,
-    rgba(242, 184, 23, 0)   0%,
-    rgba(242, 184, 23, 0.18) 12%,
-    rgba(255, 236, 170, 0.05) 25%,
-    rgba(242, 184, 23, 0)   38%,
-    rgba(217, 144, 0, 0.14) 55%,
-    rgba(255, 216, 90, 0.05) 72%,
-    rgba(242, 184, 23, 0)   88%,
-    rgba(242, 184, 23, 0)   100%
+    color-mix(in oklch, var(--gold) 0%, transparent 100%)   0%,
+    color-mix(in oklch, var(--gold) 18%, transparent 82%) 12%,
+    color-mix(in oklch, var(--gold-light) 5%, transparent 95%) 25%,
+    color-mix(in oklch, var(--gold) 0%, transparent 100%)   38%,
+    color-mix(in oklch, var(--gold-medium) 14%, transparent 86%) 55%,
+    color-mix(in oklch, var(--gold-light) 5%, transparent 95%) 72%,
+    color-mix(in oklch, var(--gold) 0%, transparent 100%)   88%,
+    color-mix(in oklch, var(--gold) 0%, transparent 100%)   100%
   );
   -webkit-mask-image: radial-gradient(circle, black 30%, transparent 65%);
   mask-image: radial-gradient(circle, black 30%, transparent 65%);
@@ -514,10 +524,10 @@
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  border: 1px solid rgba(242, 184, 23, 0.28);
+  border: 1px solid color-mix(in oklch, var(--gold) 28%, transparent 72%);
   box-shadow:
-    inset 0 0 40px rgba(242, 184, 23, 0.08),
-    0 0 60px rgba(242, 184, 23, 0.08);
+    inset 0 0 40px color-mix(in oklch, var(--gold) 8%, transparent 92%),
+    0 0 60px color-mix(in oklch, var(--gold) 8%, transparent 92%);
   pointer-events: none;
   z-index: 0;
   animation: ringPulse 6s ease-in-out infinite;
@@ -537,8 +547,8 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,236,170,1) 0%, rgba(242,184,23,0.4) 55%, transparent 70%);
-  box-shadow: 0 0 8px rgba(255, 216, 90, 0.55);
+  background: radial-gradient(circle, var(--gold-light) 0%, color-mix(in oklch, var(--gold) 40%, transparent 60%) 55%, transparent 70%);
+  box-shadow: 0 0 8px color-mix(in oklch, var(--gold-light) 55%, transparent 45%);
   --dx: calc((sin(var(--i) * 1.7) * 140px));
   --dy: calc(-1 * (110px + (var(--i) * 12px)));
   animation: particleDrift calc(6s + (var(--i) * 0.35s)) ease-in-out infinite;
@@ -578,13 +588,13 @@ html:is([data-motion="reduce"], :not([data-motion="full"])) {
   /* placeholder para especificidade */
 }
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+  html:not([data-motion="full"]) .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px color-mix(in oklch, var(--gold) 24%, transparent 76%)); }
   html:not([data-motion="full"]) .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
   html:not([data-motion="full"]) .parxis-surface  { opacity: 0.5; }
   html:not([data-motion="full"]) .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
   html:not([data-motion="full"]) .parxis-aura-2   { opacity: 0.45; transform: translate(-50%, -50%) scale(0.95); }
 }
-html[data-motion="reduce"] .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+html[data-motion="reduce"] .parxis-symbol-levitate { transform: translateY(calc(var(--parxis-float, 42px) * -1)) scale(0.965) rotate(-0.5deg); filter: drop-shadow(0 0 22px color-mix(in oklch, var(--gold) 24%, transparent 76%)); }
 html[data-motion="reduce"] .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
 html[data-motion="reduce"] .parxis-surface  { opacity: 0.5; }
 html[data-motion="reduce"] .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
@@ -610,13 +620,13 @@ html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translat
 .parxis-gold-text {
   background: linear-gradient(
     100deg,
-    #9A5700 0%,
-    #D99000 20%,
-    #F2B817 40%,
-    #FFD85A 50%,
-    #F2B817 60%,
-    #D99000 80%,
-    #9A5700 100%
+    var(--gold-deep) 0%,
+    var(--gold-medium) 20%,
+    var(--gold) 40%,
+    var(--gold-light) 50%,
+    var(--gold) 60%,
+    var(--gold-medium) 80%,
+    var(--gold-deep) 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
