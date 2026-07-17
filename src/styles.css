@@ -478,12 +478,54 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .parxis-symbol-levitate,
-  .parxis-shadow, .parxis-surface,
-  .parxis-aura, .parxis-halo-conic, .parxis-ring,
-  .parxis-symbol-sheen::after, .parxis-particles span {
+  html:not([data-motion="full"]) .parxis-symbol-levitate,
+  html:not([data-motion="full"]) .parxis-shadow,
+  html:not([data-motion="full"]) .parxis-surface,
+  html:not([data-motion="full"]) .parxis-aura,
+  html:not([data-motion="full"]) .parxis-halo-conic,
+  html:not([data-motion="full"]) .parxis-ring,
+  html:not([data-motion="full"]) .parxis-symbol-sheen::after,
+  html:not([data-motion="full"]) .parxis-particles span {
     animation: none;
   }
+}
+
+/* Toggle manual: força movimento reduzido mesmo se o SO não pedir */
+html[data-motion="reduce"] .parxis-symbol-levitate,
+html[data-motion="reduce"] .parxis-shadow,
+html[data-motion="reduce"] .parxis-surface,
+html[data-motion="reduce"] .parxis-aura,
+html[data-motion="reduce"] .parxis-halo-conic,
+html[data-motion="reduce"] .parxis-ring,
+html[data-motion="reduce"] .parxis-symbol-sheen::after,
+html[data-motion="reduce"] .parxis-particles span {
+  animation: none !important;
+}
+
+/* Estado de repouso agradável quando o movimento está reduzido —
+   símbolo pousado sobre a superfície, sombra e halo estáticos. */
+html:is([data-motion="reduce"], :not([data-motion="full"])) {
+  /* placeholder para especificidade */
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .parxis-symbol-levitate { transform: none; filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+  html:not([data-motion="full"]) .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
+  html:not([data-motion="full"]) .parxis-surface  { opacity: 0.5; }
+  html:not([data-motion="full"]) .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
+  html:not([data-motion="full"]) .parxis-aura-2   { opacity: 0.45; transform: translate(-50%, -50%) scale(0.95); }
+}
+html[data-motion="reduce"] .parxis-symbol-levitate { transform: none; filter: drop-shadow(0 0 22px rgba(242,184,23,0.24)); }
+html[data-motion="reduce"] .parxis-shadow   { opacity: 0.62; filter: blur(16px); transform: translate(-50%, 0) scale(0.95, 0.98); }
+html[data-motion="reduce"] .parxis-surface  { opacity: 0.5; }
+html[data-motion="reduce"] .parxis-aura-1   { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
+html[data-motion="reduce"] .parxis-aura-2   { opacity: 0.45; transform: translate(-50%, -50%) scale(0.95); }
+
+/* Transição suave ao alternar entre modos */
+.parxis-symbol-levitate,
+.parxis-shadow,
+.parxis-surface,
+.parxis-aura {
+  transition: transform 0.7s ease, opacity 0.7s ease, filter 0.7s ease;
 }
 
 .parxis-hero-bg {
