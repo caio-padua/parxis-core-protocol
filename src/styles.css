@@ -1480,7 +1480,7 @@ html[data-contrast="high"] .parxis-fixed-veil {
 @media (max-width: 767px) {
   .parxis-fixed-bg {
     background-attachment: scroll;
-    background-position: center center;
+    background-position: 62% center;
     background-size: auto 100vh;
   }
 }
