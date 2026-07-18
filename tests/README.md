@@ -1,6 +1,12 @@
 # Regressão visual — nitidez do fundo "PADCON"
 
-![Blur / backdrop-filter guard](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml/badge.svg)
+[![main](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml/badge.svg?branch=main&event=push)](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml?query=branch%3Amain+event%3Apush)
+[![pull requests](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml/badge.svg?event=pull_request)](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml?query=event%3Apull_request)
+
+A primeira badge mostra o status do último run em `main` (push). A segunda
+mostra o status do último run em Pull Request. Verde = fundo "PADCON"
+nítido; vermelha = blur/backdrop-filter reintroduzido — abra o run para o
+comentário do PR e o artifact `visual-regression-report`.
 
 ## CI (GitHub Actions)
 
