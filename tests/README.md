@@ -19,7 +19,6 @@ Se qualquer `.parxis-glass`, `.parxis-glass-frame`, `.parxis-card`,
 `backdrop-filter` ou `filter: blur(...)`, o job falha e o merge é bloqueado.
 Marque o job "Blur / backdrop-filter guard" como *required check* nas
 branch protection rules para bloquear PRs automaticamente.
-# Regressão visual — nitidez do fundo "PADCON"
 
 Este projeto usa uma imagem de fundo fixa com o notebook gravado "PADCON".
 Regra do projeto: **nenhum painel** (`.parxis-glass`, `.parxis-glass-frame`,
