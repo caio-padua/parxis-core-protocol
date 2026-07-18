@@ -1462,17 +1462,17 @@ html[data-motion="reduce"] .parxis-panel {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.18) 0%, transparent 62%),
-    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.24) 0%, transparent 68%),
-    rgba(5, 3, 3, 0.06);
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.12) 0%, transparent 62%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.18) 0%, transparent 68%),
+    rgba(5, 3, 3, 0.04);
 }
 
 /* Contraste alto → escurece o véu para dar mais peso ao dourado */
 html[data-contrast="high"] .parxis-fixed-veil {
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 58%),
-    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.7) 0%, transparent 62%),
-    rgba(4, 2, 2, 0.45);
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.35) 0%, transparent 58%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.45) 0%, transparent 62%),
+    rgba(4, 2, 2, 0.25);
 }
 
 /* Fallback mobile: iOS Safari ignora background-attachment: fixed —
@@ -1486,12 +1486,11 @@ html[data-contrast="high"] .parxis-fixed-veil {
 
 /* Motion reduzido: mantém tudo estático (o fixed já é estático) */
 
-/* ---- 2) Glass panels — semi-transparent + backdrop-blur ---- */
+/* ---- 2) Glass panels — contraste sem blur para imagem nítida ---- */
 .parxis-glass {
   position: relative;
   isolation: isolate;
-  background: rgba(9, 4, 4, 0.22);
-  backdrop-filter: saturate(115%);
+  background: rgba(5, 2, 2, 0.58);
   border-top: 1px solid rgba(242,184,23,0.08);
   border-bottom: 1px solid rgba(242,184,23,0.08);
 }
@@ -1502,7 +1501,7 @@ html[data-contrast="high"] .parxis-fixed-veil {
   pointer-events: none;
   z-index: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 74%, rgba(0,0,0,0.22) 100%);
+    linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 74%, rgba(0,0,0,0.28) 100%);
 }
 .parxis-glass > * {
   position: relative;
@@ -1512,15 +1511,15 @@ html[data-contrast="high"] .parxis-fixed-veil {
 /* Variante com stitch frame + textura mais quente (bordô discreto) */
 .parxis-glass-frame {
   background:
-    linear-gradient(180deg, rgba(38,10,14,0.18) 0%, rgba(10,4,4,0.24) 60%, rgba(6,3,3,0.28) 100%);
+    linear-gradient(180deg, rgba(38,10,14,0.48) 0%, rgba(10,4,4,0.56) 60%, rgba(6,3,3,0.6) 100%);
 }
 
 html[data-contrast="high"] .parxis-glass {
-  background: rgba(6, 3, 3, 0.42);
+  background: rgba(4, 2, 2, 0.72);
 }
 html[data-contrast="high"] .parxis-glass-frame {
   background:
-    linear-gradient(180deg, rgba(38,10,14,0.32) 0%, rgba(8,3,3,0.44) 60%, rgba(4,2,2,0.48) 100%);
+    linear-gradient(180deg, rgba(38,10,14,0.62) 0%, rgba(8,3,3,0.7) 60%, rgba(4,2,2,0.74) 100%);
 }
 
 /* Manifesto/Testimonial/Scarcity que antes usavam bg-background sólido
