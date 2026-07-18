@@ -20,6 +20,18 @@ Se qualquer `.parxis-glass`, `.parxis-glass-frame`, `.parxis-card`,
 Marque o job "Blur / backdrop-filter guard" como *required check* nas
 branch protection rules para bloquear PRs automaticamente.
 
+### Comentário automático no PR
+
+Em cada PR o workflow publica um comentário fixo (header `visual-regression`,
+via [`marocchino/sticky-pull-request-comment`](https://github.com/marocchino/sticky-pull-request-comment))
+com o resumo do run: ✅ quando tudo passa, ou uma tabela dos cenários que
+falharam (rota × variante × viewport × classes afetadas). Os screenshots
+de cada cenário com falha e os JSONs (`smoke-report.json`,
+`suite-report.json`) são publicados como o artifact
+**`visual-regression-report`** do run — baixe pela aba *Summary → Artifacts*
+para inspecionar os diffs visuais. O comentário é sobrescrito a cada push,
+então sempre reflete o último run.
+
 Este projeto usa uma imagem de fundo fixa com o notebook gravado "PADCON".
 Regra do projeto: **nenhum painel** (`.parxis-glass`, `.parxis-glass-frame`,
 `.parxis-card`, `.parxis-fixed-bg`, `.parxis-fixed-veil`) pode aplicar
