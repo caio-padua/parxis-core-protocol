@@ -16,8 +16,13 @@
  */
 
 import { chromium } from "playwright";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
 const BASE_URL = process.env.PARXIS_URL ?? "http://localhost:8080";
+const REPORT_DIR = process.env.PARXIS_REPORT_DIR ?? "tests/.report";
+mkdirSync(REPORT_DIR, { recursive: true });
+const failuresForReport = [];
 
 const VIEWPORTS = [
   { name: "mobile-sm", width: 360, height: 780 },
@@ -77,6 +82,14 @@ async function auditViewport(browser, vp) {
     if (found.length) offenders.push({ y, found });
   }
 
+  if (offenders.length) {
+    const shot = join(REPORT_DIR, `smoke-${vp.name}.png`);
+    try {
+      await page.screenshot({ path: shot });
+      failuresForReport.push({ scope: "smoke", viewport: vp.name, size: `${vp.width}x${vp.height}`, screenshot: shot, offenders });
+    } catch {}
+  }
+
   await context.close();
   return offenders;
 }
@@ -97,6 +110,11 @@ async function main() {
     }
   }
   await browser.close();
+
+  writeFileSync(
+    join(REPORT_DIR, "smoke-report.json"),
+    JSON.stringify({ failed, failures: failuresForReport }, null, 2),
+  );
 
   if (failed) {
     console.error(

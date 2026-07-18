@@ -19,9 +19,14 @@
  */
 
 import { chromium } from "playwright";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
 const BASE_URL = process.env.PARXIS_URL ?? "http://localhost:8080";
 const CHROMIUM_PATH = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+const REPORT_DIR = process.env.PARXIS_REPORT_DIR ?? "tests/.report";
+mkdirSync(REPORT_DIR, { recursive: true });
+const failuresForReport = [];
 
 const ROUTES = ["/", "/admin"];
 
@@ -126,6 +131,21 @@ async function auditPage(browser, { route, viewport, variant }) {
     if (found.length) offenders.push({ y, found });
   }
 
+  if (offenders.length) {
+    const slug = `${route.replace(/\W+/g, "_") || "root"}-${variant.name}-${viewport.name}`;
+    const shot = join(REPORT_DIR, `suite-${slug}.png`);
+    try {
+      await page.screenshot({ path: shot });
+    } catch {}
+    failuresForReport.push({
+      route,
+      variant: variant.name,
+      viewport: `${viewport.name} ${viewport.width}x${viewport.height}`,
+      screenshot: shot,
+      offenders,
+    });
+  }
+
   await context.close();
   return { offenders, applied, fixedBgStatus, checkFixedBg, checkAppliedPrefs };
 }
@@ -170,6 +190,10 @@ async function main() {
 
   await browser.close();
   console.log(`\n${totalCases} cenários auditados.`);
+  writeFileSync(
+    join(REPORT_DIR, "suite-report.json"),
+    JSON.stringify({ totalCases, failed, failures: failuresForReport }, null, 2),
+  );
   if (failed) {
     console.error(
       "Regressão detectada: nitidez do fundo comprometida em uma ou mais variantes.",

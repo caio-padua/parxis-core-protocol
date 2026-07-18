@@ -48,12 +48,40 @@ jobs:
       - name: Run PADCON regression (single-page smoke)
         env:
           PARXIS_URL: http://127.0.0.1:8080
+          PARXIS_REPORT_DIR: tests/.report
+        continue-on-error: true
+        id: smoke
         run: node tests/visual-regression-padcon.mjs
 
       - name: Run full suite (routes × PT/EN × contrast × 7 viewports)
         env:
           PARXIS_URL: http://127.0.0.1:8080
+          PARXIS_REPORT_DIR: tests/.report
+        continue-on-error: true
+        id: suite
         run: node tests/visual-regression-suite.mjs
+
+      - name: Build PR comment (markdown summary)
+        if: always()
+        env:
+          PARXIS_REPORT_DIR: tests/.report
+          PARXIS_ARTIFACT_NAME: visual-regression-report
+        run: node tests/build-pr-comment.mjs
+
+      - name: Upload regression report (screenshots + JSON)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-report
+          path: tests/.report
+          if-no-files-found: ignore
+
+      - name: Comment on PR with regression summary
+        if: always() && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: visual-regression
+          path: tests/.report/pr-comment.md
 
       - name: Stop preview server
         if: always()
@@ -67,3 +95,9 @@ jobs:
           name: preview-log
           path: preview.log
           if-no-files-found: ignore
+
+      - name: Fail job if regression detected
+        if: always() && (steps.smoke.outcome == 'failure' || steps.suite.outcome == 'failure')
+        run: |
+          echo "Visual regression detected — see PR comment and artifact 'visual-regression-report'." >&2
+          exit 1
