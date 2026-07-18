@@ -98,7 +98,7 @@ function Nav() {
           <MotionToggle />
           <a
             href="#contato"
-            className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden lg:inline-flex"
+            className="parxis-btn parxis-btn-ghost parxis-btn-sm !hidden lg:!inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <span className="parxis-btn-inner">{tr(c.cta, lang)}</span>
           </a>
