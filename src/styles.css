@@ -472,7 +472,7 @@
   --cognac-light: #D9C9A5;
 
   --background: var(--obsidian);
-  --foreground: oklch(0.96 0.02 80);
+  --foreground: oklch(0.98 0.02 82);
   --card: oklch(0.12 0.04 20);
   --card-foreground: oklch(0.96 0.02 80);
   --popover: oklch(0.12 0.04 20);
@@ -482,7 +482,7 @@
   --secondary: var(--bordo);
   --secondary-foreground: oklch(0.96 0.02 80);
   --muted: oklch(0.14 0.03 25);
-  --muted-foreground: oklch(0.68 0.03 70);
+  --muted-foreground: oklch(0.82 0.035 78);
   --accent: var(--gold-deep);
   --accent-foreground: oklch(0.96 0.02 80);
   --destructive: oklch(0.577 0.245 27.325);
@@ -1454,7 +1454,8 @@ html[data-motion="reduce"] .parxis-panel {
   background-size: cover;
   background-attachment: fixed;
   background-color: #050505;
-  filter: saturate(1.08) contrast(1.12) brightness(1.02);
+  filter: saturate(1.14) contrast(1.18) brightness(1.06);
+  image-rendering: -webkit-optimize-contrast;
 }
 .parxis-fixed-veil {
   position: fixed;
@@ -1480,8 +1481,8 @@ html[data-contrast="high"] .parxis-fixed-veil {
 @media (max-width: 767px) {
   .parxis-fixed-bg {
     background-attachment: scroll;
-    background-position: 62% center;
-    background-size: auto 100vh;
+    background-position: center center;
+    background-size: cover;
   }
 }
 
