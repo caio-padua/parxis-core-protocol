@@ -1435,7 +1435,8 @@ html[data-motion="reduce"] .parxis-panel {
    PADCON techniques applied to Parxis
    1) Fixed leather background (background-attachment: fixed) + global veil
    2) Glass panels for every section past the Hero (semi-transparent
-      + backdrop-blur), so the fixed image reveals itself while content scrolls
+      contrast tint, no backdrop-blur), so the fixed image stays perfectly
+      sharp while content remains readable
    3) Entrance animations in cascade (fadeSlideUp) + pulsing gold L-corners
    ======================================================================== */
 
