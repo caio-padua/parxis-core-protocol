@@ -1,5 +1,9 @@
+# Regressão visual — nitidez do fundo "PADCON"
+
+![Blur / backdrop-filter guard](https://github.com/caio-padua/site-parxis/actions/workflows/visual-regression.yml/badge.svg)
 
 ## CI (GitHub Actions)
+
 
 O workflow `.github/workflows/visual-regression.yml` roda em cada `push` na
 `main` e em cada Pull Request. Ele:
