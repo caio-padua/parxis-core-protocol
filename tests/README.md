@@ -1,3 +1,20 @@
+
+## CI (GitHub Actions)
+
+O workflow `.github/workflows/visual-regression.yml` roda em cada `push` na
+`main` e em cada Pull Request. Ele:
+
+1. Instala dependências com `bun install --frozen-lockfile`.
+2. Instala o Chromium do Playwright (`bunx playwright install --with-deps chromium`).
+3. Executa `bun run build` e serve o app com `bun run preview` em `127.0.0.1:8080`.
+4. Roda `tests/visual-regression-padcon.mjs` (smoke) e depois
+   `tests/visual-regression-suite.mjs` (rotas × idiomas × contraste × 7 breakpoints).
+
+Se qualquer `.parxis-glass`, `.parxis-glass-frame`, `.parxis-card`,
+`.parxis-fixed-bg` ou `.parxis-fixed-veil` voltar a receber
+`backdrop-filter` ou `filter: blur(...)`, o job falha e o merge é bloqueado.
+Marque o job "Blur / backdrop-filter guard" como *required check* nas
+branch protection rules para bloquear PRs automaticamente.
 # Regressão visual — nitidez do fundo "PADCON"
 
 Este projeto usa uma imagem de fundo fixa com o notebook gravado "PADCON".
