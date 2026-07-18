@@ -20,9 +20,15 @@ Sai com código 0 quando todos os breakpoints (`360`, `375`, `430`, `768`,
 `1024`, `1440`, `1920`) e 5 posições de scroll estão limpos. Sai com
 código diferente de 0 listando cada elemento infrator.
 
-Requer `playwright` instalado no ambiente Node. Alternativa Python
-equivalente: `python3 tests/visual-regression-padcon.py` (a criar se
-necessário) ou o script auxiliar em `/tmp/browser/verify/multi.py`.
+Requer `playwright` instalado no ambiente Node (`bun add -d playwright &&
+npx playwright install chromium`).
+
+Alternativa Python equivalente (útil em CI/sandbox com Playwright Python
+já disponível):
+
+```bash
+python3 tests/visual-regression-padcon.py
+```
 
 ## Quando atualizar
 
