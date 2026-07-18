@@ -21,6 +21,7 @@
 import { chromium } from "playwright";
 
 const BASE_URL = process.env.PARXIS_URL ?? "http://localhost:8080";
+const CHROMIUM_PATH = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
 
 const ROUTES = ["/", "/admin"];
 
@@ -128,7 +129,10 @@ async function auditPage(browser, { route, viewport, variant }) {
 }
 
 async function main() {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    ...(CHROMIUM_PATH ? { executablePath: CHROMIUM_PATH } : {}),
+  });
   let failed = false;
   let totalCases = 0;
 
