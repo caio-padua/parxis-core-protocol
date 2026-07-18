@@ -66,12 +66,12 @@ function Nav() {
   const c = content.nav;
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[rgba(5,5,5,0.55)] border-b border-[rgba(242,184,23,0.12)]">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-3">
-          <span className="text-[color:var(--gold)] font-serif tracking-[0.28em] text-sm uppercase">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-10 h-14 sm:h-16 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+        <a href="#top" className="flex items-center gap-3 min-w-0">
+          <span className="text-[color:var(--gold)] font-serif tracking-[0.28em] text-xs sm:text-sm uppercase truncate">
             {tr(c.brand, lang)}
           </span>
-          <span className="hidden sm:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+          <span className="hidden lg:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground truncate">
             {tr(c.tagline, lang)}
           </span>
         </a>
@@ -82,15 +82,16 @@ function Nav() {
           <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.circle, lang)}</a>
           <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.ecosystem, lang)}</a>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <ContrastToggle />
           <MotionToggle />
           <a
             href="#contato"
-            className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden md:inline-flex"
+            className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden lg:inline-flex"
           >
             <span className="parxis-btn-inner">{tr(c.cta, lang)}</span>
           </a>
+          <LangSwitcher />
         </div>
       </div>
     </header>
