@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:visual": "node tests/visual-regression-padcon.mjs"
+    "test:visual": "node tests/visual-regression-padcon.mjs",
+    "test:visual:suite": "node tests/visual-regression-suite.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
