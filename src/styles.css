@@ -1454,7 +1454,8 @@ html[data-motion="reduce"] .parxis-panel {
   background-size: cover;
   background-attachment: fixed;
   background-color: #050505;
-  filter: saturate(1.08) contrast(1.12) brightness(1.02);
+  filter: saturate(1.14) contrast(1.18) brightness(1.06);
+  image-rendering: -webkit-optimize-contrast;
 }
 .parxis-fixed-veil {
   position: fixed;
@@ -1480,8 +1481,8 @@ html[data-contrast="high"] .parxis-fixed-veil {
 @media (max-width: 767px) {
   .parxis-fixed-bg {
     background-attachment: scroll;
-    background-position: 62% center;
-    background-size: auto 100vh;
+    background-position: center center;
+    background-size: cover;
   }
 }
 
