@@ -10,6 +10,7 @@ import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.js
 import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext";
 import { content } from "@/content/parxis";
 import { GoldCorners } from "@/components/GoldCorners";
+import { LangSwitcher } from "@/components/LangSwitcher";
 
 const ampoulesAtelierUrl = ampoulesWideAsset.url;
 const heroBg4K = atelierWideAsset;
