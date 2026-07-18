@@ -39,6 +39,12 @@ function Index() {
         ["--parxis-fixed-url" as string]: `url(${ampoulesAtelierUrl})`,
       }}
     >
+      <a
+        href="#top"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-[color:var(--gold)] focus:text-[#0a0505] focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-[color:var(--gold)] focus:ring-offset-2 focus:ring-offset-black"
+      >
+        Pular para o conteúdo
+      </a>
       {/* Camada 1 — couro travado no viewport (background-attachment: fixed).
           Fica atrás de tudo. O Hero, sendo opaco, tapa esta camada na primeira dobra;
           a partir daí, todas as seções são vidro fumê e deixam esta imagem aparecer. */}
@@ -68,7 +74,11 @@ function Nav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[rgba(5,5,5,0.55)] border-b border-[rgba(242,184,23,0.12)]">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-10 h-14 sm:h-16 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
-        <a href="#top" className="flex items-center gap-3 min-w-0">
+        <a
+          href="#top"
+          aria-label="Parxis — ir para o topo"
+          className="flex items-center gap-3 min-w-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        >
           <span className="text-[color:var(--gold)] font-serif tracking-[0.28em] text-xs sm:text-sm uppercase truncate">
             {tr(c.brand, lang)}
           </span>
@@ -77,18 +87,18 @@ function Nav() {
           </span>
         </a>
         <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-          <a href="#manifesto" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.manifesto, lang)}</a>
-          <a href="#recursos" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.features, lang)}</a>
-          <a href="#tecnologia" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.technology, lang)}</a>
-          <a href="#clinicas" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.circle, lang)}</a>
-          <a href="#ecossistema" className="hover:text-[color:var(--gold)] transition-colors">{tr(c.links.ecosystem, lang)}</a>
+          <a href="#manifesto" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.manifesto, lang)}</a>
+          <a href="#recursos" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.features, lang)}</a>
+          <a href="#tecnologia" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.technology, lang)}</a>
+          <a href="#clinicas" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.circle, lang)}</a>
+          <a href="#ecossistema" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.ecosystem, lang)}</a>
         </nav>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <ContrastToggle />
           <MotionToggle />
           <a
             href="#contato"
-            className="parxis-btn parxis-btn-ghost parxis-btn-sm hidden lg:inline-flex"
+            className="parxis-btn parxis-btn-ghost parxis-btn-sm !hidden lg:!inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <span className="parxis-btn-inner">{tr(c.cta, lang)}</span>
           </a>
@@ -131,7 +141,7 @@ function MotionToggle() {
       aria-pressed={reduced}
       aria-label={title}
       title={title}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
     >
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         {reduced ? (
@@ -188,7 +198,7 @@ function ContrastToggle() {
       aria-pressed={high}
       aria-label={title}
       title={title}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
     >
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         {high ? (
