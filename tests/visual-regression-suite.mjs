@@ -77,7 +77,9 @@ async function auditPage(browser, { route, viewport, variant }) {
   }));
 
   // Confere o fundo fixo apenas na home (a única rota que o monta).
+  // Fundo fixo, wordmark PADCON e toggles vivem apenas na home.
   const checkFixedBg = route === "/";
+  const checkAppliedPrefs = route === "/";
   const fixedBgStatus = checkFixedBg
     ? await page.evaluate(() => {
         const el = document.querySelector(".parxis-fixed-bg");
@@ -125,7 +127,7 @@ async function auditPage(browser, { route, viewport, variant }) {
   }
 
   await context.close();
-  return { offenders, applied, fixedBgStatus, checkFixedBg };
+  return { offenders, applied, fixedBgStatus, checkFixedBg, checkAppliedPrefs };
 }
 
 async function main() {
@@ -141,11 +143,12 @@ async function main() {
       for (const viewport of VIEWPORTS) {
         totalCases += 1;
         const label = `${route} · ${variant.name} · ${viewport.name} ${viewport.width}x${viewport.height}`;
-        const { offenders, applied, fixedBgStatus, checkFixedBg } =
+        const { offenders, applied, fixedBgStatus, checkFixedBg, checkAppliedPrefs } =
           await auditPage(browser, { route, viewport, variant });
 
-        const langOk = applied.lang === variant.lang;
-        const contrastOk = applied.contrast === variant.contrast;
+        const langOk = !checkAppliedPrefs || applied.lang === variant.lang;
+        const contrastOk =
+          !checkAppliedPrefs || applied.contrast === variant.contrast;
         const bgOk = !checkFixedBg || (fixedBgStatus.present && fixedBgStatus.hasImage);
 
         if (offenders.length === 0 && langOk && contrastOk && bgOk) {
