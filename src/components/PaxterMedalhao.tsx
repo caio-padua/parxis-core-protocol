@@ -241,7 +241,6 @@ export function PaxterMedalhao({
               size={size}
               viewBox={SYMBOL_VIEWBOX}
               glintWidth={34}
-              sweepMs={12000}
               flashMs={12000}
               flashDelay={0}
               style={{ position: "absolute", inset: 0 }}

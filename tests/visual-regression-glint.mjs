@@ -2,23 +2,21 @@
 /**
  * Regressão visual do glint do medalhão Paxter.
  *
- * Regra travada: o motor de glint (`PaxterMedalhao`) precisa cobrir 100%
- * do monograma sem saltos. A cobertura é definida por 7 componentes
- * (três anéis + silhueta externa da letra P + contra-forma do bojo +
- * dois traços laterais), cada um renderizado em 2 camadas (`tf-flash`
- * halo + núcleo), totalizando 14 traços animados. Cada camada precisa
- * ter `--tf-flash-delay` escalonado em múltiplos de 120ms, para que a
- * faísca percorra os componentes em sequência sem pular nenhum.
+ * Regra travada: o glint (`PaxterMedalhao`) não pode orbitar/circular por
+ * fora do símbolo. Ele precisa percorrer a estrutura real do monograma como
+ * uma caneta: moldura superior, bojo interno, diagonais e gancho lateral.
+ * A cobertura é definida por 6 traços reais, cada um renderizado em 2 camadas
+ * (`tf-flash` halo + núcleo), totalizando 12 traços animados.
  *
- * Também confere que a varredura de luz (`tf-sweep`) está montada com
- * duração > 0 — sem ela o brilho não atravessa o medalhão.
+ * O teste também bloqueia a volta do antigo `tf-sweep`, que era uma varredura
+ * linear mascarada e fazia o efeito parecer circular/envolvente, não escrito.
  *
  * Uso:
  *   1) bun run dev
  *   2) node tests/visual-regression-glint.mjs
  *
  * Sai != 0 quando qualquer componente do monograma some, quando o
- * escalonamento dos delays quebra, ou quando o sweep é removido.
+ * escalonamento dos delays quebra, ou quando um sweep orbital volta.
  */
 
 import { chromium } from "playwright";
@@ -29,9 +27,9 @@ const BASE_URL = process.env.PARXIS_URL ?? "http://localhost:8080";
 const REPORT_DIR = process.env.PARXIS_REPORT_DIR ?? "tests/.report";
 mkdirSync(REPORT_DIR, { recursive: true });
 
-const EXPECTED_MONOGRAM_PATHS = 2; // anéis reais do símbolo (externo + interno)
+const EXPECTED_MONOGRAM_PATHS = 6; // traços reais do símbolo, não anéis orbitais
 const EXPECTED_FLASH_NODES = EXPECTED_MONOGRAM_PATHS * 2; // halo + núcleo
-const FLASH_DELAY_STEP_MS = 120;
+const FLASH_DELAY_STEP_MS = 1450;
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
@@ -58,21 +56,15 @@ async function main() {
         return m ? Number(m[0]) : null;
       })
       .filter((n) => n !== null);
-    const sweepMs = sweeps.map((el) => {
-      const v =
-        el.style.getPropertyValue("--tf-sweep").trim() ||
-        getComputedStyle(el).getPropertyValue("--tf-sweep").trim();
-      const m = v.match(/-?\d+(?:\.\d+)?/);
-      return m ? Number(m[0]) : null;
-    });
     const dValues = flashes.map((el) => el.getAttribute("d"));
     const uniquePaths = Array.from(new Set(dValues.filter(Boolean)));
+    const hasArcOrbitPath = uniquePaths.some((d) => /\ba\s*\d|\bA\s*\d/.test(d));
     return {
       flashCount: flashes.length,
       sweepCount: sweeps.length,
-      sweepMs,
       delays,
       uniquePathCount: uniquePaths.length,
+      hasArcOrbitPath,
     };
   });
 
@@ -88,9 +80,11 @@ async function main() {
       `paths únicos esperado=${EXPECTED_MONOGRAM_PATHS} recebido=${report.uniquePathCount} — cobertura do monograma incompleta`,
     );
   }
-  if (report.sweepCount < 1) errors.push("tf-sweep ausente");
-  if (!report.sweepMs?.every((n) => typeof n === "number" && n > 0)) {
-    errors.push(`sweep duration inválida: ${JSON.stringify(report.sweepMs)}`);
+  if (report.sweepCount !== 0) {
+    errors.push(`tf-sweep não pode voltar: recebido=${report.sweepCount}`);
+  }
+  if (report.hasArcOrbitPath) {
+    errors.push("paths orbitais/circulares detectados; o glint deve seguir a estrutura do símbolo");
   }
 
   // Verifica escalonamento: para cada índice de path (0..N-1) deve
@@ -125,7 +119,7 @@ async function main() {
     process.exit(1);
   }
   console.log(
-    `ok glint — ${report.flashCount} traços animados sobre ${report.uniquePathCount} componentes do monograma, sweep ${report.sweepMs?.[0]}ms.`,
+    `ok glint — ${report.flashCount} traços animados escrevendo ${report.uniquePathCount} componentes reais do monograma, sem sweep orbital.`,
   );
 }
 
