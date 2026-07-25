@@ -12,7 +12,7 @@ import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext
 import { content } from "@/content/parxis";
 import { GoldCorners } from "@/components/GoldCorners";
 import { LangSwitcher } from "@/components/LangSwitcher";
-import { PaxterMedallion } from "@/components/PaxterMedallion";
+import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
 const ampoulesAtelierUrl = padconV2Asset.url;
 void ampoulesWideAsset;
@@ -82,7 +82,7 @@ function Nav() {
           aria-label="Parxis — ir para o topo"
           className="flex items-center gap-3 min-w-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          <PaxterMedallion size={38} />
+          <PaxterMedalhao size={38} />
           <span className="flex flex-col justify-center min-w-0">
             <img
               src={parxisWordmarkUrl}
