@@ -24,7 +24,7 @@ const PAXTER_GLINT_STYLE = `
   }
   .tf-sweep {
     opacity: 0;
-    animation: tfSweep var(--tf-sweep, 12000ms) cubic-bezier(.45,0,.55,1) infinite backwards;
+    animation: tfSweep var(--tf-sweep, 12000ms) cubic-bezier(.45,0,.55,1) var(--tf-sweep-delay, 0ms) infinite backwards;
   }
   @keyframes tfSweep {
     0%   { transform: translateX(-220px); opacity: 0; }
@@ -135,7 +135,7 @@ function PaxterGlintPremium({
           className="tf-sweep"
           style={{
             ["--tf-sweep" as string]: `${sweepMs}ms`,
-            animationDelay: `${sweepDelay}ms`,
+            ["--tf-sweep-delay" as string]: `${sweepDelay}ms`,
           } as CSSProperties}
         >
           <rect
@@ -291,7 +291,7 @@ export function PaxterMedalhao({
               d={SYMBOL_PATHS}
               size={size}
               viewBox={SYMBOL_VIEWBOX}
-              sweepWidth={size * 1.4}
+              sweepWidth={200}
               sweepBright={1.1}
               glintWidth={5}
               sweepMs={12000}
