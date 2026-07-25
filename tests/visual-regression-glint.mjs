@@ -59,12 +59,54 @@ async function main() {
     const dValues = flashes.map((el) => el.getAttribute("d"));
     const uniquePaths = Array.from(new Set(dValues.filter(Boolean)));
     const hasArcOrbitPath = uniquePaths.some((d) => /\ba\s*\d|\bA\s*\d/.test(d));
+    // Geometria: para cada path único, medir extremos, comprimento total
+    // e a distância entre o primeiro e o último ponto amostrado. Um traço
+    // "escrito" ao longo do símbolo é aberto (endpoints distantes) e possui
+    // razão diâmetro/comprimento baixa (< ~0.9). Uma órbita circular fecha
+    // sobre si mesma (endpoints coincidentes) e tem essa razão alta.
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const geom = uniquePaths.map((d) => {
+      const tmp = document.createElementNS(SVG_NS, "path");
+      tmp.setAttribute("d", d);
+      const total = tmp.getTotalLength();
+      const samples = 48;
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      const pts = [];
+      for (let i = 0; i <= samples; i++) {
+        const p = tmp.getPointAtLength((i / samples) * total);
+        pts.push(p);
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+      const start = pts[0], end = pts[pts.length - 1];
+      const endpointDist = Math.hypot(end.x - start.x, end.y - start.y);
+      const bboxDiag = Math.hypot(maxX - minX, maxY - minY);
+      // Detecta traço com curvatura constante ao redor de um centróide
+      const cx = (minX + maxX) / 2;
+      const cy = (minY + maxY) / 2;
+      const radii = pts.map((p) => Math.hypot(p.x - cx, p.y - cy));
+      const rMean = radii.reduce((a, b) => a + b, 0) / radii.length;
+      const rVar =
+        radii.reduce((a, b) => a + (b - rMean) ** 2, 0) / radii.length;
+      const radialCV = rMean > 0 ? Math.sqrt(rVar) / rMean : 0;
+      return {
+        d,
+        length: total,
+        bboxDiag,
+        endpointDist,
+        endpointRatio: bboxDiag > 0 ? endpointDist / bboxDiag : 0,
+        radialCV,
+      };
+    });
     return {
       flashCount: flashes.length,
       sweepCount: sweeps.length,
       delays,
       uniquePathCount: uniquePaths.length,
       hasArcOrbitPath,
+      geom,
     };
   });
 
@@ -85,6 +127,28 @@ async function main() {
   }
   if (report.hasArcOrbitPath) {
     errors.push("paths orbitais/circulares detectados; o glint deve seguir a estrutura do símbolo");
+  }
+
+  // Checagem geométrica: cada traço precisa ser um segmento aberto que
+  // percorre parte do símbolo (endpoints distantes) e NÃO uma curva
+  // fechada com raio quase constante (órbita).
+  for (const [i, g] of (report.geom ?? []).entries()) {
+    if (!Number.isFinite(g.length) || g.length < 40) {
+      errors.push(`path #${i} muito curto (len=${g.length?.toFixed?.(1)}); glint precisa cobrir o traço real`);
+      continue;
+    }
+    // Traço aberto: endpoints distantes em relação ao bounding-box.
+    if (g.endpointRatio < 0.35) {
+      errors.push(
+        `path #${i} tem endpoints quase coincidentes (ratio=${g.endpointRatio.toFixed(2)}); parece órbita fechada, não linha do símbolo`,
+      );
+    }
+    // Raio quase constante em torno do centróide == círculo/orbital.
+    if (g.radialCV < 0.08) {
+      errors.push(
+        `path #${i} tem curvatura radial quase constante (CV=${g.radialCV.toFixed(3)}); interpolação circular detectada`,
+      );
+    }
   }
 
   // Verifica escalonamento: para cada índice de path (0..N-1) deve
