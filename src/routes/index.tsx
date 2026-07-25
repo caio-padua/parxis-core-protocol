@@ -75,20 +75,23 @@ function Nav() {
   const c = content.nav;
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[rgba(5,5,5,0.55)] border-b border-[rgba(242,184,23,0.12)]">
-      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-10 h-14 sm:h-16 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-10 h-14 sm:h-16 flex items-center justify-between gap-3 sm:gap-6">
         <a
           href="#top"
           aria-label="Parxis — ir para o topo"
           className="flex items-center gap-3 min-w-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          <span className="text-[color:var(--gold)] font-serif tracking-[0.28em] text-xs sm:text-sm uppercase truncate">
-            {tr(c.brand, lang)}
-          </span>
-          <span className="hidden lg:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground truncate">
+          <img
+            src={parxisWordmarkUrl}
+            alt="PARXIS"
+            className="h-6 sm:h-7 lg:h-8 w-auto object-contain select-none"
+            draggable={false}
+          />
+          <span className="hidden xl:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground truncate">
             {tr(c.tagline, lang)}
           </span>
         </a>
-        <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
+        <nav className="hidden md:flex items-center gap-7 lg:gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
           <a href="#manifesto" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.manifesto, lang)}</a>
           <a href="#recursos" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.features, lang)}</a>
           <a href="#tecnologia" className="rounded-sm hover:text-[color:var(--gold)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">{tr(c.links.technology, lang)}</a>
