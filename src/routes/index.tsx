@@ -7,7 +7,7 @@ import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide-padcon.png.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.json";
-import padconV2Asset from "@/assets/parxis-padcon-v2.png.asset.json";
+import padconV2Asset from "@/assets/parxis-padcon-v3.png.asset.json";
 import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext";
 import { content } from "@/content/parxis";
 import { GoldCorners } from "@/components/GoldCorners";
