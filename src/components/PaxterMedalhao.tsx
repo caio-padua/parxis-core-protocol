@@ -55,13 +55,28 @@ const PAXTER_GLINT_STYLE = `
 
 const SYMBOL_RING_OUTER =
   "M 200,200 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0";
+const SYMBOL_RING_MID =
+  "M 200,200 m -168,0 a 168,168 0 1,0 336,0 a 168,168 0 1,0 -336,0";
 const SYMBOL_RING_INNER =
   "M 200,200 m -148,0 a 148,148 0 1,0 296,0 a 148,148 0 1,0 -296,0";
-// Contorno estilizado da letra "P" do monograma (haste + bojo),
-// usado para que o raio de glint percorra também o corpo da logo.
-const SYMBOL_LETTER_P =
-  "M 150 300 L 150 100 L 228 100 A 50 50 0 0 1 228 200 L 150 200";
-const SYMBOL_PATHS = [SYMBOL_RING_OUTER, SYMBOL_RING_INNER, SYMBOL_LETTER_P];
+// Contorno completo da letra "P" do monograma: silhueta externa fechada
+// (haste + topo + bojo + descida) e o contorno interno (contra-forma do bojo).
+const SYMBOL_LETTER_P_OUTER =
+  "M 130 320 L 130 90 L 235 90 A 65 65 0 0 1 235 220 L 175 220 L 175 320 Z";
+const SYMBOL_LETTER_P_INNER =
+  "M 175 130 L 220 130 A 30 30 0 0 1 220 190 L 175 190 Z";
+// Traços horizontais decorativos do símbolo (esquerda e direita do P).
+const SYMBOL_TICK_LEFT = "M 60 200 L 100 200";
+const SYMBOL_TICK_RIGHT = "M 300 200 L 340 200";
+const SYMBOL_PATHS = [
+  SYMBOL_RING_OUTER,
+  SYMBOL_RING_MID,
+  SYMBOL_RING_INNER,
+  SYMBOL_LETTER_P_OUTER,
+  SYMBOL_LETTER_P_INNER,
+  SYMBOL_TICK_LEFT,
+  SYMBOL_TICK_RIGHT,
+];
 const SYMBOL_VIEWBOX = "0 0 400 400";
 
 interface GlintPremiumProps {
