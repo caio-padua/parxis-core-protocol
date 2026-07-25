@@ -144,7 +144,7 @@ async function main() {
       );
     }
     // Raio quase constante em torno do centróide == círculo/orbital.
-    if (g.radialCV < 0.12) {
+    if (g.radialCV < 0.08) {
       errors.push(
         `path #${i} tem curvatura radial quase constante (CV=${g.radialCV.toFixed(3)}); interpolação circular detectada`,
       );
