@@ -12,6 +12,7 @@ import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext
 import { content } from "@/content/parxis";
 import { GoldCorners } from "@/components/GoldCorners";
 import { LangSwitcher } from "@/components/LangSwitcher";
+import { PaxterMedallion } from "@/components/PaxterMedallion";
 
 const ampoulesAtelierUrl = padconV2Asset.url;
 void ampoulesWideAsset;
@@ -81,14 +82,17 @@ function Nav() {
           aria-label="Parxis — ir para o topo"
           className="flex items-center gap-3 min-w-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          <img
-            src={parxisWordmarkUrl}
-            alt="PARXIS"
-            className="h-6 sm:h-7 lg:h-8 w-auto object-contain select-none"
-            draggable={false}
-          />
-          <span className="hidden xl:inline text-[10px] uppercase tracking-[0.32em] text-muted-foreground truncate">
-            {tr(c.tagline, lang)}
+          <PaxterMedallion size={38} />
+          <span className="flex flex-col justify-center min-w-0">
+            <img
+              src={parxisWordmarkUrl}
+              alt="PARXIS"
+              className="h-5 sm:h-6 w-auto object-contain select-none"
+              draggable={false}
+            />
+            <span className="hidden sm:inline text-[9px] uppercase tracking-[0.28em] text-[color:var(--gold)] opacity-80 truncate leading-none mt-0.5">
+              Clinical Intelligence System
+            </span>
           </span>
         </a>
         <nav className="hidden md:flex items-center gap-7 lg:gap-9 text-xs uppercase tracking-[0.24em] text-muted-foreground">
