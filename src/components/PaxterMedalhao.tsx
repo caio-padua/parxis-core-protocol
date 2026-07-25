@@ -2,37 +2,18 @@ import { useId, type CSSProperties } from "react";
 import symbolAsset from "@/assets/parxis-symbol.png.asset.json";
 
 const PAXTER_GLINT_STYLE = `
-  .tf-base { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .tf-draw {
-    fill: none; stroke-linecap: round; stroke-linejoin: round;
-    stroke-dasharray: 100; stroke-dashoffset: 100;
-    animation: tfDraw var(--tf-draw, 1800ms) cubic-bezier(.65,0,.35,1) forwards;
-  }
-  @keyframes tfDraw { to { stroke-dashoffset: 0; } }
   .tf-flash {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
-    stroke-dasharray: 7 100; stroke-dashoffset: 107; opacity: 0;
-    animation: tfFlash var(--tf-flash, 12000ms) linear var(--tf-flash-delay, 0ms) infinite backwards;
+    stroke-dasharray: 6 100; stroke-dashoffset: 110; opacity: 0;
+    animation: tfFlash var(--tf-flash, 12000ms) cubic-bezier(.42,0,.18,1) var(--tf-flash-delay, 0ms) infinite backwards;
   }
   @keyframes tfFlash {
-    0%   { stroke-dashoffset: 107; opacity: 0; }
-    2%   { stroke-dashoffset: 107; opacity: 0; }
-    5%   { opacity: 1; }
-    21%  { stroke-dashoffset: 0;   opacity: 1; }
-    24%  { stroke-dashoffset: 0;   opacity: 0; }
-    100% { stroke-dashoffset: 0;   opacity: 0; }
-  }
-  .tf-sweep {
-    opacity: 0;
-    animation: tfSweep var(--tf-sweep, 12000ms) cubic-bezier(.45,0,.55,1) var(--tf-sweep-delay, 0ms) infinite backwards;
-  }
-  @keyframes tfSweep {
-    0%   { transform: translateX(-220px); opacity: 0; }
-    26%  { transform: translateX(-220px); opacity: 0; }
-    30%  { opacity: 1; }
-    45%  { transform: translateX(480px);  opacity: 1; }
-    48%  { transform: translateX(480px);  opacity: 0; }
-    100% { transform: translateX(480px);  opacity: 0; }
+    0%   { stroke-dashoffset: 110; opacity: 0; }
+    5%   { stroke-dashoffset: 110; opacity: 0; }
+    8%   { opacity: 1; }
+    20%  { stroke-dashoffset: -8;  opacity: 1; }
+    24%  { stroke-dashoffset: -8;  opacity: 0; }
+    100% { stroke-dashoffset: -8;  opacity: 0; }
   }
   @keyframes pspAura {
     0%,100% { opacity: .40; transform: scale(1);    }
@@ -45,32 +26,39 @@ const PAXTER_GLINT_STYLE = `
   }
   .pax-dome-shine { animation: paxDomeShine 4200ms ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) {
-    .tf-draw  { animation: none; stroke-dashoffset: 0; }
     .tf-flash { display: none; }
-    .tf-sweep { animation: none; opacity: 0; }
     .pax-aura { animation: none; opacity: .45; }
     .pax-dome-shine { animation: none; }
   }
 `;
 
-const SYMBOL_RING_OUTER =
-  "M 200,200 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0";
-const SYMBOL_RING_INNER =
-  "M 200,200 m -148,0 a 148,148 0 1,0 296,0 a 148,148 0 1,0 -296,0";
-const SYMBOL_PATHS = [SYMBOL_RING_OUTER, SYMBOL_RING_INNER];
-const SYMBOL_VIEWBOX = "0 0 400 400";
+const TRACE_DELAY_STEP_MS = 1450;
+const SYMBOL_TRACE_FRAME =
+  "M216 766 L216 296 Q216 162 352 162 L692 162 Q782 162 822 219 Q856 268 821 330 Q796 374 720 454 L579 609";
+const SYMBOL_TRACE_HOOK =
+  "M843 386 L843 626 Q843 735 749 764 Q656 792 586 712 L521 633";
+const SYMBOL_TRACE_RISING_DIAGONAL = "M303 764 L535 529 L711 355";
+const SYMBOL_TRACE_DESCENDING_DIAGONAL = "M338 408 L704 768";
+const SYMBOL_TRACE_BOWL_TOP =
+  "M303 302 Q308 362 389 364 L503 364 Q601 365 624 442";
+const SYMBOL_TRACE_BOWL_RETURN = "M624 442 Q638 520 552 557 L392 487";
+const SYMBOL_PATHS = [
+  SYMBOL_TRACE_FRAME,
+  SYMBOL_TRACE_BOWL_TOP,
+  SYMBOL_TRACE_BOWL_RETURN,
+  SYMBOL_TRACE_RISING_DIAGONAL,
+  SYMBOL_TRACE_DESCENDING_DIAGONAL,
+  SYMBOL_TRACE_HOOK,
+];
+const SYMBOL_VIEWBOX = "0 0 1024 1024";
 
 interface GlintPremiumProps {
   d: string | string[];
   size?: number;
   viewBox?: string;
   glintWidth?: number;
-  sweepWidth?: number;
-  sweepBright?: number;
-  sweepMs?: number;
   flashMs?: number;
   flashDelay?: number;
-  sweepDelay?: number;
   className?: string;
   style?: CSSProperties;
 }
@@ -79,26 +67,17 @@ function PaxterGlintPremium({
   d,
   size = 150,
   viewBox = SYMBOL_VIEWBOX,
-  glintWidth = 9,
-  sweepWidth = 150,
-  sweepBright = 1,
-  sweepMs = 12000,
+  glintWidth = 32,
   flashMs = 12000,
   flashDelay = 0,
-  sweepDelay = 0,
   className,
   style,
 }: GlintPremiumProps) {
   const uid = useId().replace(/:/g, "");
-  const maskId = `pmm-${uid}`;
-  const sweepGId = `pms-${uid}`;
   const glowId = `pmg-${uid}`;
   const paths = Array.isArray(d) ? d : [d];
-  const clamp = (n: number) => Math.max(0, Math.min(1, n));
-  const o1 = clamp(0.5 * sweepBright);
-  const o2 = clamp(0.95 * sweepBright);
-  const wOuter = glintWidth + 4;
-  const wInner = Math.max(1, glintWidth - 4);
+  const wOuter = glintWidth + 8;
+  const wInner = Math.max(1, glintWidth - 14);
   return (
     <svg
       width={size}
@@ -110,44 +89,14 @@ function PaxterGlintPremium({
       aria-hidden="true"
     >
       <defs>
-        <mask id={maskId}>
-          {paths.map((p, i) => (
-            <path key={`m${i}`} d={p} fill="#fff" stroke="#fff" strokeWidth={2} />
-          ))}
-        </mask>
-        <linearGradient id={sweepGId} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ffcf6e" stopOpacity="0" />
-          <stop offset="38%" stopColor="#ffdf95" stopOpacity={o1} />
-          <stop offset="50%" stopColor="#fff3cf" stopOpacity={o2} />
-          <stop offset="62%" stopColor="#ffd986" stopOpacity={o1} />
-          <stop offset="100%" stopColor="#ffcf6e" stopOpacity="0" />
-        </linearGradient>
         <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3.4" result="b" />
+          <feGaussianBlur stdDeviation="5.8" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
       </defs>
-      <g mask={`url(#${maskId})`}>
-        <g
-          className="tf-sweep"
-          style={{
-            ["--tf-sweep" as string]: `${sweepMs}ms`,
-            ["--tf-sweep-delay" as string]: `${sweepDelay}ms`,
-          } as CSSProperties}
-        >
-          <rect
-            x={-sweepWidth}
-            y="-60"
-            width={sweepWidth}
-            height="500"
-            fill={`url(#${sweepGId})`}
-            transform="skewX(-20)"
-          />
-        </g>
-      </g>
       {paths.map((p, i) => (
         <g key={`gl${i}`}>
           <path
@@ -163,7 +112,7 @@ function PaxterGlintPremium({
             filter={`url(#${glowId})`}
             style={{
               ["--tf-flash" as string]: `${flashMs}ms`,
-              ["--tf-flash-delay" as string]: `${flashDelay + i * 120}ms`,
+              ["--tf-flash-delay" as string]: `${flashDelay + i * TRACE_DELAY_STEP_MS}ms`,
             } as CSSProperties}
           />
           <path
@@ -177,7 +126,7 @@ function PaxterGlintPremium({
             strokeWidth={wInner}
             style={{
               ["--tf-flash" as string]: `${flashMs}ms`,
-              ["--tf-flash-delay" as string]: `${flashDelay + i * 120}ms`,
+              ["--tf-flash-delay" as string]: `${flashDelay + i * TRACE_DELAY_STEP_MS}ms`,
             } as CSSProperties}
           />
         </g>
@@ -291,13 +240,10 @@ export function PaxterMedalhao({
               d={SYMBOL_PATHS}
               size={size}
               viewBox={SYMBOL_VIEWBOX}
-              sweepWidth={200}
-              sweepBright={1.1}
-              glintWidth={5}
+              glintWidth={34}
               sweepMs={12000}
               flashMs={12000}
               flashDelay={0}
-              sweepDelay={0}
               style={{ position: "absolute", inset: 0 }}
             />
           </span>
