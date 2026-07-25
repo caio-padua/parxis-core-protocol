@@ -18,7 +18,10 @@ O workflow `.github/workflows/visual-regression.yml` roda em cada `push` na
 2. Instala o Chromium do Playwright (`bunx playwright install --with-deps chromium`).
 3. Executa `bun run build` e serve o app com `bun run preview` em `127.0.0.1:8080`.
 4. Roda `tests/visual-regression-padcon.mjs` (smoke) e depois
-   `tests/visual-regression-suite.mjs` (rotas × idiomas × contraste × 7 breakpoints).
+   `tests/visual-regression-suite.mjs` (rotas × idiomas × contraste × 7 breakpoints)
+   e por fim `tests/visual-regression-glint.mjs` (cobertura 100% do
+   monograma do medalhão Paxter — 7 componentes × 2 camadas de brilho,
+   sem saltos no escalonamento e com sweep ativo).
 
 Se qualquer `.parxis-glass`, `.parxis-glass-frame`, `.parxis-card`,
 `.parxis-fixed-bg` ou `.parxis-fixed-veil` voltar a receber
