@@ -57,7 +57,11 @@ const SYMBOL_RING_OUTER =
   "M 200,200 m -180,0 a 180,180 0 1,0 360,0 a 180,180 0 1,0 -360,0";
 const SYMBOL_RING_INNER =
   "M 200,200 m -148,0 a 148,148 0 1,0 296,0 a 148,148 0 1,0 -296,0";
-const SYMBOL_PATHS = [SYMBOL_RING_OUTER, SYMBOL_RING_INNER];
+// Contorno estilizado da letra "P" do monograma (haste + bojo),
+// usado para que o raio de glint percorra também o corpo da logo.
+const SYMBOL_LETTER_P =
+  "M 150 300 L 150 100 L 228 100 A 50 50 0 0 1 228 200 L 150 200";
+const SYMBOL_PATHS = [SYMBOL_RING_OUTER, SYMBOL_RING_INNER, SYMBOL_LETTER_P];
 const SYMBOL_VIEWBOX = "0 0 400 400";
 
 interface GlintPremiumProps {
