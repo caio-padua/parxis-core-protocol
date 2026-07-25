@@ -29,7 +29,7 @@ const BASE_URL = process.env.PARXIS_URL ?? "http://localhost:8080";
 const REPORT_DIR = process.env.PARXIS_REPORT_DIR ?? "tests/.report";
 mkdirSync(REPORT_DIR, { recursive: true });
 
-const EXPECTED_MONOGRAM_PATHS = 7; // anéis (3) + P externo + P interno + 2 ticks
+const EXPECTED_MONOGRAM_PATHS = 2; // anéis reais do símbolo (externo + interno)
 const EXPECTED_FLASH_NODES = EXPECTED_MONOGRAM_PATHS * 2; // halo + núcleo
 const FLASH_DELAY_STEP_MS = 120;
 
