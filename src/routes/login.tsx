@@ -226,13 +226,13 @@ function LoginPage() {
         }}
       />
 
-      <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-6">
-        <Link to="/" className="flex items-center gap-3 group">
-          <PaxterMedalhao size={48} className="shrink-0" />
+      <header className="relative z-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 sm:px-6 md:px-10 py-5 sm:py-6">
+        <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3 group">
+          <PaxterMedalhao size={44} className="shrink-0" />
           <img
             src={parxisWordmark}
             alt="Parxis"
-            className="h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
+            className="h-6 sm:h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
           />
         </Link>
         <div className="flex items-center gap-3">
@@ -246,7 +246,7 @@ function LoginPage() {
         </div>
       </header>
 
-      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-6 md:px-10 lg:px-16 pb-20 pt-2 lg:pt-6">
+      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-16 sm:pb-20 pt-2 lg:pt-6">
         {/* Coluna esquerda — narrativa com fundo de leitura */}
         <div className="hidden lg:block">
           <div className="max-w-xl rounded-2xl p-8 lg:p-10" style={{ background: "rgba(5, 3, 3, 0.28)" }}>
@@ -280,7 +280,7 @@ function LoginPage() {
 
         {/* Coluna direita — cartão de acesso flutuante */}
         <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto">
-          <div className="parxis-login-card rounded-xl p-8 md:p-10 relative">
+          <div className="parxis-login-card rounded-xl p-5 sm:p-8 md:p-10 relative">
             <p className="text-[11px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
               {tr(COPY.brand, lang)}
             </p>

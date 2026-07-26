@@ -1811,6 +1811,75 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     0 0 58px -16px rgba(242, 184, 23, 0.24);
 }
 
+/* Mobile: painel de login mais contido, bevel sutil e elegante */
+@media (max-width: 640px) {
+  .parxis-login-card {
+    border-radius: 12px;
+    /* Fundo ligeiramente mais opaco para legibilidade em telas pequenas */
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 252, 246, 0.32) 0%,
+        rgba(255, 250, 242, 0.24) 38%,
+        rgba(42, 30, 24, 0.68) 100%);
+    /* Sombras mais leves — menos peso no mobile */
+    box-shadow:
+      inset 0 1px 0 rgba(255, 250, 232, 0.50),
+      inset 0 2px 0 rgba(255, 245, 210, 0.14),
+      0 7px 0 -3px rgba(70, 52, 22, 0.50),
+      0 7px 0 -2px rgba(0, 0, 0, 0.50),
+      0 12px 0 -5px rgba(50, 36, 18, 0.38),
+      0 20px 40px -14px rgba(0, 0, 0, 0.48),
+      0 36px 64px -26px rgba(0, 0, 0, 0.36),
+      0 0 40px -16px rgba(242, 184, 23, 0.14);
+  }
+
+  .parxis-login-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 250, 232, 0.56),
+      inset 0 2px 0 rgba(255, 245, 210, 0.18),
+      0 9px 0 -3px rgba(70, 52, 22, 0.50),
+      0 9px 0 -2px rgba(0, 0, 0, 0.50),
+      0 14px 0 -5px rgba(50, 36, 18, 0.38),
+      0 24px 46px -14px rgba(0, 0, 0, 0.52),
+      0 42px 72px -26px rgba(0, 0, 0, 0.40),
+      0 0 46px -14px rgba(242, 184, 23, 0.18);
+  }
+
+  /* Bevel mais fino no mobile para não roubar espaço interno */
+  .parxis-login-card::before {
+    padding: 2px;
+  }
+
+  .parxis-login-card::after {
+    inset: 2px;
+    border-radius: 10px;
+  }
+
+  .parxis-login-field {
+    padding: 1px;
+    border-radius: 9px;
+  }
+
+  .parxis-login-field input {
+    padding: 0.95rem 1rem;
+    font-size: 1rem; /* evita zoom no iOS */
+    border-radius: 8px;
+  }
+
+  .parxis-login-field input::placeholder {
+    font-size: 0.82rem;
+  }
+
+  .parxis-login-google {
+    padding: 0.8rem 1rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    border-radius: 8px;
+  }
+}
+
 /* Campo de login — elegante, leve, legível para idosos */
 .parxis-login-field {
   position: relative;
