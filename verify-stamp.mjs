@@ -16,7 +16,7 @@ await page.goto("http://localhost:8080/", { waitUntil: "networkidle" });
 await page.screenshot({ path: `${out}/home-mobile.png`, fullPage: false });
 
 // Login page
-await page.setViewportSize({ width: 1280, height: 1800 } });
+await page.setViewportSize({ width: 1280, height: 1800 });
 await page.goto("http://localhost:8080/login", { waitUntil: "networkidle" });
 await page.screenshot({ path: `${out}/login-desktop.png`, fullPage: false });
 await page.setViewportSize({ width: 390, height: 844 });
