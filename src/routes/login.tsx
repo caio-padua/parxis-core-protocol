@@ -228,17 +228,17 @@ function LoginPage() {
 
       <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-6">
         <Link to="/" className="flex items-center gap-3 group">
-          <PaxterMedalhao size={44} className="shrink-0" />
+          <PaxterMedalhao size={48} className="shrink-0" />
           <img
             src={parxisWordmark}
             alt="Parxis"
-            className="h-6 md:h-7 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
+            className="h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
           />
         </Link>
         <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="hidden md:inline-flex text-[10px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+            className="hidden md:inline-flex text-[11px] uppercase tracking-[0.32em] text-foreground/80 hover:text-[color:var(--gold)] transition-colors"
           >
             ← {tr(COPY.back, lang)}
           </Link>
@@ -246,14 +246,14 @@ function LoginPage() {
         </div>
       </header>
 
-      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center px-6 md:px-10 lg:px-16 pb-20 pt-6">
+      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-6 md:px-10 lg:px-16 pb-20 pt-2 lg:pt-6">
         {/* Coluna esquerda — narrativa */}
         <div className="hidden lg:block max-w-xl">
-          <p className="text-[10px] uppercase tracking-[0.5em] text-[color:var(--gold)] mb-6">
+          <p className="text-[12px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-5">
             {tr(COPY.eyebrow, lang)} · {tr(COPY.brand, lang)}
           </p>
           <h1
-            className="font-serif text-5xl xl:text-6xl leading-[1.05] mb-6"
+            className="font-serif text-[44px] xl:text-[54px] leading-[1.05] mb-5"
             style={{
               background: "linear-gradient(180deg, #FBEBAA 0%, #C9B070 55%, #8A6A20 100%)",
               WebkitBackgroundClip: "text",
@@ -263,12 +263,12 @@ function LoginPage() {
           >
             {tr(COPY.headline, lang)}
           </h1>
-          <div className="parxis-gold-rule w-24 mb-6" />
-          <p className="text-base text-muted-foreground font-light leading-relaxed">
+          <div className="parxis-gold-rule w-24 mb-5" />
+          <p className="text-[17px] text-foreground/90 font-light leading-relaxed">
             {tr(COPY.lead, lang)}
           </p>
 
-          <ul className="mt-10 space-y-4 text-sm text-muted-foreground/90">
+          <ul className="mt-10 space-y-4 text-[15px] text-foreground/85">
             <TrustRow label={lang === "pt" ? "OAuth 2.1 · Sign in with Google" : "OAuth 2.1 · Sign in with Google"} />
             <TrustRow label={lang === "pt" ? "Senhas verificadas contra HIBP (bilhões de vazamentos)" : "Passwords screened against HIBP (billions of breaches)"} />
             <TrustRow label={lang === "pt" ? "TLS 1.3 · sessões efêmeras · rotação automática" : "TLS 1.3 · ephemeral sessions · auto-rotation"} />
