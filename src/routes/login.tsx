@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
 const atelierUrl = atelierAsset.url;
+import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
 export const Route = createFileRoute("/login")({
