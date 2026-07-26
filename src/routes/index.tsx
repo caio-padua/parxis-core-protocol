@@ -954,12 +954,12 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Brand row — aligned to same vertical rhythm as the columns below */}
         <div className="grid md:grid-cols-12 gap-10 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
-          <div className="md:col-span-7 flex flex-col md:flex-row items-center text-center md:text-left gap-4 md:gap-6">
+          <div className="md:col-span-7 flex flex-col md:flex-row items-center text-center md:text-left gap-3 md:gap-6">
             <div className="parxis-gold-text font-serif text-3xl tracking-[0.35em] uppercase leading-none">
               Parxis
             </div>
             <span className="hidden md:inline-block h-8 w-px bg-[rgba(242,184,23,0.28)] shrink-0" aria-hidden />
-            <p className="text-[11px] text-muted-foreground/90 leading-relaxed max-w-md font-light tracking-wide">
+            <p className="text-[11px] text-muted-foreground/90 leading-relaxed w-full md:max-w-md font-light tracking-wide">
               {tr(c.tagline, lang)}
             </p>
           </div>
