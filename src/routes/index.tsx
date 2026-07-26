@@ -963,18 +963,12 @@ function Footer() {
               className="h-[96px] sm:h-[112px] md:h-[132px] w-auto shrink-0 select-none object-contain"
               draggable={false}
             />
-            <div className="text-center leading-tight flex flex-col items-center font-serif">
+            <div className="text-center leading-tight flex flex-col items-center font-serif justify-center">
               <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
                 {lang === "pt" ? "Sistema de Inteligência Clínica" : "Clinical Intelligence System"}
               </div>
               <div className="font-serif font-semibold text-[18px] sm:text-[20px] md:text-[24px] tracking-[0.14em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)] leading-none">
                 PADAXOR<span className="align-super text-[9px] sm:text-[10px] ml-0.5 text-[#C9A96E]">®</span>
-              </div>
-              <div className="font-serif italic text-[16px] sm:text-[18px] md:text-[22px] tracking-[0.06em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent leading-tight mt-0.5">
-                {lang === "pt" ? "Sistema" : "System"}
-              </div>
-              <div className="font-serif text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.08em] text-[#C9A96E]/75 whitespace-nowrap mt-1">
-                Clinical Intelligence System
               </div>
             </div>
           </div>
