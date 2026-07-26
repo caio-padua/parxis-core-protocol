@@ -954,24 +954,24 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Brand row — aligned to same vertical rhythm as the columns below */}
         <div className="grid md:grid-cols-12 gap-10 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
-          <div className="md:col-span-7 flex items-center gap-6">
+          <div className="md:col-span-7 flex flex-col md:flex-row items-center text-center md:text-left gap-3 md:gap-6">
             <div className="parxis-gold-text font-serif text-3xl tracking-[0.35em] uppercase leading-none">
               Parxis
             </div>
-            <span className="hidden sm:inline-block h-8 w-px bg-[rgba(242,184,23,0.28)]" aria-hidden />
-            <p className="text-[11px] text-muted-foreground/90 leading-relaxed max-w-md font-light tracking-wide">
+            <span className="hidden md:inline-block h-8 w-px bg-[rgba(242,184,23,0.28)] shrink-0" aria-hidden />
+            <p className="text-[11px] text-muted-foreground/90 leading-relaxed w-full md:max-w-md font-light tracking-wide">
               {tr(c.tagline, lang)}
             </p>
           </div>
-          <div className="md:col-span-5 flex md:justify-end items-center gap-5">
-            <div className="text-right leading-none">
+          <div className="md:col-span-5 flex flex-col md:flex-row md:justify-end items-center gap-4 md:gap-5">
+            <div className="text-center md:text-right leading-tight">
               <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-1.5">
                 {lang === "pt" ? "Sob a Plataforma" : "Powered by"}
               </div>
-              <div className="font-serif text-[15px] tracking-[0.12em] text-[#C9A96E] drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)]">
+              <div className="font-serif text-[15px] sm:text-[16px] tracking-[0.12em] text-[#C9A96E] drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)]">
                 PADCON<span className="align-super text-[8px] ml-0.5">®</span>
               </div>
-              <div className="font-serif italic text-[13px] tracking-[0.18em] text-[#C9A96E]/85 mt-0.5">
+              <div className="font-serif italic text-[13px] sm:text-[14px] tracking-[0.18em] text-[#C9A96E]/85 mt-0.5">
                 Platform
               </div>
               <div className="text-[9px] italic tracking-[0.18em] text-muted-foreground/60 mt-1">
@@ -981,7 +981,7 @@ function Footer() {
             <img
               src={padconLogoAsset.url}
               alt="PADCON"
-              className="h-[90px] w-auto select-none"
+              className="h-[64px] sm:h-[76px] md:h-[90px] w-auto select-none"
               draggable={false}
             />
           </div>
