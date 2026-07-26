@@ -963,19 +963,19 @@ function Footer() {
               {tr(c.tagline, lang)}
             </p>
           </div>
-          <div className="md:col-span-5 flex flex-row md:justify-end items-center gap-3 md:gap-5">
-            <div className="text-right leading-none flex flex-col items-end">
-              <div className="text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-1.5">
-                {lang === "pt" ? "DESENVOLVIDO SOB A PLATAFORMA" : "DEVELOPED ON THE PLATFORM"}
+          <div className="md:col-span-5 flex flex-row md:justify-end items-center gap-4 md:gap-6">
+            <div className="text-right leading-tight flex flex-col items-end font-serif">
+              <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
+                {lang === "pt" ? "Desenvolvido sob a Plataforma" : "Developed on the Platform"}
               </div>
-              <div className="font-serif text-[15px] sm:text-[17px] md:text-[21px] tracking-[0.12em] bg-gradient-to-r from-[#C9A96E] via-[#F2E1B8] to-[#C9A96E] bg-clip-text text-transparent drop-shadow-[0_1px_12px_rgba(201,169,110,0.45)] mb-1">
-                PADCON<span className="align-super text-[8px] sm:text-[9px] ml-0.5 text-[#C9A96E]">®</span>
-                <span className="font-serif italic text-[13px] sm:text-[15px] md:text-[18px] tracking-[0.18em] text-[#C9A96E]/90 ml-1">
-                  Platform
-                </span>
+              <div className="font-serif font-semibold text-[18px] sm:text-[20px] md:text-[24px] tracking-[0.14em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)] leading-none">
+                PADCON<span className="align-super text-[9px] sm:text-[10px] ml-0.5 text-[#C9A96E]">®</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] md:text-[11px] italic tracking-[0.16em] text-muted-foreground/60 whitespace-nowrap">
-                advanced systems architecture
+              <div className="font-serif italic text-[16px] sm:text-[18px] md:text-[22px] tracking-[0.06em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent leading-tight mt-0.5">
+                Platform
+              </div>
+              <div className="font-serif text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.08em] text-[#C9A96E]/75 whitespace-nowrap mt-1">
+                Advanced Systems Architecture
               </div>
             </div>
             <img

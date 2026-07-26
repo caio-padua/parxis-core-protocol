@@ -386,9 +386,9 @@ export const content = {
         title: { en: "The House", pt: "A Casa" },
         lines: [
           { en: "Parxis · Clinical Intelligence System", pt: "Parxis · Sistema de Inteligência Clínica" },
-          { en: "A PAWARDS MedCore® product", pt: "Produto PAWARDS MedCore®" },
-          { en: "Powered by PADCON Platform®", pt: "Sob a Plataforma PADCON®" },
-          { en: "Établi 2026 · São Paulo, Brazil", pt: "Établi 2026 · São Paulo, Brasil" },
+          { en: "By PAWARDS MedCore®", pt: "Por PAWARDS MedCore®" },
+          { en: "Établi 2026", pt: "Établi 2026" },
+          { en: "São Paulo · Brazil", pt: "São Paulo · Brasil" },
         ],
       },
       contact: {
