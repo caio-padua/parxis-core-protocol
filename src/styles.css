@@ -1504,7 +1504,8 @@ html[data-contrast="light"] .parxis-glass-frame {
   .parxis-fixed-bg {
     background-attachment: scroll;
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
+    background-image: var(--parxis-fixed-url-mobile, var(--parxis-fixed-url, none));
   }
 }
 

@@ -8,8 +8,10 @@ import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
-import atelierAsset from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
+import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
+import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
 const atelierUrl = atelierAsset.url;
+const atelierMobileUrl = atelierMobileAsset.url;
 import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
@@ -281,6 +283,7 @@ function LoginPage() {
       className="parxis-app parxis-login-page min-h-screen text-foreground relative"
       style={{
         ["--parxis-fixed-url" as string]: `url(${atelierUrl})`,
+        ["--parxis-fixed-url-mobile" as string]: `url(${atelierMobileUrl})`,
         ["--parxis-atelier-url" as string]: `url(${atelierUrl})`,
       }}
     >
