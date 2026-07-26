@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
+import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierUrl from "@/assets/parxis-padcon-v4.png";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
