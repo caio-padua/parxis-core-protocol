@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -513,6 +513,47 @@ function GoogleIcon() {
 
 function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const chipRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  function focusChip(i: number) {
+    const n = CERTS.length;
+    const idx = ((i % n) + n) % n;
+    chipRefs.current[idx]?.focus();
+  }
+
+  function onChipKeyDown(e: React.KeyboardEvent<HTMLButtonElement>, i: number) {
+    switch (e.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        e.preventDefault();
+        focusChip(i + 1);
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        e.preventDefault();
+        focusChip(i - 1);
+        break;
+      case "Home":
+        e.preventDefault();
+        focusChip(0);
+        break;
+      case "End":
+        e.preventDefault();
+        focusChip(CERTS.length - 1);
+        break;
+      case "Escape":
+        if (openId) {
+          e.preventDefault();
+          setOpenId(null);
+        }
+        break;
+    }
+  }
+
+  const hintKb =
+    lang === "pt"
+      ? "Use Tab para navegar, ← → para percorrer os selos, Enter para abrir, Esc para fechar."
+      : "Use Tab to navigate, ← → to move between badges, Enter to open, Esc to close.";
   return (
     <div className="parxis-login-card parxis-cert-card rounded-xl p-5 sm:p-7 md:p-8 mt-6 relative">
       <div className="text-center">
@@ -526,18 +567,30 @@ function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
         <p className="text-[11px] text-muted-foreground/90 leading-relaxed">
           {tr(CERTS_COPY.hint, lang)}
         </p>
+        <p className="sr-only" aria-live="polite">
+          {hintKb}
+        </p>
       </div>
 
-      <ul className="mt-6 grid grid-cols-2 gap-4 sm:gap-5">
-        {CERTS.map((c) => {
+      <ul
+        className="mt-6 grid grid-cols-2 gap-4 sm:gap-5"
+        role="group"
+        aria-label={tr(CERTS_COPY.title, lang)}
+      >
+        {CERTS.map((c, i) => {
           const active = openId === c.id;
           return (
             <li key={c.id}>
               <button
                 type="button"
                 onClick={() => setOpenId(active ? null : c.id)}
+                onKeyDown={(e) => onChipKeyDown(e, i)}
+                ref={(el) => {
+                  chipRefs.current[i] = el;
+                }}
                 aria-expanded={active}
                 aria-controls={`cert-panel-${c.id}`}
+                aria-label={`${c.code} — ${tr(c.title, lang)}`}
                 className={
                   "parxis-cert-chip w-full text-left " +
                   (active ? "parxis-cert-chip--active" : "")
