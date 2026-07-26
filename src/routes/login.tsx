@@ -246,7 +246,7 @@ function LoginPage() {
         </div>
       </header>
 
-      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-6 md:px-10 lg:px-16 pb-20 pt-2 lg:pt-6">
+      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-4 sm:px-6 md:px-10 lg:px-16 pb-16 sm:pb-20 pt-2 lg:pt-6">
         {/* Coluna esquerda — narrativa com fundo de leitura */}
         <div className="hidden lg:block">
           <div className="max-w-xl rounded-2xl p-8 lg:p-10" style={{ background: "rgba(5, 3, 3, 0.28)" }}>
