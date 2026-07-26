@@ -165,6 +165,120 @@ async function main() {
     );
   }
 
+  // === Progressão temporal ===
+  // Pausa cada animação `tf-flash` e amostra `stroke-dashoffset` em
+  // 0%, 25%, 50%, 75% e 100% da janela ativa (5%..20% do ciclo com
+  // flashMs=12000ms => 600ms..2400ms). O dashoffset precisa cair
+  // monotonicamente de ~110 para ~-8 seguindo o traço como uma caneta.
+  const FLASH_MS = 12000;
+  const ACTIVE_START = FLASH_MS * 0.05; // 600ms — dashoffset 110
+  const ACTIVE_END = FLASH_MS * 0.20;   // 2400ms — dashoffset -8
+  const SAMPLE_FRACTIONS = [0, 0.25, 0.5, 0.75, 1];
+
+  const timeline = await medallion.evaluate(
+    ({ activeStart, activeEnd, fractions, stepMs, expectedPaths }) => {
+      const svg = document.querySelector(".pax-med svg");
+      if (!svg) return { error: "svg-missing" };
+      const flashes = Array.from(svg.querySelectorAll(".tf-flash"));
+      // Agrupa por índice de path (delay = pathIdx * stepMs + baseCycleDelay).
+      // Como todos compartilham o mesmo flashMs e o delay adicional é
+      // sempre múltiplo de stepMs, o índice é (delay/stepMs) mod N.
+      const byIndex = new Map();
+      for (const el of flashes) {
+        const raw =
+          el.style.getPropertyValue("--tf-flash-delay").trim() ||
+          getComputedStyle(el).getPropertyValue("--tf-flash-delay").trim();
+        const m = raw.match(/-?\d+(?:\.\d+)?/);
+        const delay = m ? Number(m[0]) : 0;
+        const idx = Math.round(delay / stepMs) % expectedPaths;
+        if (!byIndex.has(idx)) byIndex.set(idx, el);
+      }
+
+      const result = [];
+      for (const [idx, el] of [...byIndex.entries()].sort((a, b) => a[0] - b[0])) {
+        const anims = el.getAnimations({ subtree: false });
+        if (!anims.length) {
+          result.push({ idx, error: "no-animation" });
+          continue;
+        }
+        const anim = anims[0];
+        anim.pause();
+        // `Animation.currentTime` inclui o delay declarado no CSS,
+        // então precisamos deslocar a janela ativa por idx*stepMs.
+        const offset = idx * stepMs;
+        const samples = [];
+        for (const f of fractions) {
+          const t = offset + activeStart + (activeEnd - activeStart) * f;
+          anim.currentTime = t;
+          const off = parseFloat(getComputedStyle(el).strokeDashoffset);
+          const op = parseFloat(getComputedStyle(el).opacity);
+          samples.push({ f, t, dashoffset: off, opacity: op });
+        }
+        result.push({ idx, samples });
+      }
+      return { result };
+    },
+    {
+      activeStart: ACTIVE_START,
+      activeEnd: ACTIVE_END,
+      fractions: SAMPLE_FRACTIONS,
+      stepMs: FLASH_DELAY_STEP_MS,
+      expectedPaths: EXPECTED_MONOGRAM_PATHS,
+    },
+  );
+
+  if (timeline.error) {
+    errors.push(`timeline: ${timeline.error}`);
+  } else {
+    for (const entry of timeline.result ?? []) {
+      if (entry.error) {
+        errors.push(`path #${entry.idx}: ${entry.error}`);
+        continue;
+      }
+      const samples = entry.samples;
+      const first = samples[0].dashoffset;
+      const last = samples[samples.length - 1].dashoffset;
+
+      // Início próximo de 110 (caneta ainda não começou a escrever).
+      if (!(first > 90)) {
+        errors.push(
+          `path #${entry.idx} não começa oculto: dashoffset inicial=${first?.toFixed?.(2)} (esperado >90)`,
+        );
+      }
+      // Fim próximo de -8 (traço completamente escrito).
+      if (!(last < 10)) {
+        errors.push(
+          `path #${entry.idx} não completa o traço: dashoffset final=${last?.toFixed?.(2)} (esperado <10)`,
+        );
+      }
+      // Monotonicidade: dashoffset deve cair a cada frame (permite ruído <1u).
+      for (let i = 1; i < samples.length; i++) {
+        const delta = samples[i].dashoffset - samples[i - 1].dashoffset;
+        if (delta > 1) {
+          errors.push(
+            `path #${entry.idx} progressão não-monotônica entre f=${samples[i - 1].f} e f=${samples[i].f}: Δ=${delta.toFixed(2)}`,
+          );
+          break;
+        }
+      }
+      // Linearidade: cada frame ~25% deve avançar ~25% do range total.
+      // Tolerância de ±15% absoluto no dashoffset amostrado.
+      const expectedRange = 110 - -8; // 118
+      for (let i = 0; i < samples.length; i++) {
+        const expected = 110 - expectedRange * samples[i].f;
+        const observed = samples[i].dashoffset;
+        // A curva cubic-bezier(.42,0,.18,1) distorce a linearidade;
+        // exigimos apenas ordem correta + margem generosa nos extremos.
+        const tol = 45;
+        if (Math.abs(observed - expected) > tol) {
+          errors.push(
+            `path #${entry.idx} fora da linha em f=${samples[i].f}: esperado≈${expected.toFixed(1)}, observado=${observed.toFixed(1)} (tol ±${tol})`,
+          );
+        }
+      }
+    }
+  }
+
   const shot = join(REPORT_DIR, "glint-medallion.png");
   try {
     await medallion.screenshot({ path: shot });
@@ -172,7 +286,7 @@ async function main() {
 
   writeFileSync(
     join(REPORT_DIR, "glint-report.json"),
-    JSON.stringify({ report, errors, screenshot: shot }, null, 2),
+    JSON.stringify({ report, timeline, errors, screenshot: shot }, null, 2),
   );
 
   await browser.close();
