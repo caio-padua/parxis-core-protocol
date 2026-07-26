@@ -406,7 +406,7 @@ function LoginPage() {
             </button>
           </div>
 
-          <p className="mt-6 text-center text-[9px] uppercase tracking-[0.42em] text-muted-foreground/70">
+          <p className="mt-6 text-center text-[11px] uppercase tracking-[0.36em] text-foreground/80">
             {tr(COPY.footerLegal, lang)}
           </p>
         </div>
