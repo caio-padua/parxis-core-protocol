@@ -8,7 +8,7 @@ import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
-import atelierAsset from "@/assets/parxis-padcon-v5.png.asset.json";
+import atelierAsset from "@/assets/parxis-padcon-v6-fhd.webp.asset.json";
 const atelierUrl = atelierAsset.url;
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
