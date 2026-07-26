@@ -7,6 +7,7 @@ import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
+import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -216,6 +217,7 @@ function LoginPage() {
 
       <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-6">
         <Link to="/" className="flex items-center gap-3 group">
+          <PaxterMedalhao size={44} className="shrink-0" />
           <img
             src={parxisWordmark}
             alt="Parxis"
@@ -299,15 +301,18 @@ function LoginPage() {
                 <span className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
                   {tr(COPY.email, lang)}
                 </span>
-                <input
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] focus:border-[color:var(--gold)] rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[color:var(--gold)]/40 transition-colors"
-                  placeholder="voce@clinica.com.br"
-                />
+                <div className="parxis-field">
+                  <div className="parxis-field-inner">
+                    <input
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="voce@clinica.com.br"
+                    />
+                  </div>
+                </div>
               </label>
 
               <label className="block">
@@ -325,25 +330,27 @@ function LoginPage() {
                     </button>
                   )}
                 </span>
-                <div className="relative">
-                  <input
-                    type={showPw ? "text" : "password"}
-                    autoComplete={mode === "in" ? "current-password" : "new-password"}
-                    required
-                    minLength={mode === "up" ? 12 : 8}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-transparent border border-[rgba(242,184,23,0.35)] focus:border-[color:var(--gold)] rounded-md px-4 py-3 pr-14 text-sm focus:outline-none focus:ring-1 focus:ring-[color:var(--gold)]/40 transition-colors"
-                    placeholder="••••••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPw((v) => !v)}
-                    aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
-                  >
-                    {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
-                  </button>
+                <div className="parxis-field">
+                  <div className="parxis-field-inner relative">
+                    <input
+                      type={showPw ? "text" : "password"}
+                      autoComplete={mode === "in" ? "current-password" : "new-password"}
+                      required
+                      minLength={mode === "up" ? 12 : 8}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••••••"
+                      style={{ paddingRight: "4rem" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPw((v) => !v)}
+                      aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+                    >
+                      {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
+                    </button>
+                  </div>
                 </div>
                 {mode === "up" && (
                   <div className="mt-3">
