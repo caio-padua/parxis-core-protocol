@@ -7,7 +7,10 @@ import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
+import padconV2Asset from "@/assets/parxis-padcon-v3.png.asset.json";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
+
+const atelierUrl = padconV2Asset.url;
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -203,31 +206,39 @@ function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      {/* Fundo cinemático — atelier + véu */}
-      <div className="parxis-fixed-bg absolute inset-0" aria-hidden />
+    <main
+      className="parxis-app parxis-login-page min-h-screen text-foreground relative overflow-hidden"
+      style={{
+        ["--parxis-fixed-url" as string]: `url(${atelierUrl})`,
+        ["--parxis-atelier-url" as string]: `url(${atelierUrl})`,
+      }}
+    >
+      {/* Fundo atelier nítido — mesmo do site institucional */}
+      <div className="parxis-fixed-bg" aria-hidden />
+      <div className="parxis-fixed-veil" aria-hidden />
+      {/* Véu extra bem sutil para deixar a tela mais clara e o fundo visível */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.72) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55))",
+            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.10) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.18) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.14))",
         }}
       />
 
       <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-6">
         <Link to="/" className="flex items-center gap-3 group">
-          <PaxterMedalhao size={44} className="shrink-0" />
+          <PaxterMedalhao size={48} className="shrink-0" />
           <img
             src={parxisWordmark}
             alt="Parxis"
-            className="h-6 md:h-7 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
+            className="h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
           />
         </Link>
         <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="hidden md:inline-flex text-[10px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+            className="hidden md:inline-flex text-[11px] uppercase tracking-[0.32em] text-foreground/80 hover:text-[color:var(--gold)] transition-colors"
           >
             ← {tr(COPY.back, lang)}
           </Link>
@@ -235,43 +246,45 @@ function LoginPage() {
         </div>
       </header>
 
-      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center px-6 md:px-10 lg:px-16 pb-20 pt-6">
-        {/* Coluna esquerda — narrativa */}
-        <div className="hidden lg:block max-w-xl">
-          <p className="text-[10px] uppercase tracking-[0.5em] text-[color:var(--gold)] mb-6">
-            {tr(COPY.eyebrow, lang)} · {tr(COPY.brand, lang)}
-          </p>
-          <h1
-            className="font-serif text-5xl xl:text-6xl leading-[1.05] mb-6"
-            style={{
-              background: "linear-gradient(180deg, #FBEBAA 0%, #C9B070 55%, #8A6A20 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            {tr(COPY.headline, lang)}
-          </h1>
-          <div className="parxis-gold-rule w-24 mb-6" />
-          <p className="text-base text-muted-foreground font-light leading-relaxed">
-            {tr(COPY.lead, lang)}
-          </p>
+      <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-6 md:px-10 lg:px-16 pb-20 pt-2 lg:pt-6">
+        {/* Coluna esquerda — narrativa com fundo de leitura */}
+        <div className="hidden lg:block">
+          <div className="max-w-xl rounded-2xl p-8 lg:p-10" style={{ background: "rgba(5, 3, 3, 0.28)" }}>
+            <p className="text-[12px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-5">
+              {tr(COPY.eyebrow, lang)} · {tr(COPY.brand, lang)}
+            </p>
+            <h1
+              className="font-serif text-[44px] xl:text-[54px] leading-[1.05] mb-5"
+              style={{
+                background: "linear-gradient(180deg, #FBEBAA 0%, #C9B070 55%, #8A6A20 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {tr(COPY.headline, lang)}
+            </h1>
+            <div className="parxis-gold-rule w-24 mb-5" />
+            <p className="text-[17px] text-foreground/95 font-light leading-relaxed">
+              {tr(COPY.lead, lang)}
+            </p>
 
-          <ul className="mt-10 space-y-4 text-sm text-muted-foreground/90">
-            <TrustRow label={lang === "pt" ? "OAuth 2.1 · Sign in with Google" : "OAuth 2.1 · Sign in with Google"} />
-            <TrustRow label={lang === "pt" ? "Senhas verificadas contra HIBP (bilhões de vazamentos)" : "Passwords screened against HIBP (billions of breaches)"} />
-            <TrustRow label={lang === "pt" ? "TLS 1.3 · sessões efêmeras · rotação automática" : "TLS 1.3 · ephemeral sessions · auto-rotation"} />
-            <TrustRow label={lang === "pt" ? "Conformidade LGPD · dados clínicos isolados por RLS" : "LGPD-compliant · clinical data isolated by row-level security"} />
-          </ul>
+            <ul className="mt-10 space-y-4 text-[15px] text-foreground/90">
+              <TrustRow label={lang === "pt" ? "OAuth 2.1 · Sign in with Google" : "OAuth 2.1 · Sign in with Google"} />
+              <TrustRow label={lang === "pt" ? "Senhas verificadas contra HIBP (bilhões de vazamentos)" : "Passwords screened against HIBP (billions of breaches)"} />
+              <TrustRow label={lang === "pt" ? "TLS 1.3 · sessões efêmeras · rotação automática" : "TLS 1.3 · ephemeral sessions · auto-rotation"} />
+              <TrustRow label={lang === "pt" ? "Conformidade LGPD · dados clínicos isolados por RLS" : "LGPD-compliant · clinical data isolated by row-level security"} />
+            </ul>
+          </div>
         </div>
 
-        {/* Coluna direita — cartão de acesso */}
-        <div className="relative w-full max-w-md mx-auto lg:ml-auto">
-          <div className="parxis-card rounded-lg p-8 md:p-10 relative">
-            <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
+        {/* Coluna direita — cartão de acesso flutuante */}
+        <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto">
+          <div className="parxis-login-card rounded-xl p-8 md:p-10 relative">
+            <p className="text-[11px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
               {tr(COPY.brand, lang)}
             </p>
-            <h2 className="mt-3 font-serif text-3xl md:text-[34px] text-center">
+            <h2 className="mt-3 font-serif text-[28px] md:text-[32px] text-center leading-tight">
               {mode === "in" ? tr(COPY.tabIn, lang) : tr(COPY.tabUp, lang)}
             </h2>
             <div className="parxis-gold-rule w-16 mx-auto my-5" />
@@ -280,17 +293,17 @@ function LoginPage() {
               type="button"
               onClick={onGoogle}
               disabled={oauthLoading}
-              className="w-full inline-flex items-center justify-center gap-3 border border-[rgba(242,184,23,0.35)] bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(242,184,23,0.06)] hover:border-[color:var(--gold)] transition-colors rounded-md px-5 py-3 text-sm tracking-wide disabled:opacity-60"
+              className="parxis-login-google w-full"
             >
               <GoogleIcon />
-              <span className="text-foreground/90">
+              <span>
                 {oauthLoading ? tr(COPY.loading, lang) : tr(COPY.google, lang)}
               </span>
             </button>
 
             <div className="my-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
-              <span className="text-[9px] uppercase tracking-[0.42em] text-muted-foreground">
+              <span className="text-[10px] uppercase tracking-[0.42em] text-muted-foreground">
                 {tr(COPY.divider, lang)}
               </span>
               <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
@@ -298,59 +311,55 @@ function LoginPage() {
 
             <form onSubmit={onSubmit} className="space-y-4" noValidate>
               <label className="block">
-                <span className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+                <span className="block text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
                   {tr(COPY.email, lang)}
                 </span>
-                <div className="parxis-field">
-                  <div className="parxis-field-inner">
-                    <input
-                      type="email"
-                      autoComplete="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="voce@clinica.com.br"
-                    />
-                  </div>
+                <div className="parxis-login-field">
+                  <input
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="voce@clinica.com.br"
+                  />
                 </div>
               </label>
 
               <label className="block">
                 <span className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
+                  <span className="text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
                     {tr(COPY.password, lang)}
                   </span>
                   {mode === "in" && (
                     <button
                       type="button"
                       onClick={onForgot}
-                      className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+                      className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
                     >
                       {tr(COPY.forgot, lang)}
                     </button>
                   )}
                 </span>
-                <div className="parxis-field">
-                  <div className="parxis-field-inner relative">
-                    <input
-                      type={showPw ? "text" : "password"}
-                      autoComplete={mode === "in" ? "current-password" : "new-password"}
-                      required
-                      minLength={mode === "up" ? 12 : 8}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••••"
-                      style={{ paddingRight: "4rem" }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPw((v) => !v)}
-                      aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
-                    >
-                      {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
-                    </button>
-                  </div>
+                <div className="parxis-login-field relative">
+                  <input
+                    type={showPw ? "text" : "password"}
+                    autoComplete={mode === "in" ? "current-password" : "new-password"}
+                    required
+                    minLength={mode === "up" ? 12 : 8}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••••••"
+                    style={{ paddingRight: "4.5rem" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPw((v) => !v)}
+                    aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+                  >
+                    {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
+                  </button>
                 </div>
                 {mode === "up" && (
                   <div className="mt-3">
@@ -358,7 +367,7 @@ function LoginPage() {
                       {[0, 1, 2, 3, 4].map((i) => (
                         <div
                           key={i}
-                          className="h-[3px] flex-1 rounded-full transition-colors"
+                          className="h-[4px] flex-1 rounded-full transition-colors"
                           style={{
                             background:
                               i < pwScore
@@ -368,7 +377,7 @@ function LoginPage() {
                         />
                       ))}
                     </div>
-                    <p className="mt-2 text-[10px] tracking-wide text-muted-foreground/80">
+                    <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground/90">
                       {tr(COPY.passwordHint, lang)}
                     </p>
                   </div>
@@ -378,7 +387,7 @@ function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="parxis-btn w-full mt-2"
+                className="parxis-btn parxis-btn-primary w-full mt-2"
               >
                 <span>
                   {loading
@@ -393,13 +402,13 @@ function LoginPage() {
             <button
               type="button"
               onClick={() => setMode(mode === "in" ? "up" : "in")}
-              className="mt-6 w-full text-[10px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+              className="mt-6 w-full text-[11px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
             >
               {mode === "in" ? tr(COPY.toUp, lang) : tr(COPY.toIn, lang)}
             </button>
           </div>
 
-          <p className="mt-6 text-center text-[9px] uppercase tracking-[0.42em] text-muted-foreground/70">
+          <p className="mt-6 text-center text-[11px] uppercase tracking-[0.36em] text-foreground/80">
             {tr(COPY.footerLegal, lang)}
           </p>
         </div>

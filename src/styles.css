@@ -1703,3 +1703,207 @@ html[data-motion="reduce"] .parxis-corner-pulse {
   .parxis-field, .parxis-field:focus-within { transform: none; transition: none; }
 }
 
+/* ============================================================
+ * Login / Acesso reservado — cartão flutuante, acessível
+ * O painel inteiro levita; os campos são elegantes, não grosseiros.
+ * ============================================================ */
+
+/* Página de login: mais brilho para que idosos enxerguem bem e o fundo respire */
+.parxis-login-page .parxis-fixed-bg {
+  filter: saturate(1.18) contrast(1.14) brightness(1.18);
+}
+.parxis-login-page .parxis-fixed-veil {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.06) 0%, transparent 58%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.10) 0%, transparent 64%),
+    rgba(5, 3, 3, 0.02);
+}
+
+/* Levitação suave do painel de login — refinado, leve, não grosseiro */
+@keyframes parxis-card-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+.parxis-login-card {
+  position: relative;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 252, 246, 0.18) 0%,
+      rgba(255, 250, 242, 0.12) 42%,
+      rgba(40, 28, 22, 0.42) 100%
+    );
+  border: 0.8px solid rgba(242, 184, 23, 0.18);
+  box-shadow:
+    /* topo iluminado */
+    inset 0 1px 0 rgba(255, 248, 228, 0.28),
+    /* corpo projetado muito sutil */
+    0 6px 0 -2px rgba(70, 52, 22, 0.38),
+    0 6px 0 -1px rgba(0, 0, 0, 0.30),
+    /* sombras difusas leves */
+    0 18px 38px -14px rgba(0, 0, 0, 0.40),
+    0 34px 64px -26px rgba(0, 0, 0, 0.30),
+    /* halo dourado discreto */
+    0 0 40px -18px rgba(242, 184, 23, 0.14);
+  animation: parxis-card-float 12s ease-in-out infinite;
+  transition:
+    border-color 400ms ease,
+    box-shadow 400ms ease,
+    transform 400ms cubic-bezier(.2,.7,.2,1);
+}
+
+/* Leve elevação no hover */
+.parxis-login-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(242, 184, 23, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 232, 0.34),
+    0 8px 0 -2px rgba(70, 52, 22, 0.38),
+    0 8px 0 -1px rgba(0, 0, 0, 0.30),
+    0 22px 46px -14px rgba(0, 0, 0, 0.44),
+    0 40px 72px -26px rgba(0, 0, 0, 0.34),
+    0 0 48px -16px rgba(242, 184, 23, 0.18);
+}
+
+/* Campo de login — elegante, leve, legível para idosos */
+.parxis-login-field {
+  position: relative;
+  border-radius: 10px;
+  padding: 2px;
+  background:
+    linear-gradient(180deg,
+      rgba(255, 238, 190, 0.40) 0%,
+      rgba(201, 176, 112, 0.22) 55%,
+      rgba(90, 70, 35, 0.40) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 240, 195, 0.14),
+    0 3px 0 -2px rgba(70, 52, 22, 0.42),
+    0 6px 12px -6px rgba(0, 0, 0, 0.34);
+  transition: box-shadow 260ms ease, transform 200ms ease;
+}
+
+.parxis-login-field:focus-within {
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255, 248, 220, 0.24),
+    0 4px 0 -2px rgba(70, 52, 22, 0.42),
+    0 8px 16px -6px rgba(0, 0, 0, 0.38),
+    0 0 14px -4px rgba(242, 184, 23, 0.14);
+}
+
+.parxis-login-field input {
+  width: 100%;
+  background:
+    linear-gradient(180deg,
+      rgba(18, 14, 11, 0.90) 0%,
+      rgba(28, 22, 16, 0.94) 42%,
+      rgba(16, 12, 10, 0.96) 100%);
+  border: 0;
+  outline: none;
+  border-radius: 8px;
+  color: var(--foreground);
+  padding: 1.05rem 1.2rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.68),
+    inset 0 -1px 0 rgba(255, 232, 163, 0.06);
+  transition: background 220ms ease, color 220ms ease;
+}
+
+.parxis-login-field input::placeholder {
+  color: rgba(230, 220, 200, 0.42);
+  letter-spacing: 0.08em;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+}
+
+.parxis-login-field input:focus {
+  background:
+    linear-gradient(180deg,
+      rgba(24, 19, 14, 0.92) 0%,
+      rgba(34, 27, 20, 0.96) 42%,
+      rgba(20, 15, 12, 0.98) 100%);
+}
+
+.parxis-login-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--foreground);
+  -webkit-box-shadow: inset 0 0 0 1000px rgba(22, 17, 12, 0.96);
+  caret-color: var(--foreground);
+}
+
+/* Botão Google — estilo primário Parxis, discreto */
+.parxis-login-google {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  isolation: isolate;
+  color: var(--foreground);
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.10) 0%,
+      rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(242, 184, 23, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 0 -2px rgba(70, 52, 22, 0.45),
+    0 8px 16px -8px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 220ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease,
+    background 260ms ease;
+}
+
+.parxis-login-google:hover {
+  transform: translateY(-1px);
+  border-color: rgba(242, 184, 23, 0.55);
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(242, 184, 23, 0.08) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 5px 0 -2px rgba(70, 52, 22, 0.45),
+    0 10px 20px -8px rgba(0, 0, 0, 0.50),
+    0 0 18px -6px rgba(242, 184, 23, 0.14);
+}
+
+.parxis-login-google:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 0 -2px rgba(70, 52, 22, 0.45),
+    0 4px 10px -6px rgba(0, 0, 0, 0.45);
+}
+
+.parxis-login-google:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parxis-login-card,
+  .parxis-login-card:hover,
+  .parxis-login-field,
+  .parxis-login-field:focus-within,
+  .parxis-login-google,
+  .parxis-login-google:hover {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+
