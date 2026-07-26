@@ -203,11 +203,12 @@ async function main() {
         }
         const anim = anims[0];
         anim.pause();
+        // `Animation.currentTime` inclui o delay declarado no CSS,
+        // então precisamos deslocar a janela ativa por idx*stepMs.
+        const offset = idx * stepMs;
         const samples = [];
         for (const f of fractions) {
-          const t = activeStart + (activeEnd - activeStart) * f;
-          // currentTime é relativo ao início da animação (após delay),
-          // então basta setar diretamente a fase interna do ciclo.
+          const t = offset + activeStart + (activeEnd - activeStart) * f;
           anim.currentTime = t;
           const off = parseFloat(getComputedStyle(el).strokeDashoffset);
           const op = parseFloat(getComputedStyle(el).opacity);
