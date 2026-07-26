@@ -965,8 +965,17 @@ function Footer() {
           </div>
           <div className="md:col-span-5 flex md:justify-end items-center gap-5">
             <div className="text-right leading-none">
-              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70">
+              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-1.5">
                 {lang === "pt" ? "Sob a Plataforma" : "Powered by"}
+              </div>
+              <div className="font-serif text-[15px] tracking-[0.12em] text-[#C9A96E] drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)]">
+                PADCON<span className="align-super text-[8px] ml-0.5">®</span>
+              </div>
+              <div className="font-serif italic text-[13px] tracking-[0.18em] text-[#C9A96E]/85 mt-0.5">
+                Platform
+              </div>
+              <div className="text-[9px] italic tracking-[0.18em] text-muted-foreground/60 mt-1">
+                advanced systems architecture
               </div>
             </div>
             <img
