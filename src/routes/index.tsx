@@ -964,7 +964,7 @@ function Footer() {
             </p>
           </div>
           <div className="md:col-span-5 flex flex-row md:justify-end items-center gap-4 md:gap-6">
-            <div className="text-right leading-tight flex flex-col items-end font-serif">
+            <div className="text-center leading-tight flex flex-col items-center font-serif">
               <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
                 {lang === "pt" ? "Desenvolvido sob a Plataforma" : "Developed on the Platform"}
               </div>
