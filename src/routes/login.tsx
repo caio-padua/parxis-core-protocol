@@ -226,13 +226,13 @@ function LoginPage() {
         }}
       />
 
-      <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-6">
-        <Link to="/" className="flex items-center gap-3 group">
-          <PaxterMedalhao size={48} className="shrink-0" />
+      <header className="relative z-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 sm:px-6 md:px-10 py-5 sm:py-6">
+        <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3 group">
+          <PaxterMedalhao size={44} className="shrink-0" />
           <img
             src={parxisWordmark}
             alt="Parxis"
-            className="h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
+            className="h-6 sm:h-7 md:h-8 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
           />
         </Link>
         <div className="flex items-center gap-3">
