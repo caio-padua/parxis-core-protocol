@@ -6,6 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
+import padaxorLogoAsset from "@/assets/padaxor-logo.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide-padcon.png.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.json";
 import ampoulesAtelier from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
@@ -954,14 +955,27 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Brand row — aligned to same vertical rhythm as the columns below */}
         <div className="grid md:grid-cols-12 gap-10 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
-          <div className="md:col-span-7 flex flex-col md:flex-row items-center text-center md:text-left gap-3 md:gap-6">
-            <div className="parxis-gold-text font-serif text-3xl tracking-[0.35em] uppercase leading-none">
-              Parxis
+          <div className="md:col-span-7 flex flex-row items-center justify-center md:justify-start gap-4 md:gap-6">
+            <div className="text-center leading-tight flex flex-col items-center font-serif">
+              <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
+                {lang === "pt" ? "Sistema de Inteligência Clínica" : "Clinical Intelligence System"}
+              </div>
+              <div className="font-serif font-semibold text-[18px] sm:text-[20px] md:text-[24px] tracking-[0.14em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)] leading-none">
+                PADAXOR<span className="align-super text-[9px] sm:text-[10px] ml-0.5 text-[#C9A96E]">®</span>
+              </div>
+              <div className="font-serif italic text-[16px] sm:text-[18px] md:text-[22px] tracking-[0.06em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent leading-tight mt-0.5">
+                {lang === "pt" ? "Sistema" : "System"}
+              </div>
+              <div className="font-serif text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.08em] text-[#C9A96E]/75 whitespace-nowrap mt-1">
+                Clinical Intelligence System
+              </div>
             </div>
-            <span className="hidden md:inline-block h-8 w-px bg-[rgba(242,184,23,0.28)] shrink-0" aria-hidden />
-            <p className="text-[11px] text-muted-foreground/90 leading-relaxed w-full md:max-w-md font-light tracking-wide">
-              {tr(c.tagline, lang)}
-            </p>
+            <img
+              src={padaxorLogoAsset.url}
+              alt="PADAXOR"
+              className="h-[64px] sm:h-[80px] md:h-[110px] w-auto select-none"
+              draggable={false}
+            />
           </div>
           <div className="md:col-span-5 flex flex-row md:justify-end items-center gap-4 md:gap-6">
             <div className="text-center leading-tight flex flex-col items-center font-serif">
