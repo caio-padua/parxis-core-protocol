@@ -954,8 +954,15 @@ function Footer() {
     <footer className="bg-[color:var(--obsidian)] py-20 relative z-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         {/* Brand row — aligned to same vertical rhythm as the columns below */}
-        <div className="grid md:grid-cols-12 gap-10 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
-          <div className="md:col-span-7 flex flex-row items-center justify-center md:justify-start gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
+          {/* LEFT — PADAXOR symbol on far left, text vertically centered against it */}
+          <div className="flex flex-row items-center justify-center md:justify-start gap-5 md:gap-8">
+            <img
+              src={padaxorLogoAsset.url}
+              alt="PADAXOR"
+              className="h-[96px] sm:h-[112px] md:h-[132px] w-auto shrink-0 select-none object-contain"
+              draggable={false}
+            />
             <div className="text-center leading-tight flex flex-col items-center font-serif">
               <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
                 {lang === "pt" ? "Sistema de Inteligência Clínica" : "Clinical Intelligence System"}
@@ -970,14 +977,9 @@ function Footer() {
                 Clinical Intelligence System
               </div>
             </div>
-            <img
-              src={padaxorLogoAsset.url}
-              alt="PADAXOR"
-              className="h-[64px] sm:h-[80px] md:h-[110px] w-auto select-none"
-              draggable={false}
-            />
           </div>
-          <div className="md:col-span-5 flex flex-row md:justify-end items-center gap-4 md:gap-6">
+          {/* RIGHT — PADCON symbol on far right, text vertically centered against it */}
+          <div className="flex flex-row items-center justify-center md:justify-end gap-5 md:gap-8">
             <div className="text-center leading-tight flex flex-col items-center font-serif">
               <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
                 {lang === "pt" ? "Desenvolvido sob a Plataforma" : "Developed on the Platform"}
@@ -995,7 +997,7 @@ function Footer() {
             <img
               src={padconLogoAsset.url}
               alt="PADCON"
-              className="h-[52px] sm:h-[64px] md:h-[90px] w-auto select-none"
+              className="h-[96px] sm:h-[112px] md:h-[132px] w-auto shrink-0 select-none object-contain"
               draggable={false}
             />
           </div>
