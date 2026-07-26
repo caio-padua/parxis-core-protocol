@@ -1476,6 +1476,28 @@ html[data-contrast="high"] .parxis-fixed-veil {
     rgba(4, 2, 2, 0.25);
 }
 
+/* Modo "claro" opcional na tela de vendas: espelha exatamente os
+   valores de brilho/saturação/contraste e o véu da tela de /login,
+   para garantir paridade visual sem alterar o padrão escuro. */
+html[data-contrast="light"] .parxis-fixed-bg {
+  filter: saturate(1.18) contrast(1.14) brightness(1.18);
+}
+html[data-contrast="light"] .parxis-fixed-veil {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.06) 0%, transparent 58%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.10) 0%, transparent 64%),
+    rgba(5, 3, 3, 0.02);
+}
+/* Painéis de vidro ficam mais translúcidos para deixar o cenário respirar,
+   mantendo legibilidade do texto dourado. */
+html[data-contrast="light"] .parxis-glass {
+  background: rgba(10, 5, 5, 0.34);
+}
+html[data-contrast="light"] .parxis-glass-frame {
+  background:
+    linear-gradient(180deg, rgba(38,10,14,0.28) 0%, rgba(10,4,4,0.32) 60%, rgba(6,3,3,0.38) 100%);
+}
+
 /* Fallback mobile: iOS Safari ignora background-attachment: fixed —
    deixamos a imagem em scroll para não travar rendering. */
 @media (max-width: 767px) {

@@ -177,40 +177,42 @@ function MotionToggle() {
 }
 
 /* ————————————————— CONTRAST TOGGLE ————————————————— */
-type ContrastMode = "normal" | "high";
+type ContrastMode = "normal" | "light";
 function ContrastToggle() {
   const { lang } = useLang();
   const [mode, setMode] = useState<ContrastMode | null>(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem("parxis-contrast") as ContrastMode | null;
+    const raw = localStorage.getItem("parxis-contrast");
+    const stored: ContrastMode | null =
+      raw === "light" || raw === "normal" ? (raw as ContrastMode) : null;
     const initial: ContrastMode = stored ?? "normal";
     document.documentElement.dataset.contrast = initial;
     setMode(initial);
   }, []);
 
   const toggle = () => {
-    const next: ContrastMode = mode === "high" ? "normal" : "high";
+    const next: ContrastMode = mode === "light" ? "normal" : "light";
     document.documentElement.dataset.contrast = next;
     localStorage.setItem("parxis-contrast", next);
     setMode(next);
   };
 
   if (mode === null) return null;
-  const high = mode === "high";
-  const title = high ? tr(content.nav.a11y.contrastOn, lang) : tr(content.nav.a11y.contrastOff, lang);
+  const light = mode === "light";
+  const title = light ? tr(content.nav.a11y.contrastOn, lang) : tr(content.nav.a11y.contrastOff, lang);
 
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-pressed={high}
+      aria-pressed={light}
       aria-label={title}
       title={title}
       className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,184,23,0.3)] text-[color:var(--gold)] hover:bg-[rgba(242,184,23,0.08)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
     >
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        {high ? (
+        {light ? (
           <>
             <path d="M12 2v20" />
             <path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20z" />
