@@ -993,7 +993,7 @@ function Footer() {
                 Advanced Systems Architecture
               </div>
             </div>
-            <div className="h-[92px] sm:h-[108px] md:h-[124px] flex items-center justify-center shrink-0">
+            <div className="h-[78px] sm:h-[92px] md:h-[106px] flex items-center justify-center shrink-0">
               <img
                 src={padconLogoAsset.url}
                 alt="PADCON"
