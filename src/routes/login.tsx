@@ -7,10 +7,8 @@ import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
-import padconV2Asset from "@/assets/parxis-padcon-v3.png.asset.json";
+import atelierUrl from "@/assets/parxis-padcon-v4.png";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
-
-const atelierUrl = padconV2Asset.url;
 
 export const Route = createFileRoute("/login")({
   head: () => ({
