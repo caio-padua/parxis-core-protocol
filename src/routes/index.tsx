@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
-import padconLogoAsset from "@/assets/padcon-logo.png.asset.json";
+import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide-padcon.png.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.json";
 import ampoulesAtelier from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
@@ -965,23 +965,14 @@ function Footer() {
           </div>
           <div className="md:col-span-5 flex md:justify-end items-center gap-5">
             <div className="text-right leading-none">
-              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
+              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70">
                 {lang === "pt" ? "Sob a Plataforma" : "Powered by"}
-              </div>
-              <div className="parxis-gold-text font-serif text-[22px] tracking-[0.18em] uppercase leading-[1]">
-                PADCON<span className="text-[11px] align-top ml-0.5 tracking-normal">®</span>
-              </div>
-              <div className="parxis-gold-text font-serif text-[15px] tracking-[0.34em] uppercase leading-[1] mt-1.5">
-                Platform
-              </div>
-              <div className="font-serif italic text-[9px] tracking-[0.28em] uppercase text-[color:var(--gold-medium)]/80 mt-2">
-                advanced systems architecture
               </div>
             </div>
             <img
               src={padconLogoAsset.url}
-              alt="PADCON Platform"
-              className="h-16 w-auto select-none"
+              alt="PADCON"
+              className="h-[90px] w-auto select-none"
               draggable={false}
             />
           </div>
