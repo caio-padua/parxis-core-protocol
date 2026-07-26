@@ -84,6 +84,76 @@ const COPY = {
   back: { pt: "Voltar ao site", en: "Back to site" },
 } as const;
 
+type Cert = {
+  id: string;
+  code: string;
+  title: { pt: string; en: string };
+  summary: { pt: string; en: string };
+  detail: { pt: string; en: string };
+};
+
+const CERTS: Cert[] = [
+  {
+    id: "oauth",
+    code: "OAuth 2.1",
+    title: { pt: "OAuth 2.1 · Sign in with Google", en: "OAuth 2.1 · Sign in with Google" },
+    summary: {
+      pt: "Autenticação delegada de mais alto nível — sem senha em trânsito.",
+      en: "Highest-assurance delegated authentication — no password in transit.",
+    },
+    detail: {
+      pt: "O acesso pode ser feito pelo protocolo OAuth 2.1 com Sign in with Google, o padrão de mais alto nível disponível hoje. A Parxis nunca recebe sua senha do Google — apenas um token efêmero, assinado, com escopo mínimo e rotação automática. PKCE obrigatório em todos os fluxos.",
+      en: "Access is delegated via OAuth 2.1 with Sign in with Google — today's highest-assurance standard. Parxis never receives your Google password, only a signed ephemeral token with minimum scope and automatic rotation. PKCE is enforced on every flow.",
+    },
+  },
+  {
+    id: "hibp",
+    code: "HIBP",
+    title: { pt: "HIBP · verificação de vazamentos", en: "HIBP · breach screening" },
+    summary: {
+      pt: "Senhas cruzadas contra bilhões de credenciais vazadas globalmente.",
+      en: "Passwords cross-checked against billions of leaked credentials worldwide.",
+    },
+    detail: {
+      pt: "Toda senha cadastrada é conferida contra o corpus HIBP (Have I Been Pwned) — um banco mundial de bilhões de credenciais expostas em vazamentos. Se sua senha aparecer em qualquer incidente conhecido, a Parxis bloqueia o cadastro antes que o risco chegue à sua clínica. A verificação é feita com hashing parcial (k-anonymity): sua senha nunca sai do dispositivo em texto claro.",
+      en: "Every submitted password is checked against the HIBP (Have I Been Pwned) corpus — a global database of billions of credentials exposed in breaches. If your password appears in any known incident, Parxis blocks the registration before the risk touches your clinic. The check uses k-anonymity partial hashing: your password never leaves your device in clear text.",
+    },
+  },
+  {
+    id: "tls",
+    code: "TLS 1.3",
+    title: { pt: "TLS 1.3 · canal cifrado moderno", en: "TLS 1.3 · modern encrypted channel" },
+    summary: {
+      pt: "Toda a comunicação viaja em canal cifrado de última geração.",
+      en: "All traffic travels in a modern end-to-end encrypted channel.",
+    },
+    detail: {
+      pt: "Todo o tráfego entre o seu navegador e o motor clínico Parxis viaja sobre TLS 1.3 — a geração mais atual do protocolo, com handshake reduzido, forward secrecy obrigatório e ciphers legados desativados. Isso impede que redes intermediárias, provedores ou terceiros consigam ler ou alterar as requisições em trânsito.",
+      en: "All traffic between your browser and the Parxis clinical engine flows over TLS 1.3 — the most current generation of the protocol, with reduced handshake, mandatory forward secrecy and legacy ciphers disabled. This prevents intermediary networks, providers or third parties from reading or tampering with requests in transit.",
+    },
+  },
+  {
+    id: "lgpd",
+    code: "LGPD · RLS",
+    title: { pt: "LGPD · isolamento por Row-Level Security", en: "LGPD · Row-Level Security isolation" },
+    summary: {
+      pt: "Dados clínicos isolados por linha — cada clínica só enxerga o que é seu.",
+      en: "Clinical data isolated at the row level — each clinic sees only its own.",
+    },
+    detail: {
+      pt: "A Parxis opera em conformidade com a LGPD e usa Row-Level Security (RLS) no banco de dados: cada registro clínico carrega o vínculo da clínica proprietária, e o motor bloqueia no núcleo qualquer leitura fora desse escopo. Nenhum médico, operador ou administrador cruza dados de clínicas diferentes — o isolamento é técnico, não apenas contratual.",
+      en: "Parxis is LGPD-compliant and uses Row-Level Security (RLS) at the database layer: every clinical record carries its owning clinic, and the engine blocks any read outside that scope at the core. No physician, operator or administrator can cross data between clinics — the isolation is technical, not merely contractual.",
+    },
+  },
+];
+
+const CERTS_COPY = {
+  eyebrow: { pt: "Credenciais de segurança", en: "Security credentials" },
+  title: { pt: "Certificação e proteção", en: "Certification & protection" },
+  hint: { pt: "Toque em cada selo para entender o que ele representa.", en: "Tap each badge to see what it represents." },
+  close: { pt: "Fechar", en: "Close" },
+} as const;
+
 const APP_URL = "https://app.parxis.com.br";
 
 function passwordSchema(lang: "pt" | "en") {
