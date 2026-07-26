@@ -1563,56 +1563,114 @@ html[data-motion="reduce"] .parxis-corner-pulse {
 }
 
 /* ============================================================
- * Parxis Bevel Input — campo de acesso com altura e volume
- * Ideia: placa metálica escovada com sulco interno onde o texto
- * repousa; luz superior + sombra profunda inferior.
+ * Parxis Bevel Input — placa de acesso em alto-relevo
+ * Ideia: placa metálica escovada com borda elevada, sulco interno
+ * profundo e luz viva no topo; sombras projetadas reforçam a altura.
  * ============================================================ */
 .parxis-field {
   position: relative;
-  border-radius: 8px;
-  padding: 2px;
+  border-radius: 10px;
+  padding: 3px;
   background:
     linear-gradient(180deg,
-      rgba(255, 232, 163, 0.55) 0%,
-      rgba(201, 176, 112, 0.28) 45%,
-      rgba(60, 46, 20, 0.75) 100%);
+      rgba(255, 238, 190, 0.72) 0%,
+      rgba(222, 195, 130, 0.42) 35%,
+      rgba(140, 110, 55, 0.55) 70%,
+      rgba(55, 40, 18, 0.85) 100%);
   box-shadow:
-    0 1px 0 rgba(255, 236, 180, 0.18),
-    0 14px 30px -14px rgba(0, 0, 0, 0.75),
-    0 24px 48px -24px rgba(0, 0, 0, 0.6);
-  transition: box-shadow 320ms ease, transform 260ms cubic-bezier(.2,.7,.2,1);
+    /* luz de topo sutil */
+    0 1px 0 rgba(255, 240, 195, 0.28),
+    /* corpo projetado — altura */
+    0 18px 0 -2px rgba(70, 52, 22, 0.85),
+    0 18px 0 -1px rgba(0, 0, 0, 0.55),
+    /* sombras profundas */
+    0 26px 40px -14px rgba(0, 0, 0, 0.85),
+    0 44px 64px -28px rgba(0, 0, 0, 0.62),
+    0 64px 88px -40px rgba(0, 0, 0, 0.42);
+  transition: box-shadow 320ms ease, transform 260ms cubic-bezier(.2,.7,.2,1), filter 320ms ease;
+}
+.parxis-field::before {
+  /* realce de borda superior */
+  content: "";
+  position: absolute;
+  inset: 2px 3px auto 3px;
+  height: 1px;
+  border-radius: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 245, 210, 0.55) 18%,
+    rgba(255, 245, 210, 0.55) 82%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 3;
 }
 .parxis-field::after {
   content: "";
   position: absolute;
-  inset: -3px;
-  border-radius: 10px;
+  inset: -5px;
+  border-radius: 13px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 380ms ease;
-  background: radial-gradient(ellipse at 50% 0%, rgba(242,184,23,0.14), transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(242, 184, 23, 0.22), transparent 70%);
   box-shadow:
-    0 0 0 1px rgba(255,225,150,0.22),
-    0 12px 30px -10px rgba(242,184,23,0.20);
+    0 0 0 1px rgba(255, 225, 150, 0.28),
+    0 16px 40px -12px rgba(242, 184, 23, 0.26),
+    0 0 28px -8px rgba(242, 184, 23, 0.18);
   z-index: -1;
 }
 .parxis-field:focus-within {
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255, 240, 195, 0.36),
+    0 21px 0 -2px rgba(70, 52, 22, 0.85),
+    0 21px 0 -1px rgba(0, 0, 0, 0.55),
+    0 30px 48px -14px rgba(0, 0, 0, 0.82),
+    0 52px 78px -28px rgba(0, 0, 0, 0.58),
+    0 74px 104px -40px rgba(0, 0, 0, 0.38),
+    0 0 34px -8px rgba(242, 184, 23, 0.18);
+}
+.parxis-field:focus-within::before {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 248, 220, 0.85) 22%,
+    rgba(255, 248, 220, 0.85) 78%,
+    transparent 100%);
 }
 .parxis-field:focus-within::after { opacity: 1; }
 
+.parxis-field:has(input:disabled),
+.parxis-field:has(input[disabled]) {
+  filter: saturate(0.72) brightness(0.82);
+  box-shadow:
+    0 1px 0 rgba(255, 240, 195, 0.12),
+    0 10px 0 -2px rgba(70, 52, 22, 0.55),
+    0 10px 0 -1px rgba(0, 0, 0, 0.45),
+    0 16px 28px -12px rgba(0, 0, 0, 0.55),
+    0 28px 44px -22px rgba(0, 0, 0, 0.35);
+}
+.parxis-field:has(input:disabled)::before,
+.parxis-field:has(input[disabled])::before { opacity: 0.3; }
+
 .parxis-field-inner {
   position: relative;
-  border-radius: 6px;
+  border-radius: 7px;
   background:
     linear-gradient(180deg,
       rgba(10, 8, 6, 0.92) 0%,
-      rgba(18, 14, 10, 0.96) 45%,
-      rgba(6, 5, 4, 0.98) 100%);
+      rgba(22, 17, 12, 0.97) 42%,
+      rgba(8, 6, 5, 0.98) 100%);
   box-shadow:
-    inset 0 2px 3px rgba(0,0,0,0.75),
-    inset 0 -1px 0 rgba(255, 232, 163, 0.10),
-    inset 0 1px 0 rgba(255, 236, 180, 0.05);
+    inset 0 3px 5px rgba(0, 0, 0, 0.85),
+    inset 0 -2px 0 rgba(255, 232, 163, 0.12),
+    inset 0 1px 0 rgba(255, 236, 180, 0.06);
+}
+.parxis-field:focus-within .parxis-field-inner {
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.85),
+    inset 0 -2px 0 rgba(255, 232, 163, 0.14),
+    inset 0 1px 0 rgba(255, 236, 180, 0.08),
+    inset 0 0 28px rgba(242, 184, 23, 0.06);
 }
 .parxis-field input {
   width: 100%;
@@ -1620,10 +1678,15 @@ html[data-motion="reduce"] .parxis-corner-pulse {
   border: 0;
   outline: none;
   color: var(--foreground);
-  padding: 1.05rem 1.15rem;
+  padding: 1.1rem 1.2rem;
   font-size: 0.9rem;
   letter-spacing: 0.02em;
-  border-radius: 6px;
+  border-radius: 7px;
+  transition: color 220ms ease;
+}
+.parxis-field input:disabled {
+  color: rgba(230, 220, 200, 0.42);
+  cursor: not-allowed;
 }
 .parxis-field input::placeholder {
   color: rgba(230, 220, 200, 0.28);
@@ -1633,7 +1696,7 @@ html[data-motion="reduce"] .parxis-corner-pulse {
 }
 .parxis-field input:-webkit-autofill {
   -webkit-text-fill-color: var(--foreground);
-  -webkit-box-shadow: inset 0 0 0 1000px rgba(18,14,10,0.96);
+  -webkit-box-shadow: inset 0 0 0 1000px rgba(22, 17, 12, 0.97);
   caret-color: var(--foreground);
 }
 @media (prefers-reduced-motion: reduce) {
