@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
+import padconLogoAsset from "@/assets/padcon-logo.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide-padcon.png.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.json";
 import ampoulesAtelier from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
