@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-padcon-v14-fhd.webp.asset.json";
 const atelierUrl = atelierAsset.url;
+import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
 export const Route = createFileRoute("/login")({
@@ -483,6 +484,39 @@ function LoginPage() {
           <p className="mt-6 text-center text-[11px] uppercase tracking-[0.36em] text-foreground/80">
             {tr(COPY.footerLegal, lang)}
           </p>
+        </div>
+      </section>
+
+      {/* Rodapé da tela de login — marca PADCON com símbolo renderizado + texto escrito */}
+      <section className="relative z-10 px-4 sm:px-6 md:px-10 py-10 sm:py-12 border-t border-[rgba(242,184,23,0.18)]">
+        <div className="mx-auto max-w-5xl flex items-center justify-center md:justify-start gap-5 md:gap-8">
+          {/* Texto escrito à esquerda do logo */}
+          <div className="flex flex-col items-center md:items-end text-center md:text-right leading-tight font-serif">
+            <div className="font-sans text-[8px] sm:text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
+              {lang === "pt" ? "Desenvolvido sob a Plataforma" : "Developed on the Platform"}
+            </div>
+            <div className="flex items-baseline justify-center md:justify-end gap-1.5">
+              <div className="font-serif font-semibold text-[18px] sm:text-[20px] md:text-[24px] tracking-[0.14em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent drop-shadow-[0_1px_10px_rgba(201,169,110,0.35)] leading-none">
+                PADCON<span className="align-super text-[9px] sm:text-[10px] ml-0.5 text-[#C9A96E]">®</span>
+              </div>
+              <div className="font-serif italic text-[16px] sm:text-[18px] md:text-[22px] tracking-[0.06em] bg-gradient-to-b from-[#F2E1B8] via-[#C9A96E] to-[#8C6E2E] bg-clip-text text-transparent leading-none">
+                Platform
+              </div>
+            </div>
+            <div className="font-serif text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.08em] text-[#C9A96E]/75 whitespace-nowrap mt-1">
+              Advanced Systems Architecture
+            </div>
+          </div>
+
+          {/* Logo PADCON renderizado */}
+          <div className="h-[78px] sm:h-[92px] md:h-[106px] flex items-center justify-center shrink-0">
+            <img
+              src={padconLogoAsset.url}
+              alt="PADCON"
+              className="h-full w-auto shrink-0 select-none object-contain"
+              draggable={false}
+            />
+          </div>
         </div>
       </section>
     </main>
