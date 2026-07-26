@@ -381,6 +381,44 @@ export const content = {
     place: { en: "São Paulo · Brazil", pt: "São Paulo · Brasil" },
     rights: { en: "© 2026 Parxis · All rights reserved", pt: "© 2026 Parxis · Todos os direitos reservados" },
     signature: { en: "Made with precision", pt: "Feito com precisão" },
+    columns: {
+      house: {
+        title: { en: "The House", pt: "A Casa" },
+        lines: [
+          { en: "Parxis · Clinical Intelligence System", pt: "Parxis · Sistema de Inteligência Clínica" },
+          { en: "A PAWARDS MedCore® product", pt: "Produto PAWARDS MedCore®" },
+          { en: "Powered by PADCON Platform®", pt: "Sob a Plataforma PADCON®" },
+          { en: "Établi 2026 · São Paulo, Brazil", pt: "Établi 2026 · São Paulo, Brasil" },
+        ],
+      },
+      contact: {
+        title: { en: "Private Office", pt: "Escritório Privado" },
+        lines: [
+          { en: "parxis.com.br", pt: "parxis.com.br" },
+          { en: "contact@parxis.com.br", pt: "contato@parxis.com.br" },
+          { en: "Av. Brigadeiro Faria Lima, 3477", pt: "Av. Brigadeiro Faria Lima, 3477" },
+          { en: "Itaim Bibi · São Paulo · SP", pt: "Itaim Bibi · São Paulo · SP" },
+        ],
+      },
+      standards: {
+        title: { en: "Standards", pt: "Padrões" },
+        lines: [
+          { en: "LGPD · GDPR compliant", pt: "Conformidade LGPD · GDPR" },
+          { en: "ISO/IEC 27001 architecture", pt: "Arquitetura ISO/IEC 27001" },
+          { en: "TLS 1.3 · OAuth 2.1", pt: "TLS 1.3 · OAuth 2.1" },
+          { en: "CFM · ANVISA aligned", pt: "Alinhado ao CFM · ANVISA" },
+        ],
+      },
+      register: {
+        title: { en: "Register", pt: "Registro" },
+        lines: [
+          { en: "PARXIS® · Registered mark", pt: "PARXIS® · Marca registrada" },
+          { en: "PADCON Platform® · INPI", pt: "PADCON Platform® · INPI" },
+          { en: "CNPJ 00.000.000/0001-00", pt: "CNPJ 00.000.000/0001-00" },
+          { en: "By invitation only", pt: "Somente por indicação" },
+        ],
+      },
+    },
   },
 } as const;
 
