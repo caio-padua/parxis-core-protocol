@@ -528,7 +528,7 @@ function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
         </p>
       </div>
 
-      <ul className="mt-5 grid grid-cols-2 gap-2.5">
+      <ul className="mt-6 grid grid-cols-2 gap-4 sm:gap-5">
         {CERTS.map((c) => {
           const active = openId === c.id;
           return (
