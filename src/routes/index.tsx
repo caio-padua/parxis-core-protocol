@@ -947,30 +947,60 @@ function LeadField({
 function Footer() {
   const { lang } = useLang();
   const c = content.footer;
+  const cols = c.columns;
+  const columnData = [cols.house, cols.contact, cols.standards, cols.register];
   return (
-    <footer className="bg-[color:var(--obsidian)] py-16 relative z-10">
+    <footer className="bg-[color:var(--obsidian)] py-20 relative z-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="parxis-gold-rule mb-12" />
-        <div className="grid md:grid-cols-3 gap-10 items-start">
-          <div>
-            <div className="parxis-gold-text font-serif text-2xl tracking-[0.35em] uppercase">Parxis</div>
-            <p className="mt-4 text-xs text-muted-foreground leading-relaxed max-w-xs font-light">
+        {/* Brand row — aligned to same vertical rhythm as the columns below */}
+        <div className="grid md:grid-cols-12 gap-10 items-center pb-12 border-b border-[rgba(242,184,23,0.18)]">
+          <div className="md:col-span-7 flex items-center gap-6">
+            <div className="parxis-gold-text font-serif text-3xl tracking-[0.35em] uppercase leading-none">
+              Parxis
+            </div>
+            <span className="hidden sm:inline-block h-8 w-px bg-[rgba(242,184,23,0.28)]" aria-hidden />
+            <p className="text-[11px] text-muted-foreground/90 leading-relaxed max-w-md font-light tracking-wide">
               {tr(c.tagline, lang)}
             </p>
           </div>
-          <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em]">
-            <div>{tr(c.domain, lang)}</div>
-            <div>{tr(c.email, lang)}</div>
-          </div>
-          <div className="text-xs text-muted-foreground space-y-3 uppercase tracking-[0.22em] md:text-right">
-            <div>{tr(c.established, lang)}</div>
-            <div>{tr(c.place, lang)}</div>
+          <div className="md:col-span-5 flex md:justify-end items-center gap-4">
+            <div className="text-right leading-tight">
+              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70">
+                {lang === "pt" ? "Sob a Plataforma" : "Powered by"}
+              </div>
+              <div className="parxis-gold-text text-sm tracking-[0.28em] uppercase mt-1">
+                PADCON Platform®
+              </div>
+            </div>
+            <img
+              src={padconLogoAsset.url}
+              alt="PADCON Platform"
+              className="h-14 w-auto select-none"
+              draggable={false}
+            />
           </div>
         </div>
-        <div className="parxis-gold-rule mt-12 opacity-40" />
-        <div className="mt-6 flex flex-col md:flex-row justify-between gap-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+
+        {/* Four aligned data columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 py-12">
+          {columnData.map((col, i) => (
+            <div key={i} className="min-w-0">
+              <div className="text-[10px] uppercase tracking-[0.34em] parxis-gold-text mb-4">
+                {tr(col.title, lang)}
+              </div>
+              <ul className="space-y-2.5 text-[11px] leading-relaxed text-muted-foreground/90 font-light tracking-wide">
+                {col.lines.map((line, j) => (
+                  <li key={j}>{tr(line, lang)}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="parxis-gold-rule opacity-40" />
+        <div className="mt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
           <span>{tr(c.rights, lang)}</span>
-          <span>{tr(c.signature, lang)}</span>
+          <span className="text-muted-foreground/70">{tr(c.signature, lang)}</span>
         </div>
       </div>
     </footer>
