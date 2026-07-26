@@ -1759,39 +1759,42 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     transform 400ms cubic-bezier(.2,.7,.2,1);
 }
 
-/* Moldura bevel 3D no perímetro exterior */
+/* Moldura bevel 3D alta no perímetro exterior */
 .parxis-login-card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 2px;
+  padding: 3px;
   background: linear-gradient(180deg,
-    rgba(255, 245, 210, 0.92) 0%,
-    rgba(242, 214, 135, 0.70) 20%,
-    rgba(201, 176, 112, 0.55) 45%,
-    rgba(130, 100, 52, 0.85) 72%,
-    rgba(80, 58, 28, 0.95) 100%);
+    rgba(255, 250, 232, 0.98) 0%,
+    rgba(255, 245, 210, 0.85) 12%,
+    rgba(242, 214, 135, 0.72) 28%,
+    rgba(201, 176, 112, 0.58) 48%,
+    rgba(130, 100, 52, 0.88) 72%,
+    rgba(60, 42, 20, 0.98) 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
   z-index: 2;
-  box-shadow: inset 0 1px 0 rgba(255, 250, 232, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 246, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
 }
 
 /* Realce sutil do topo do bevel */
 .parxis-login-card::after {
   content: "";
   position: absolute;
-  inset: 2px;
-  border-radius: 12px;
+  inset: 3px;
+  border-radius: 11px;
   pointer-events: none;
   z-index: 1;
   background: linear-gradient(180deg,
-    rgba(255, 252, 246, 0.08) 0%,
+    rgba(255, 252, 246, 0.10) 0%,
     transparent 18%);
-  box-shadow: inset 0 1px 0 rgba(255, 250, 232, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 250, 232, 0.16);
 }
 
 /* Elevação mais pronunciada no hover */
