@@ -513,7 +513,7 @@ function GoogleIcon() {
 
 function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
   const [openId, setOpenId] = useState<string | null>(null);
-  const chipRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+  const chipRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   function focusChip(i: number) {
     const n = CERTS.length;
