@@ -7,7 +7,7 @@ import parxisSymbolAsset from "@/assets/parxis-symbol.png.asset.json";
 import parxisWordmarkAsset from "@/assets/parxis-wordmark.png.asset.json";
 import atelierWideAsset from "@/assets/parxis-atelier-wide-padcon.png.asset.json";
 import ampoulesWideAsset from "@/assets/parxis-ampoules-wide-padcon.png.asset.json";
-import ampoulesAtelier from "@/assets/parxis-padcon-v9-fhd.webp.asset.json";
+import ampoulesAtelier from "@/assets/parxis-padcon-v10-fhd.webp.asset.json";
 const ampoulesAtelierUrl = ampoulesAtelier.url;
 import { useLang, tr, formatNumber, type Lang } from "@/contexts/LanguageContext";
 import { content } from "@/content/parxis";
