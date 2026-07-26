@@ -280,7 +280,7 @@ function LoginPage() {
 
         {/* Coluna direita — cartão de acesso flutuante */}
         <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto">
-          <div className="parxis-login-card rounded-xl p-8 md:p-10 relative">
+          <div className="parxis-login-card rounded-xl p-5 sm:p-8 md:p-10 relative">
             <p className="text-[11px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
               {tr(COPY.brand, lang)}
             </p>
