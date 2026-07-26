@@ -206,15 +206,23 @@ function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      {/* Fundo cinemático — atelier + véu */}
-      <div className="parxis-fixed-bg absolute inset-0" aria-hidden />
+    <main
+      className="parxis-app min-h-screen text-foreground relative overflow-hidden"
+      style={{
+        ["--parxis-fixed-url" as string]: `url(${atelierUrl})`,
+        ["--parxis-atelier-url" as string]: `url(${atelierUrl})`,
+      }}
+    >
+      {/* Fundo atelier nítido — mesmo do site institucional */}
+      <div className="parxis-fixed-bg" aria-hidden />
+      <div className="parxis-fixed-veil" aria-hidden />
+      {/* Véu extra sutil para garantir legibilidade do card claro */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.55) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.72) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55))",
+            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.22) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.32) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.22))",
         }}
       />
 
