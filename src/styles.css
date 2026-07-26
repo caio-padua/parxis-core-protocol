@@ -1727,25 +1727,31 @@ html[data-motion="reduce"] .parxis-corner-pulse {
 
 .parxis-login-card {
   position: relative;
+  isolation: isolate;
+  /* Fundo mais opaco — menos transparência, maior presença */
   background:
     linear-gradient(
       180deg,
-      rgba(255, 252, 246, 0.18) 0%,
-      rgba(255, 250, 242, 0.12) 42%,
-      rgba(40, 28, 22, 0.42) 100%
+      rgba(255, 252, 246, 0.30) 0%,
+      rgba(255, 250, 242, 0.22) 38%,
+      rgba(42, 30, 24, 0.62) 100%
     );
-  border: 0.8px solid rgba(242, 184, 23, 0.18);
+  /* Bevel alto no perímetro exterior: moldura metálica dourada */
+  border: 1px solid transparent;
+  border-radius: 14px;
   box-shadow:
-    /* topo iluminado */
-    inset 0 1px 0 rgba(255, 248, 228, 0.28),
-    /* corpo projetado muito sutil */
-    0 6px 0 -2px rgba(70, 52, 22, 0.38),
-    0 6px 0 -1px rgba(0, 0, 0, 0.30),
-    /* sombras difusas leves */
-    0 18px 38px -14px rgba(0, 0, 0, 0.40),
-    0 34px 64px -26px rgba(0, 0, 0, 0.30),
+    /* luz vinda de cima (face superior do bevel) */
+    inset 0 1px 0 rgba(255, 250, 232, 0.55),
+    inset 0 2px 0 rgba(255, 245, 210, 0.18),
+    /* oclusão de ambiente — profundidade */
+    0 10px 0 -4px rgba(70, 52, 22, 0.55),
+    0 10px 0 -3px rgba(0, 0, 0, 0.55),
+    0 16px 0 -6px rgba(50, 36, 18, 0.42),
+    /* sombras difusas projetadas */
+    0 26px 52px -18px rgba(0, 0, 0, 0.52),
+    0 48px 84px -32px rgba(0, 0, 0, 0.40),
     /* halo dourado discreto */
-    0 0 40px -18px rgba(242, 184, 23, 0.14);
+    0 0 50px -18px rgba(242, 184, 23, 0.18);
   animation: parxis-card-float 12s ease-in-out infinite;
   transition:
     border-color 400ms ease,
@@ -1753,17 +1759,56 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     transform 400ms cubic-bezier(.2,.7,.2,1);
 }
 
-/* Leve elevação no hover */
-.parxis-login-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(242, 184, 23, 0.30);
+/* Moldura bevel 3D alta no perímetro exterior */
+.parxis-login-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  background: linear-gradient(180deg,
+    rgba(255, 250, 232, 0.98) 0%,
+    rgba(255, 245, 210, 0.85) 12%,
+    rgba(242, 214, 135, 0.72) 28%,
+    rgba(201, 176, 112, 0.58) 48%,
+    rgba(130, 100, 52, 0.88) 72%,
+    rgba(60, 42, 20, 0.98) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
   box-shadow:
-    inset 0 1px 0 rgba(255, 250, 232, 0.34),
-    0 8px 0 -2px rgba(70, 52, 22, 0.38),
-    0 8px 0 -1px rgba(0, 0, 0, 0.30),
-    0 22px 46px -14px rgba(0, 0, 0, 0.44),
-    0 40px 72px -26px rgba(0, 0, 0, 0.34),
-    0 0 48px -16px rgba(242, 184, 23, 0.18);
+    inset 0 1px 0 rgba(255, 252, 246, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Realce sutil do topo do bevel */
+.parxis-login-card::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 11px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(180deg,
+    rgba(255, 252, 246, 0.10) 0%,
+    transparent 18%);
+  box-shadow: inset 0 1px 0 rgba(255, 250, 232, 0.16);
+}
+
+/* Elevação mais pronunciada no hover */
+.parxis-login-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 232, 0.62),
+    inset 0 2px 0 rgba(255, 245, 210, 0.22),
+    0 12px 0 -4px rgba(70, 52, 22, 0.55),
+    0 12px 0 -3px rgba(0, 0, 0, 0.55),
+    0 18px 0 -6px rgba(50, 36, 18, 0.42),
+    0 30px 58px -18px rgba(0, 0, 0, 0.56),
+    0 54px 92px -32px rgba(0, 0, 0, 0.44),
+    0 0 58px -16px rgba(242, 184, 23, 0.24);
 }
 
 /* Campo de login — elegante, leve, legível para idosos */
