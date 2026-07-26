@@ -247,33 +247,35 @@ function LoginPage() {
       </header>
 
       <section className="relative z-10 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center px-6 md:px-10 lg:px-16 pb-20 pt-2 lg:pt-6">
-        {/* Coluna esquerda — narrativa */}
-        <div className="hidden lg:block max-w-xl">
-          <p className="text-[12px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-5">
-            {tr(COPY.eyebrow, lang)} · {tr(COPY.brand, lang)}
-          </p>
-          <h1
-            className="font-serif text-[44px] xl:text-[54px] leading-[1.05] mb-5"
-            style={{
-              background: "linear-gradient(180deg, #FBEBAA 0%, #C9B070 55%, #8A6A20 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            {tr(COPY.headline, lang)}
-          </h1>
-          <div className="parxis-gold-rule w-24 mb-5" />
-          <p className="text-[17px] text-foreground/90 font-light leading-relaxed">
-            {tr(COPY.lead, lang)}
-          </p>
+        {/* Coluna esquerda — narrativa com fundo de leitura */}
+        <div className="hidden lg:block">
+          <div className="max-w-xl rounded-2xl p-8 lg:p-10" style={{ background: "rgba(5, 3, 3, 0.28)" }}>
+            <p className="text-[12px] uppercase tracking-[0.42em] text-[color:var(--gold)] mb-5">
+              {tr(COPY.eyebrow, lang)} · {tr(COPY.brand, lang)}
+            </p>
+            <h1
+              className="font-serif text-[44px] xl:text-[54px] leading-[1.05] mb-5"
+              style={{
+                background: "linear-gradient(180deg, #FBEBAA 0%, #C9B070 55%, #8A6A20 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {tr(COPY.headline, lang)}
+            </h1>
+            <div className="parxis-gold-rule w-24 mb-5" />
+            <p className="text-[17px] text-foreground/95 font-light leading-relaxed">
+              {tr(COPY.lead, lang)}
+            </p>
 
-          <ul className="mt-10 space-y-4 text-[15px] text-foreground/85">
-            <TrustRow label={lang === "pt" ? "OAuth 2.1 · Sign in with Google" : "OAuth 2.1 · Sign in with Google"} />
-            <TrustRow label={lang === "pt" ? "Senhas verificadas contra HIBP (bilhões de vazamentos)" : "Passwords screened against HIBP (billions of breaches)"} />
-            <TrustRow label={lang === "pt" ? "TLS 1.3 · sessões efêmeras · rotação automática" : "TLS 1.3 · ephemeral sessions · auto-rotation"} />
-            <TrustRow label={lang === "pt" ? "Conformidade LGPD · dados clínicos isolados por RLS" : "LGPD-compliant · clinical data isolated by row-level security"} />
-          </ul>
+            <ul className="mt-10 space-y-4 text-[15px] text-foreground/90">
+              <TrustRow label={lang === "pt" ? "OAuth 2.1 · Sign in with Google" : "OAuth 2.1 · Sign in with Google"} />
+              <TrustRow label={lang === "pt" ? "Senhas verificadas contra HIBP (bilhões de vazamentos)" : "Passwords screened against HIBP (billions of breaches)"} />
+              <TrustRow label={lang === "pt" ? "TLS 1.3 · sessões efêmeras · rotação automática" : "TLS 1.3 · ephemeral sessions · auto-rotation"} />
+              <TrustRow label={lang === "pt" ? "Conformidade LGPD · dados clínicos isolados por RLS" : "LGPD-compliant · clinical data isolated by row-level security"} />
+            </ul>
+          </div>
         </div>
 
         {/* Coluna direita — cartão de acesso flutuante */}
