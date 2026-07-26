@@ -326,40 +326,38 @@ function LoginPage() {
 
               <label className="block">
                 <span className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
+                  <span className="text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
                     {tr(COPY.password, lang)}
                   </span>
                   {mode === "in" && (
                     <button
                       type="button"
                       onClick={onForgot}
-                      className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+                      className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
                     >
                       {tr(COPY.forgot, lang)}
                     </button>
                   )}
                 </span>
-                <div className="parxis-field">
-                  <div className="parxis-field-inner relative">
-                    <input
-                      type={showPw ? "text" : "password"}
-                      autoComplete={mode === "in" ? "current-password" : "new-password"}
-                      required
-                      minLength={mode === "up" ? 12 : 8}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••••"
-                      style={{ paddingRight: "4rem" }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPw((v) => !v)}
-                      aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
-                    >
-                      {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
-                    </button>
-                  </div>
+                <div className="parxis-login-field relative">
+                  <input
+                    type={showPw ? "text" : "password"}
+                    autoComplete={mode === "in" ? "current-password" : "new-password"}
+                    required
+                    minLength={mode === "up" ? 12 : 8}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••••••"
+                    style={{ paddingRight: "4.5rem" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPw((v) => !v)}
+                    aria-label={showPw ? "Ocultar senha" : "Mostrar senha"}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+                  >
+                    {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
+                  </button>
                 </div>
                 {mode === "up" && (
                   <div className="mt-3">
@@ -367,7 +365,7 @@ function LoginPage() {
                       {[0, 1, 2, 3, 4].map((i) => (
                         <div
                           key={i}
-                          className="h-[3px] flex-1 rounded-full transition-colors"
+                          className="h-[4px] flex-1 rounded-full transition-colors"
                           style={{
                             background:
                               i < pwScore
@@ -377,7 +375,7 @@ function LoginPage() {
                         />
                       ))}
                     </div>
-                    <p className="mt-2 text-[10px] tracking-wide text-muted-foreground/80">
+                    <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground/90">
                       {tr(COPY.passwordHint, lang)}
                     </p>
                   </div>
@@ -387,7 +385,7 @@ function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="parxis-btn w-full mt-2"
+                className="parxis-btn parxis-btn-primary w-full mt-2"
               >
                 <span>
                   {loading
@@ -402,7 +400,7 @@ function LoginPage() {
             <button
               type="button"
               onClick={() => setMode(mode === "in" ? "up" : "in")}
-              className="mt-6 w-full text-[10px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
+              className="mt-6 w-full text-[11px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
             >
               {mode === "in" ? tr(COPY.toUp, lang) : tr(COPY.toIn, lang)}
             </button>
