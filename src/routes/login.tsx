@@ -216,13 +216,13 @@ function LoginPage() {
       {/* Fundo atelier nítido — mesmo do site institucional */}
       <div className="parxis-fixed-bg" aria-hidden />
       <div className="parxis-fixed-veil" aria-hidden />
-      {/* Véu extra sutil para garantir legibilidade do card claro */}
+      {/* Véu extra bem sutil para deixar a tela mais clara e o fundo visível */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.22) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.32) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.22))",
+            "radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.10) 0%, transparent 55%), radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.18) 0%, transparent 60%), linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.14))",
         }}
       />
 
