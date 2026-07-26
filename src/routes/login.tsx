@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
+import { cn } from "@/lib/utils";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierUrl from "@/assets/parxis-padcon-v4.png";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
@@ -513,6 +514,7 @@ function GoogleIcon() {
 
 function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const [tipId, setTipId] = useState<string | null>(null);
   const chipRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   function focusChip(i: number) {
@@ -579,26 +581,50 @@ function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
       >
         {CERTS.map((c, i) => {
           const active = openId === c.id;
+          const tipOpen = tipId === c.id;
+          const descId = `${c.id}-tip-desc`;
           return (
-            <li key={c.id}>
+            <li key={c.id} className="relative">
+              <span id={descId} className="sr-only">
+                {tr(c.summary, lang)}
+              </span>
               <button
                 type="button"
                 onClick={() => setOpenId(active ? null : c.id)}
                 onKeyDown={(e) => onChipKeyDown(e, i)}
+                onMouseEnter={() => setTipId(c.id)}
+                onMouseLeave={() =>
+                  setTipId((current) => (current === c.id ? null : current))
+                }
+                onFocus={() => setTipId(c.id)}
+                onBlur={() =>
+                  setTipId((current) => (current === c.id ? null : current))
+                }
                 ref={(el) => {
                   chipRefs.current[i] = el;
                 }}
                 aria-expanded={active}
                 aria-controls={`cert-panel-${c.id}`}
+                aria-describedby={descId}
                 aria-label={`${c.code} — ${tr(c.title, lang)}`}
-                className={
-                  "parxis-cert-chip w-full text-left " +
-                  (active ? "parxis-cert-chip--active" : "")
-                }
+                className={cn(
+                  "parxis-cert-chip w-full text-left",
+                  active ? "parxis-cert-chip--active" : ""
+                )}
               >
                 <span className="parxis-cert-chip__code">{c.code}</span>
                 <span className="parxis-cert-chip__label">{tr(c.title, lang)}</span>
               </button>
+              <span
+                className={cn(
+                  "parxis-cert-tip",
+                  tipOpen ? "parxis-cert-tip--open" : ""
+                )}
+                aria-hidden="true"
+              >
+                <span className="parxis-cert-tip__text">{tr(c.summary, lang)}</span>
+                <span className="parxis-cert-tip__arrow" aria-hidden="true" />
+              </span>
             </li>
           );
         })}
