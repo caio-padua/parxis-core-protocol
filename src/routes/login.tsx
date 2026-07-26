@@ -276,13 +276,13 @@ function LoginPage() {
           </ul>
         </div>
 
-        {/* Coluna direita — cartão de acesso */}
-        <div className="relative w-full max-w-md mx-auto lg:ml-auto">
-          <div className="parxis-card rounded-lg p-8 md:p-10 relative">
-            <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
+        {/* Coluna direita — cartão de acesso flutuante */}
+        <div className="relative w-full max-w-[460px] mx-auto lg:ml-auto">
+          <div className="parxis-login-card rounded-xl p-8 md:p-10 relative">
+            <p className="text-[11px] uppercase tracking-[0.42em] text-[color:var(--gold)] text-center">
               {tr(COPY.brand, lang)}
             </p>
-            <h2 className="mt-3 font-serif text-3xl md:text-[34px] text-center">
+            <h2 className="mt-3 font-serif text-[28px] md:text-[32px] text-center leading-tight">
               {mode === "in" ? tr(COPY.tabIn, lang) : tr(COPY.tabUp, lang)}
             </h2>
             <div className="parxis-gold-rule w-16 mx-auto my-5" />
@@ -291,17 +291,17 @@ function LoginPage() {
               type="button"
               onClick={onGoogle}
               disabled={oauthLoading}
-              className="w-full inline-flex items-center justify-center gap-3 border border-[rgba(242,184,23,0.35)] bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(242,184,23,0.06)] hover:border-[color:var(--gold)] transition-colors rounded-md px-5 py-3 text-sm tracking-wide disabled:opacity-60"
+              className="parxis-login-google w-full"
             >
               <GoogleIcon />
-              <span className="text-foreground/90">
+              <span>
                 {oauthLoading ? tr(COPY.loading, lang) : tr(COPY.google, lang)}
               </span>
             </button>
 
             <div className="my-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
-              <span className="text-[9px] uppercase tracking-[0.42em] text-muted-foreground">
+              <span className="text-[10px] uppercase tracking-[0.42em] text-muted-foreground">
                 {tr(COPY.divider, lang)}
               </span>
               <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
@@ -309,20 +309,18 @@ function LoginPage() {
 
             <form onSubmit={onSubmit} className="space-y-4" noValidate>
               <label className="block">
-                <span className="block text-[10px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
+                <span className="block text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
                   {tr(COPY.email, lang)}
                 </span>
-                <div className="parxis-field">
-                  <div className="parxis-field-inner">
-                    <input
-                      type="email"
-                      autoComplete="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="voce@clinica.com.br"
-                    />
-                  </div>
+                <div className="parxis-login-field">
+                  <input
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="voce@clinica.com.br"
+                  />
                 </div>
               </label>
 
