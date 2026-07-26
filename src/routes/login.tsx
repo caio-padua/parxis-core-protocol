@@ -513,3 +513,77 @@ function GoogleIcon() {
   );
 }
 
+function CertificationsPanel({ lang }: { lang: "pt" | "en" }) {
+  const [openId, setOpenId] = useState<string | null>(null);
+  return (
+    <div className="parxis-login-card parxis-cert-card rounded-xl p-5 sm:p-7 md:p-8 mt-6 relative">
+      <div className="text-center">
+        <p className="text-[10px] uppercase tracking-[0.42em] text-[color:var(--gold)]">
+          {tr(CERTS_COPY.eyebrow, lang)}
+        </p>
+        <h3 className="mt-2 font-serif text-[20px] md:text-[22px] leading-tight">
+          {tr(CERTS_COPY.title, lang)}
+        </h3>
+        <div className="parxis-gold-rule w-12 mx-auto my-3" />
+        <p className="text-[11px] text-muted-foreground/90 leading-relaxed">
+          {tr(CERTS_COPY.hint, lang)}
+        </p>
+      </div>
+
+      <ul className="mt-5 grid grid-cols-2 gap-2.5">
+        {CERTS.map((c) => {
+          const active = openId === c.id;
+          return (
+            <li key={c.id}>
+              <button
+                type="button"
+                onClick={() => setOpenId(active ? null : c.id)}
+                aria-expanded={active}
+                aria-controls={`cert-panel-${c.id}`}
+                className={
+                  "parxis-cert-chip w-full text-left " +
+                  (active ? "parxis-cert-chip--active" : "")
+                }
+              >
+                <span className="parxis-cert-chip__code">{c.code}</span>
+                <span className="parxis-cert-chip__label">{tr(c.title, lang)}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {openId && (() => {
+        const c = CERTS.find((x) => x.id === openId)!;
+        return (
+          <div
+            id={`cert-panel-${c.id}`}
+            role="region"
+            aria-label={tr(c.title, lang)}
+            className="parxis-cert-detail mt-4 animate-fade-in"
+          >
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.36em] text-[color:var(--gold)]">
+                  {c.code}
+                </p>
+                <p className="font-serif text-[15px] leading-tight mt-1">{tr(c.title, lang)}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpenId(null)}
+                className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors shrink-0"
+              >
+                {tr(CERTS_COPY.close, lang)} ✕
+              </button>
+            </div>
+            <p className="text-[13px] leading-relaxed text-foreground/90">
+              {tr(c.detail, lang)}
+            </p>
+          </div>
+        );
+      })()}
+    </div>
+  );
+}
+
