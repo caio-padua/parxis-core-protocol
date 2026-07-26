@@ -277,7 +277,7 @@ function LoginPage() {
 
   return (
     <main
-      className="parxis-app parxis-login-page min-h-screen text-foreground relative overflow-hidden"
+      className="parxis-app parxis-login-page min-h-screen text-foreground relative"
       style={{
         ["--parxis-fixed-url" as string]: `url(${atelierUrl})`,
         ["--parxis-atelier-url" as string]: `url(${atelierUrl})`,
