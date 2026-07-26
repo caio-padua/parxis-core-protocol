@@ -1708,6 +1708,17 @@ html[data-motion="reduce"] .parxis-corner-pulse {
  * O painel inteiro levita; os campos são elegantes, não grosseiros.
  * ============================================================ */
 
+/* Página de login: mais brilho para que idosos enxerguem bem e o fundo respire */
+.parxis-login-page .parxis-fixed-bg {
+  filter: saturate(1.18) contrast(1.14) brightness(1.18);
+}
+.parxis-login-page .parxis-fixed-veil {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0,0,0,0.06) 0%, transparent 58%),
+    radial-gradient(120% 90% at 50% 100%, rgba(0,0,0,0.10) 0%, transparent 64%),
+    rgba(5, 3, 3, 0.02);
+}
+
 /* Levitação suave do painel de login — refinado, leve, não grosseiro */
 @keyframes parxis-card-float {
   0%, 100% { transform: translateY(0); }
