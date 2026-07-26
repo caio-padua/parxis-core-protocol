@@ -963,19 +963,25 @@ function Footer() {
               {tr(c.tagline, lang)}
             </p>
           </div>
-          <div className="md:col-span-5 flex md:justify-end items-center gap-4">
-            <div className="text-right leading-tight">
-              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70">
+          <div className="md:col-span-5 flex md:justify-end items-center gap-5">
+            <div className="text-right leading-none">
+              <div className="text-[9px] uppercase tracking-[0.32em] text-muted-foreground/70 mb-2">
                 {lang === "pt" ? "Sob a Plataforma" : "Powered by"}
               </div>
-              <div className="parxis-gold-text text-sm tracking-[0.28em] uppercase mt-1">
-                PADCON Platform®
+              <div className="parxis-gold-text font-serif text-[22px] tracking-[0.18em] uppercase leading-[1]">
+                PADCON<span className="text-[11px] align-top ml-0.5 tracking-normal">®</span>
+              </div>
+              <div className="parxis-gold-text font-serif text-[15px] tracking-[0.34em] uppercase leading-[1] mt-1.5">
+                Platform
+              </div>
+              <div className="font-serif italic text-[9px] tracking-[0.28em] uppercase text-[color:var(--gold-medium)]/80 mt-2">
+                advanced systems architecture
               </div>
             </div>
             <img
               src={padconLogoAsset.url}
               alt="PADCON Platform"
-              className="h-14 w-auto select-none"
+              className="h-16 w-auto select-none"
               draggable={false}
             />
           </div>
