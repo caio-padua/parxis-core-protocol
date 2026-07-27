@@ -150,6 +150,31 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
       <div className="parxis-gold-rule w-16 mx-auto my-5" />
 
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        {/* Honeypot: campo escondido de acessibilidade e visualmente. Bots preenchem, humanos não. */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: "-10000px",
+            top: "auto",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+        >
+          <label>
+            Website
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </label>
+        </div>
         <label className="block">
           <span className="block text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
             {tr(c.nameLabel, lang)}
