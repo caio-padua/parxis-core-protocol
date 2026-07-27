@@ -195,8 +195,8 @@ async function test401(context) {
   await page.close();
 }
 
-// --- CENÁRIO 3: campos vazios (validação client-side) ----------------------
-async function testEmptyFields(context) {
+// --- CENÁRIO 3a: usuário vazio -> validação client-side, sem request -----
+async function testEmptyUser(context) {
   const page = await newLoginPage(context);
   await seedNoise(page);
 
@@ -208,23 +208,61 @@ async function testEmptyFields(context) {
 
   await fillAndSubmit(page, { user: "", pass: "" });
 
-  // Toast de validação em PT: "Informe o usuário."
   await page
     .getByText(/Informe o usuário|Enter your username/i)
     .waitFor({ timeout: 3000 })
     .catch(() => {});
 
   const stored = await readStorage(page);
-  record("vazio: não chamou o backend", !apiCalled);
+  record("usuário vazio: não chamou o backend", !apiCalled);
   record(
-    "vazio: não escreveu sessão nova por cima do storage",
+    "usuário vazio: nenhuma sessão nova persistida",
     stored.token !== "jwt-token-xyz",
     stored.token ?? "<null>",
   );
   record(
-    "vazio: permaneceu em /login",
+    "usuário vazio: permaneceu em /login",
     new URL(page.url()).pathname === "/login",
-    page.url(),
+  );
+  await page.close();
+}
+
+// --- CENÁRIO 3b: senha vazia -> backend 400 -------------------------------
+async function test400(context) {
+  const page = await newLoginPage(context);
+  await seedNoise(page);
+
+  let hitLogin = false;
+  await page.route(API_ROUTE_RE, async (route) => {
+    if (route.request().url().endsWith("/api/collaborator/login")) {
+      hitLogin = true;
+      return route.fulfill({
+        status: 400,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "Usuário e senha são obrigatórios" }),
+      });
+    }
+    return route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+  });
+
+  // Usuário preenchido, senha vazia — o handler cai no apiLogin e recebe 400.
+  await fillAndSubmit(page, { user: "dra.padua", pass: "" });
+
+  await page
+    .getByText(/Usuário e senha são obrigatórios/i)
+    .waitFor({ timeout: 5000 })
+    .catch(() => {});
+
+  const stored = await readStorage(page);
+  record("400: chamou o endpoint de login", hitLogin);
+  record(
+    "400: não persistiu sessão inválida (token !== jwt-*)",
+    stored.token !== "jwt-token-xyz",
+    stored.token ?? "<null>",
+  );
+  record(
+    "400: permaneceu em /login",
+    new URL(page.url()).pathname === "/login",
   );
   await page.close();
 }
@@ -240,7 +278,8 @@ async function main() {
   try {
     await testSuccess(context);
     await test401(context);
-    await testEmptyFields(context);
+    await testEmptyUser(context);
+    await test400(context);
   } finally {
     await browser.close();
   }
