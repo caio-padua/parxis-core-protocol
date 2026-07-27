@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "test:visual": "node tests/visual-regression-padcon.mjs",
     "test:visual:suite": "node tests/visual-regression-suite.mjs",
+    "test:login": "node tests/login-auth.spec.mjs",
     "changelog": "node scripts/generate-changelog.mjs"
   },
   "dependencies": {
