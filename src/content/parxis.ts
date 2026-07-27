@@ -370,6 +370,69 @@ export const content = {
     },
   },
 
+  vitrine: {
+    gate: {
+      eyebrow: { en: "Private demonstration", pt: "Demonstração privada" },
+      titlePre: { en: "The Parxis experience is ", pt: "A experiência Parxis é " },
+      titleGold: { en: "by invitation", pt: "por convite" },
+      titlePost: { en: ".", pt: "." },
+      lead: {
+        en: "To enter the demonstration, identify yourself. The door opens once and stays open on this browser.",
+        pt: "Para entrar na demonstração, identifique-se. A porta abre uma vez e permanece aberta neste navegador.",
+      },
+      chooseTitle: { en: "Choose your entrance", pt: "Escolha sua entrada" },
+      patientCard: { en: "I am a patient", pt: "Sou paciente" },
+      clinicCard: { en: "I am a clinic", pt: "Sou clínica" },
+      patientLead: { en: "See how your clinical journey becomes simpler, safer and more elegant.", pt: "Veja como sua jornada clínica fica mais simples, segura e elegante." },
+      clinicLead: { en: "See how the clinical engine operates prescriptions, protocols and documents.", pt: "Veja como o motor clínico opera prescrições, protocolos e documentos." },
+      back: { en: "Back to the site", pt: "Voltar ao site" },
+    },
+    form: {
+      nameLabel: { en: "Full name", pt: "Nome completo" },
+      namePh: { en: "Your full name", pt: "Seu nome completo" },
+      cpfLabel: { en: "CPF", pt: "CPF" },
+      cpfPh: { en: "000.000.000-00", pt: "000.000.000-00" },
+      cnpjLabel: { en: "CNPJ", pt: "CNPJ" },
+      cnpjPh: { en: "00.000.000/0000-00", pt: "00.000.000/0000-00" },
+      phoneLabel: { en: "Phone / WhatsApp", pt: "Telefone / WhatsApp" },
+      phonePh: { en: "(00) 00000-0000", pt: "(00) 00000-0000" },
+      submit: { en: "Open the door", pt: "Abrir a porta" },
+      submitting: { en: "Opening…", pt: "Abrindo…" },
+      patientTitle: { en: "Patient entrance", pt: "Entrada de paciente" },
+      clinicTitle: { en: "Clinic entrance", pt: "Entrada de clínica" },
+      consent: {
+        en: "I agree to be contacted about the Parxis demonstration and to the processing of my data under LGPD.",
+        pt: "Concordo em ser contactado sobre a demonstração Parxis e no tratamento dos meus dados conforme a LGPD.",
+      },
+      toasts: {
+        nameShort: { en: "Please provide your full name.", pt: "Informe o nome completo." },
+        cpfInvalid: { en: "Invalid CPF. Check the 11 digits.", pt: "CPF inválido. Confira os 11 dígitos." },
+        cnpjInvalid: { en: "Invalid CNPJ. Check the 14 digits.", pt: "CNPJ inválido. Confira os 14 dígitos." },
+        phoneInvalid: { en: "Invalid phone. Use area code + number.", pt: "Telefone inválido. Use DDD + número." },
+        consentRequired: { en: "You must accept the consent term to proceed.", pt: "É necessário aceitar o termo de consentimento para prosseguir." },
+        configError: { en: "The demonstration is not yet configured. Please try again later.", pt: "A demonstração ainda não está configurada. Tente novamente em breve." },
+      },
+    },
+    content: {
+      eyebrow: { en: "Welcome to the private demonstration", pt: "Bem-vindo à demonstração privada" },
+      title: { en: "The Circle is open for you", pt: "O Círculo está aberto para você" },
+      patient: {
+        body: {
+          en: "From the moment you schedule your appointment, Parxis prepares your clinical pathway. Your doctor receives an integrated cockpit, your documents are signed with legal validity and your reminders arrive at the biologically correct time.",
+          pt: "Desde o momento em que você agenda sua consulta, o Parxis prepara seu caminho clínico. Seu médico recebe um cockpit integrado, seus documentos são assinados com validade jurídica e seus lembretes chegam no momento biologicamente correto.",
+        },
+        cta: { en: "Schedule a private presentation", pt: "Agendar uma apresentação privada" },
+      },
+      clinic: {
+        body: {
+          en: "Parxis turns your clinic into a maison: unified prescription, guided protocols, legally valid documents, laboratory evolution and a billing console with three scenarios. Everything in one screen, one decision at a time.",
+          pt: "O Parxis transforma sua clínica em uma maison: prescrição unificada, protocolos guiados, documentos com validade jurídica, evolução laboratorial e console de orçamento com três cenários. Tudo em uma tela, uma decisão de cada vez.",
+        },
+        cta: { en: "Request a referral letter", pt: "Solicitar carta de indicação" },
+      },
+    },
+  },
+
   footer: {
     tagline: {
       en: "A PAWARDS MedCore® product — a PADCOM company. Granted by referral, kept by standard.",
