@@ -102,7 +102,9 @@ async function run() {
   // --- Cenário A: 200 → granted → reset visível → clicar reset limpa tudo.
   await page.goto(URL_PACIENTE, { waitUntil: "domcontentloaded" });
   await fillGate(page);
+  console.log("DEBUG about to submit");
   await submitGate(page);
+  console.log("DEBUG submitted");
   await page.waitForSelector("text=/Círculo está aberto|Circle is open/i", { timeout: 8000 });
   const flagAfterGrant = await page.evaluate((k) => localStorage.getItem(k), STORAGE_KEY);
   record("Após 200, localStorage marcado como 'ok'", flagAfterGrant === "ok", `valor=${flagAfterGrant}`);
