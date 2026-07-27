@@ -47,11 +47,18 @@ async function submitGate(page) {
       // Dispatcha um submit event bubbling para o React apanhar.
       form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
     }
+    const inputs = Array.from(document.querySelectorAll("form input")).map((i) => ({
+      type: i.type,
+      name: i.name || i.getAttribute("placeholder") || i.getAttribute("autocomplete"),
+      value: i.value,
+      checked: i.type === "checkbox" ? i.checked : null,
+    }));
     return {
       hasForm: !!form,
       hasBtn: !!btn,
       btnDisabled: btn ? btn.disabled : null,
       submitFired,
+      inputs,
     };
   });
   console.log("DEBUG submit info:", JSON.stringify(info));
