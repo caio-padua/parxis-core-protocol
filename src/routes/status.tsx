@@ -22,6 +22,7 @@ function StatusPage() {
     name: string;
     ok: boolean;
     detail: string;
+    ms?: number;
   };
   const [checks, setChecks] = useState<CheckResult[] | null>(null);
   const [running, setRunning] = useState(false);
@@ -45,7 +46,8 @@ function StatusPage() {
         results.push({
           name: t.name,
           ok: res.ok,
-          detail: `HTTP ${res.status} • ${ms}ms`,
+          detail: `HTTP ${res.status}`,
+          ms,
         });
       } catch (err) {
         results.push({
@@ -54,6 +56,32 @@ function StatusPage() {
           detail: `Falha de rede: ${(err as Error).message}`,
         });
       }
+    }
+
+    // Server-side health check (API + DB + assets)
+    const hStart = performance.now();
+    try {
+      const res = await fetch("/api/public/health", { cache: "no-store" });
+      const totalMs = Math.round(performance.now() - hStart);
+      const body = (await res.json()) as {
+        ok: boolean;
+        checks: { name: string; ok: boolean; ms: number; detail: string }[];
+      };
+      results.push({
+        name: "Health API",
+        ok: res.ok,
+        detail: `HTTP ${res.status}`,
+        ms: totalMs,
+      });
+      for (const c of body.checks ?? []) {
+        results.push({ name: `↳ ${c.name}`, ok: c.ok, detail: c.detail, ms: c.ms });
+      }
+    } catch (err) {
+      results.push({
+        name: "Health API",
+        ok: false,
+        detail: `Falha: ${(err as Error).message}`,
+      });
     }
 
     // Check that CSS actually applied (Tailwind loaded)
@@ -140,6 +168,7 @@ function StatusPage() {
                   </span>
                   <span className="font-mono text-xs text-muted-foreground text-right break-all">
                     {c.detail}
+                    {typeof c.ms === "number" ? ` • ${c.ms}ms` : ""}
                   </span>
                 </li>
               ))}
