@@ -201,6 +201,14 @@ const COPY = {
     pt: "Sua sessão expirou. Entre novamente para continuar.",
     en: "Your session has expired. Please sign in again.",
   },
+  sessionExpiredReason: {
+    pt: "Por segurança, o acesso de colaborador vale por 12 horas — depois disso pedimos uma nova autenticação.",
+    en: "For your security, collaborator sessions last 12 hours — after that we require a fresh sign-in.",
+  },
+  sessionExpiredAction: {
+    pt: "Ir para o login",
+    en: "Go to sign in",
+  },
 } as const;
 
 type Cert = {
@@ -309,13 +317,38 @@ function LoginPage() {
   const [oauthLoading, setOauthLoading] = useState(false);
   const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
+  // Toast enriquecido de sessão expirada: motivo + botão que leva
+  // direto ao campo de usuário (foco + scroll). Fica visível por
+  // 12s para pacientes idosos terem tempo de ler.
+  const showSessionExpiredToast = () => {
+    toast.error(tr(COPY.sessionExpired, lang), {
+      id: "session-expired",
+      description: tr(COPY.sessionExpiredReason, lang),
+      duration: 12000,
+      action: {
+        label: tr(COPY.sessionExpiredAction, lang),
+        onClick: () => {
+          setMode("in");
+          setStoredSession(null);
+          try {
+            const el = document.getElementById("login-username") as HTMLInputElement | null;
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+            setTimeout(() => el?.focus({ preventScroll: true }), 350);
+          } catch {
+            /* noop */
+          }
+        },
+      },
+    });
+  };
+
   // Se já autenticado, salta direto ao app.
   useEffect(() => {
     // Toasts de retorno após logout manual ou expiração de sessão.
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get("expired") === "1") {
-        toast.error(tr(COPY.sessionExpired, lang));
+        showSessionExpiredToast();
       } else if (params.get("logout") === "1") {
         toast.success(tr(COPY.loggedOut, lang));
       }
@@ -336,7 +369,7 @@ function LoginPage() {
       // Se o JWT já expirou localmente, não tenta usá-lo: limpa e mostra login.
       if (isTokenExpired(token)) {
         clearStoredSession();
-        toast.error(tr(COPY.sessionExpired, lang));
+        showSessionExpiredToast();
         return;
       }
       let raw: string | null = null;
@@ -360,7 +393,7 @@ function LoginPage() {
           // Token inválido/expirado no servidor — limpa e permanece em /login.
           clearStoredSession();
           setStoredSession(null);
-          toast.error(tr(COPY.sessionExpired, lang));
+          showSessionExpiredToast();
         }
       });
       return;
@@ -611,6 +644,7 @@ function LoginPage() {
                 </span>
                 <div className="parxis-login-field">
                   <input
+                    id="login-username"
                     type={mode === "in" ? "text" : "email"}
                     autoComplete={mode === "in" ? "username" : "email"}
                     required
