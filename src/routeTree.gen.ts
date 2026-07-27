@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StatusRouteImport } from './routes/status'
+import { Route as ReleasesRouteImport } from './routes/releases'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,6 +19,11 @@ import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 const StatusRoute = StatusRouteImport.update({
   id: '/status',
   path: '/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReleasesRoute = ReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/releases': typeof ReleasesRoute
   '/status': typeof StatusRoute
   '/api/public/health': typeof ApiPublicHealthRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/releases': typeof ReleasesRoute
   '/status': typeof StatusRoute
   '/api/public/health': typeof ApiPublicHealthRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/releases': typeof ReleasesRoute
   '/status': typeof StatusRoute
   '/api/public/health': typeof ApiPublicHealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/status' | '/api/public/health'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/releases'
+    | '/status'
+    | '/api/public/health'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login' | '/status' | '/api/public/health'
-  id: '__root__' | '/' | '/admin' | '/login' | '/status' | '/api/public/health'
+  to: '/' | '/admin' | '/login' | '/releases' | '/status' | '/api/public/health'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/releases'
+    | '/status'
+    | '/api/public/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   LoginRoute: typeof LoginRoute
+  ReleasesRoute: typeof ReleasesRoute
   StatusRoute: typeof StatusRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
 }
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/status'
       fullPath: '/status'
       preLoaderRoute: typeof StatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/releases': {
+      id: '/releases'
+      path: '/releases'
+      fullPath: '/releases'
+      preLoaderRoute: typeof ReleasesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -123,6 +153,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   LoginRoute: LoginRoute,
+  ReleasesRoute: ReleasesRoute,
   StatusRoute: StatusRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
 }
