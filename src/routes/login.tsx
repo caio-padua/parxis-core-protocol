@@ -307,17 +307,60 @@ function LoginPage() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
+  const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
   // Se já autenticado, salta direto ao app.
   useEffect(() => {
+    // Toasts de retorno após logout manual ou expiração de sessão.
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("expired") === "1") {
+        toast.error(tr(COPY.sessionExpired, lang));
+      } else if (params.get("logout") === "1") {
+        toast.success(tr(COPY.loggedOut, lang));
+      }
+      if (params.has("expired") || params.has("logout")) {
+        params.delete("expired");
+        params.delete("logout");
+        const clean =
+          window.location.pathname + (params.toString() ? `?${params}` : "");
+        window.history.replaceState({}, "", clean);
+      }
+    } catch {
+      /* noop */
+    }
+
     // 1) Sessão do api-server (token Padaxor) — prioridade.
     const token = readStoredToken();
     if (token) {
+      // Se o JWT já expirou localmente, não tenta usá-lo: limpa e mostra login.
+      if (isTokenExpired(token)) {
+        clearStoredSession();
+        toast.error(tr(COPY.sessionExpired, lang));
+        return;
+      }
+      let raw: string | null = null;
+      try {
+        raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      } catch {
+        /* noop */
+      }
+      const cachedName = (() => {
+        try {
+          return raw ? (JSON.parse(raw) as Professional).name : undefined;
+        } catch {
+          return undefined;
+        }
+      })();
+      setStoredSession({ token, name: cachedName });
       apiMe(token).then((prof) => {
         if (prof) {
           redirectByRole(prof.role);
         } else {
+          // Token inválido/expirado no servidor — limpa e permanece em /login.
           clearStoredSession();
+          setStoredSession(null);
+          toast.error(tr(COPY.sessionExpired, lang));
         }
       });
       return;
@@ -326,7 +369,17 @@ function LoginPage() {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) window.location.assign(APP_URL);
     });
-  }, []);
+  }, [lang]);
+
+  function onLogout() {
+    clearStoredSession();
+    setStoredSession(null);
+    // Encerra também qualquer sessão Supabase remanescente, silencioso.
+    supabase.auth.signOut().catch(() => {});
+    toast.success(tr(COPY.loggedOut, lang));
+    // Mantém o usuário em /login com marcador (também limpa in-memory).
+    logoutSession("manual");
+  }
 
   const pwScore = useMemo(() => scorePassword(password), [password]);
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
