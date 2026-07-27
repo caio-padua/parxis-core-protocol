@@ -31,6 +31,9 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
   const [telefone, setTelefone] = useState("");
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
+  // Anti-spam invisível: honeypot + time-trap. Zero fricção para humanos.
+  const [website, setWebsite] = useState(""); // honeypot — humanos nunca preenchem
+  const [mountedAt] = useState(() => Date.now());
 
   useEffect(() => {
     setGranted(isAccessGranted(tipo));
@@ -44,6 +47,12 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return;
+
+    // Bot detectado: honeypot preenchido OU submit em menos de 2.5s.
+    if (website.trim() !== "" || Date.now() - mountedAt < 2500) {
+      toast.error(tr(c.toasts.botDetected, lang));
+      return;
+    }
 
     const nomeClean = nome.trim();
     if (nomeClean.length < 3 || nomeClean.length > 120) {
