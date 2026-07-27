@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
-
 type Check = { name: string; ok: boolean; ms: number; detail: string };
 
 async function timed(name: string, fn: () => Promise<{ ok: boolean; detail: string }>): Promise<Check> {
@@ -37,24 +35,11 @@ export const Route = createFileRoute("/api/public/health")({
         checks.push(
           await timed("Banco de dados", async () => {
             if (!supabaseUrl || !supabaseKey) return { ok: false, detail: "sem credenciais" };
-            const key = supabaseKey;
-            const supa = createClient(supabaseUrl, key, {
-              auth: { persistSession: false, autoRefreshToken: false },
-              global: {
-                fetch: (input, init) => {
-                  const h = new Headers(init?.headers);
-                  if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
-                  h.set("apikey", key);
-                  return fetch(input, { ...init, headers: h });
-                },
-              },
+            const res = await fetch(`${supabaseUrl}/rest/v1/`, {
+              headers: { apikey: supabaseKey },
+              cache: "no-store",
             });
-            const { error } = await supa.rpc("has_role", {
-              _user_id: "00000000-0000-0000-0000-000000000000",
-              _role: "admin",
-            });
-            if (error) return { ok: false, detail: error.message };
-            return { ok: true, detail: "RPC has_role respondeu" };
+            return { ok: res.ok, detail: `PostgREST HTTP ${res.status}` };
           }),
         );
 
