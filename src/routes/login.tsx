@@ -536,8 +536,8 @@ function LoginPage() {
                 </span>
                 <div className="parxis-login-field">
                   <input
-                    type="email"
-                    autoComplete="email"
+                    type={mode === "in" ? "text" : "email"}
+                    autoComplete={mode === "in" ? "username" : "email"}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
