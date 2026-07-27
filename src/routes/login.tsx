@@ -15,6 +15,126 @@ const atelierMobileUrl = atelierMobileAsset.url;
 import padconLogoAsset from "@/assets/padcon-logo-cropped.png.asset.json";
 import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 
+// ------------------------------------------------------------------
+// Backend Padaxor (api-server) — autenticação de colaboradores.
+// Sobrescreve o VITE_API_URL quando o domínio próprio entrar no ar.
+// ------------------------------------------------------------------
+const API_URL =
+  (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
+  "https://workspaceapi-server-production-f5ec.up.railway.app";
+
+const TOKEN_STORAGE_KEY = "padaxor.auth.token";
+const PROFILE_STORAGE_KEY = "padaxor.auth.professional";
+
+type Professional = {
+  id: number;
+  name: string;
+  role: string;
+  category?: string;
+  isPrimaryDoctor?: boolean;
+};
+
+function normalizeRole(role: string | undefined | null): string {
+  if (!role) return "";
+  return role
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+/**
+ * Mapeia o `role` livre do banco para uma rota dentro do app clínico.
+ * Se aparecerem novos papéis, cair no destino padrão `/` — nunca quebrar.
+ * Ajuste os paths abaixo conforme as rotas reais do app.parxis.com.br.
+ */
+function roleToPath(role: string): string {
+  const r = normalizeRole(role);
+  if (!r) return "/";
+  if (r.includes("recep")) return "/recepcao";
+  if (r.includes("gerente") || r.includes("admin")) return "/gerencia";
+  if (r.includes("financ")) return "/financeiro";
+  if (r.includes("enferm")) return "/enfermagem";
+  if (r.includes("medic") || r.includes("doutor") || r === "doctor") return "/clinico";
+  return "/";
+}
+
+function persistSession(token: string, professional: Professional) {
+  try {
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(professional));
+  } catch {
+    /* storage indisponível — segue sem persistir */
+  }
+}
+
+function readStoredToken(): string | null {
+  try {
+    return localStorage.getItem(TOKEN_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function clearStoredSession() {
+  try {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(PROFILE_STORAGE_KEY);
+  } catch {
+    /* noop */
+  }
+}
+
+async function apiLogin(
+  username: string,
+  password: string,
+): Promise<{ token: string; professional: Professional }> {
+  const res = await fetch(`${API_URL}/api/collaborator/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  const text = await res.text();
+  let payload: any = null;
+  try {
+    payload = text ? JSON.parse(text) : null;
+  } catch {
+    /* body não-JSON */
+  }
+  if (!res.ok) {
+    const message =
+      (payload && typeof payload.error === "string" && payload.error) ||
+      (res.status === 401
+        ? "Usuário ou senha inválidos"
+        : res.status === 400
+          ? "Usuário e senha são obrigatórios"
+          : `Falha na autenticação (HTTP ${res.status})`);
+    throw new Error(message);
+  }
+  if (!payload?.token || !payload?.professional) {
+    throw new Error("Resposta inesperada do servidor de autenticação.");
+  }
+  return { token: payload.token, professional: payload.professional as Professional };
+}
+
+async function apiMe(token: string): Promise<Professional | null> {
+  try {
+    const res = await fetch(`${API_URL}/api/collaborator/me`, {
+      headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as Professional;
+  } catch {
+    return null;
+  }
+}
+
+function redirectByRole(role: string) {
+  const path = roleToPath(role);
+  // Mantém o domínio do app clínico; a rota final é resolvida lá.
+  window.location.assign(`${APP_URL}${path}`);
+}
+
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
