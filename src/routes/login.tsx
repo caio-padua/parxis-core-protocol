@@ -359,8 +359,14 @@ function LoginPage() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
-    if (!emailValid) {
+    // No modo "in", o backend aceita username livre (não exige e-mail).
+    // No modo "up" (fluxo Supabase legado), mantemos validação de e-mail.
+    if (mode === "up" && !emailValid) {
       toast.error(lang === "pt" ? "Email inválido." : "Invalid email.");
+      return;
+    }
+    if (mode === "in" && email.trim().length === 0) {
+      toast.error(lang === "pt" ? "Informe o usuário." : "Enter your username.");
       return;
     }
     if (mode === "up") {
