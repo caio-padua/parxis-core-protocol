@@ -192,6 +192,15 @@ const COPY = {
     en: "Protected session · HIBP · TLS 1.3 · OAuth 2.1",
   },
   back: { pt: "Voltar ao site", en: "Back to site" },
+  logout: { pt: "Encerrar sessão", en: "Sign out" },
+  loggedOut: {
+    pt: "Sessão encerrada com segurança.",
+    en: "You have been signed out safely.",
+  },
+  sessionExpired: {
+    pt: "Sua sessão expirou. Entre novamente para continuar.",
+    en: "Your session has expired. Please sign in again.",
+  },
 } as const;
 
 type Cert = {
