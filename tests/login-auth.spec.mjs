@@ -79,12 +79,14 @@ async function newLoginPage(context) {
 
 async function fillAndSubmit(page, { user, pass }) {
   // Campos: primeiro input = usuário (type=text no modo "in"),
-  // segundo input = senha (type=password).
+  // segundo input = senha (type=password). Submetemos via Enter no
+  // campo de senha porque o painel flutua (animação) e o click cai em
+  // "element not stable"; Enter também aciona corretamente o React
+  // onSubmit sem precisar de {force: true}.
   const inputs = page.locator("form input");
   if (user !== undefined) await inputs.nth(0).fill(user);
   if (pass !== undefined) await inputs.nth(1).fill(pass);
-  // O painel de login flutua (animação); usamos force para não esperar estabilidade.
-  await page.locator('form button[type="submit"]').click({ force: true });
+  await inputs.nth(1).press("Enter");
 }
 
 // --- CENÁRIO 1: sucesso ----------------------------------------------------
@@ -126,15 +128,16 @@ async function testSuccess(context) {
   );
   await fillAndSubmit(page, { user: "dra.padua", pass: "SenhaForte#2026" });
   await respPromise;
-  // Dá um tick para o handler persistir e agendar a navegação.
-  await page.waitForTimeout(500);
-  await page.waitForURL("**/recepcao", { timeout: 3000 }).catch(() => {});
+  // Dá tempo para o handler persistir e o router agendar a navegação.
+  await page.waitForTimeout(1500);
 
   const stored = await readStorage(page);
   const tokenOk = stored.token === "jwt-token-xyz";
   const profOk =
     !!stored.professional && JSON.parse(stored.professional).role === "Recepcionista";
-  const redirected = navigations.some((u) => new URL(u).pathname === "/recepcao");
+  const redirected = navigations
+    .filter((u) => u.startsWith("http://localhost"))
+    .some((u) => new URL(u).pathname === "/recepcao");
 
   record("sucesso: persiste token", tokenOk, stored.token ?? "<null>");
   record("sucesso: persiste professional", profOk);
