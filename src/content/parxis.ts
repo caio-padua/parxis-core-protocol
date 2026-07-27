@@ -412,6 +412,10 @@ export const content = {
         consentRequired: { en: "You must accept the consent term to proceed.", pt: "É necessário aceitar o termo de consentimento para prosseguir." },
         configError: { en: "The demonstration is not yet configured. Please try again later.", pt: "A demonstração ainda não está configurada. Tente novamente em breve." },
         rateLimited: { en: "Too many attempts. Please wait 1 minute.", pt: "Muitas tentativas. Aguarde 1 minuto." },
+        botDetected: {
+          en: "Please take a moment and try again.",
+          pt: "Aguarde um instante e tente novamente.",
+        },
       },
     },
     already: {
