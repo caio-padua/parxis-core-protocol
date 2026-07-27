@@ -7,6 +7,16 @@ import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
+import {
+  TOKEN_STORAGE_KEY,
+  PROFILE_STORAGE_KEY,
+  getStoredToken,
+  isTokenExpired,
+  clearSession,
+  persistSession as persistSharedSession,
+  logout as logoutSession,
+  type StoredProfessional,
+} from "@/lib/auth-session";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
 import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
@@ -23,16 +33,7 @@ const API_URL =
   (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
   "https://workspaceapi-server-production-f5ec.up.railway.app";
 
-const TOKEN_STORAGE_KEY = "padaxor.auth.token";
-const PROFILE_STORAGE_KEY = "padaxor.auth.professional";
-
-type Professional = {
-  id: number;
-  name: string;
-  role: string;
-  category?: string;
-  isPrimaryDoctor?: boolean;
-};
+type Professional = StoredProfessional;
 
 function normalizeRole(role: string | undefined | null): string {
   if (!role) return "";
@@ -60,29 +61,15 @@ function roleToPath(role: string): string {
 }
 
 function persistSession(token: string, professional: Professional) {
-  try {
-    localStorage.setItem(TOKEN_STORAGE_KEY, token);
-    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(professional));
-  } catch {
-    /* storage indisponível — segue sem persistir */
-  }
+  persistSharedSession(token, professional);
 }
 
 function readStoredToken(): string | null {
-  try {
-    return localStorage.getItem(TOKEN_STORAGE_KEY);
-  } catch {
-    return null;
-  }
+  return getStoredToken();
 }
 
 function clearStoredSession() {
-  try {
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
-    localStorage.removeItem(PROFILE_STORAGE_KEY);
-  } catch {
-    /* noop */
-  }
+  clearSession();
 }
 
 async function apiLogin(
@@ -205,6 +192,15 @@ const COPY = {
     en: "Protected session · HIBP · TLS 1.3 · OAuth 2.1",
   },
   back: { pt: "Voltar ao site", en: "Back to site" },
+  logout: { pt: "Encerrar sessão", en: "Sign out" },
+  loggedOut: {
+    pt: "Sessão encerrada com segurança.",
+    en: "You have been signed out safely.",
+  },
+  sessionExpired: {
+    pt: "Sua sessão expirou. Entre novamente para continuar.",
+    en: "Your session has expired. Please sign in again.",
+  },
 } as const;
 
 type Cert = {
@@ -311,17 +307,60 @@ function LoginPage() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
+  const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
   // Se já autenticado, salta direto ao app.
   useEffect(() => {
+    // Toasts de retorno após logout manual ou expiração de sessão.
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("expired") === "1") {
+        toast.error(tr(COPY.sessionExpired, lang));
+      } else if (params.get("logout") === "1") {
+        toast.success(tr(COPY.loggedOut, lang));
+      }
+      if (params.has("expired") || params.has("logout")) {
+        params.delete("expired");
+        params.delete("logout");
+        const clean =
+          window.location.pathname + (params.toString() ? `?${params}` : "");
+        window.history.replaceState({}, "", clean);
+      }
+    } catch {
+      /* noop */
+    }
+
     // 1) Sessão do api-server (token Padaxor) — prioridade.
     const token = readStoredToken();
     if (token) {
+      // Se o JWT já expirou localmente, não tenta usá-lo: limpa e mostra login.
+      if (isTokenExpired(token)) {
+        clearStoredSession();
+        toast.error(tr(COPY.sessionExpired, lang));
+        return;
+      }
+      let raw: string | null = null;
+      try {
+        raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      } catch {
+        /* noop */
+      }
+      const cachedName = (() => {
+        try {
+          return raw ? (JSON.parse(raw) as Professional).name : undefined;
+        } catch {
+          return undefined;
+        }
+      })();
+      setStoredSession({ token, name: cachedName });
       apiMe(token).then((prof) => {
         if (prof) {
           redirectByRole(prof.role);
         } else {
+          // Token inválido/expirado no servidor — limpa e permanece em /login.
           clearStoredSession();
+          setStoredSession(null);
+          toast.error(tr(COPY.sessionExpired, lang));
         }
       });
       return;
@@ -330,7 +369,17 @@ function LoginPage() {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) window.location.assign(APP_URL);
     });
-  }, []);
+  }, [lang]);
+
+  function onLogout() {
+    clearStoredSession();
+    setStoredSession(null);
+    // Encerra também qualquer sessão Supabase remanescente, silencioso.
+    supabase.auth.signOut().catch(() => {});
+    toast.success(tr(COPY.loggedOut, lang));
+    // Mantém o usuário em /login com marcador (também limpa in-memory).
+    logoutSession("manual");
+  }
 
   const pwScore = useMemo(() => scorePassword(password), [password]);
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -456,6 +505,32 @@ function LoginPage() {
           />
         </Link>
         <div className="flex items-center gap-3">
+          {storedSession && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="inline-flex items-center gap-2 rounded-md border border-[rgba(242,184,23,0.28)] bg-black/25 px-3 py-1.5 text-[10px] uppercase tracking-[0.32em] text-foreground/85 hover:text-[color:var(--gold)] hover:border-[color:var(--gold)] transition-colors"
+              aria-label={tr(COPY.logout, lang)}
+              title={storedSession.name ?? undefined}
+            >
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" />
+                <path d="M10 17l-5-5 5-5" />
+                <path d="M15 12H5" />
+              </svg>
+              {tr(COPY.logout, lang)}
+            </button>
+          )}
           <Link
             to="/"
             className="hidden md:inline-flex text-[11px] uppercase tracking-[0.32em] text-foreground/80 hover:text-[color:var(--gold)] transition-colors"
