@@ -11,6 +11,7 @@ import {
   validatePhone,
   isAccessGranted,
   grantAccess,
+  revokeAccess,
   submitVitrineLead,
   type VitrinePayload,
 } from "@/lib/vitrine-gate";
@@ -96,7 +97,11 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
     setLoading(false);
 
     if ("error" in result) {
-      toast.error(result.error);
+      if (result.code === "rate_limited") {
+        toast.error(tr(c.toasts.rateLimited, lang));
+      } else {
+        toast.error(result.error);
+      }
       return;
     }
 
