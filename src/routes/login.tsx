@@ -7,6 +7,16 @@ import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
+import {
+  TOKEN_STORAGE_KEY,
+  PROFILE_STORAGE_KEY,
+  getStoredToken,
+  isTokenExpired,
+  clearSession,
+  persistSession as persistSharedSession,
+  logout as logoutSession,
+  type StoredProfessional,
+} from "@/lib/auth-session";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
 import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
@@ -23,16 +33,7 @@ const API_URL =
   (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
   "https://workspaceapi-server-production-f5ec.up.railway.app";
 
-const TOKEN_STORAGE_KEY = "padaxor.auth.token";
-const PROFILE_STORAGE_KEY = "padaxor.auth.professional";
-
-type Professional = {
-  id: number;
-  name: string;
-  role: string;
-  category?: string;
-  isPrimaryDoctor?: boolean;
-};
+type Professional = StoredProfessional;
 
 function normalizeRole(role: string | undefined | null): string {
   if (!role) return "";
@@ -60,29 +61,15 @@ function roleToPath(role: string): string {
 }
 
 function persistSession(token: string, professional: Professional) {
-  try {
-    localStorage.setItem(TOKEN_STORAGE_KEY, token);
-    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(professional));
-  } catch {
-    /* storage indisponível — segue sem persistir */
-  }
+  persistSharedSession(token, professional);
 }
 
 function readStoredToken(): string | null {
-  try {
-    return localStorage.getItem(TOKEN_STORAGE_KEY);
-  } catch {
-    return null;
-  }
+  return getStoredToken();
 }
 
 function clearStoredSession() {
-  try {
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
-    localStorage.removeItem(PROFILE_STORAGE_KEY);
-  } catch {
-    /* noop */
-  }
+  clearSession();
 }
 
 async function apiLogin(
