@@ -1,5 +1,5 @@
 import { createFileRoute, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/status")({
   head: () => ({
@@ -26,6 +26,11 @@ function StatusPage() {
   };
   const [checks, setChecks] = useState<CheckResult[] | null>(null);
   const [running, setRunning] = useState(false);
+  const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [intervalSec, setIntervalSec] = useState(30);
+  const [, setTick] = useState(0);
+  const runningRef = useRef(false);
 
   async function runSelfTest() {
     setRunning(true);
@@ -109,12 +114,56 @@ function StatusPage() {
 
     setChecks(results);
     setRunning(false);
+    runningRef.current = false;
+    setLastRefresh(new Date());
   }
+
+  useEffect(() => {
+    runningRef.current = running;
+  }, [running]);
+
+  useEffect(() => {
+    if (!autoRefresh) return;
+    const id = setInterval(() => {
+      if (!runningRef.current) runSelfTest();
+    }, intervalSec * 1000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoRefresh, intervalSec]);
+
+  useEffect(() => {
+    if (!lastRefresh) return;
+    const id = setInterval(() => setTick((t) => t + 1), 1000);
+    return () => clearInterval(id);
+  }, [lastRefresh]);
+
+  const secondsAgo = lastRefresh
+    ? Math.max(0, Math.floor((Date.now() - lastRefresh.getTime()) / 1000))
+    : null;
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-6 py-16">
       <div className="w-full max-w-xl rounded-lg border border-border/60 bg-card/80 p-8 shadow-xl backdrop-blur">
-        <div className="mb-6 flex justify-end">
+        <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            <input
+              type="checkbox"
+              checked={autoRefresh}
+              onChange={(e) => setAutoRefresh(e.target.checked)}
+              className="h-4 w-4"
+            />
+            Auto-refresh
+          </label>
+          <select
+            value={intervalSec}
+            onChange={(e) => setIntervalSec(Number(e.target.value))}
+            className="rounded-md border border-input bg-background px-2 py-1 text-xs text-foreground"
+          >
+            <option value={10}>10s</option>
+            <option value={30}>30s</option>
+            <option value={60}>1min</option>
+            <option value={300}>5min</option>
+          </select>
           <button
             onClick={runSelfTest}
             disabled={running}
@@ -123,6 +172,16 @@ function StatusPage() {
             {running ? "Executando..." : "Executar auto-teste"}
           </button>
         </div>
+
+        {lastRefresh && (
+          <div className="mb-4 flex items-center justify-end gap-2 text-xs text-muted-foreground">
+            <span
+              className={`inline-block h-1.5 w-1.5 rounded-full ${running ? "animate-pulse bg-amber-400" : "bg-emerald-500"}`}
+            />
+            Última atualização: {lastRefresh.toLocaleTimeString("pt-BR")}
+            {secondsAgo !== null && <span>• há {secondsAgo}s</span>}
+          </div>
+        )}
 
         <div className="flex items-center gap-3">
           <span className="relative flex h-3 w-3">
