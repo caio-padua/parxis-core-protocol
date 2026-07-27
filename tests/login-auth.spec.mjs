@@ -122,14 +122,16 @@ async function testSuccess(context) {
     return route.fulfill({ status: 500, body: "unexpected" });
   });
 
-  const respPromise = page.waitForResponse(
-    (r) => /\/api\/collaborator\/login$/.test(r.url()),
-    { timeout: 5000 },
-  );
   await fillAndSubmit(page, { user: "dra.padua", pass: "SenhaForte#2026" });
-  await respPromise;
-  // Dá tempo para o handler persistir e o router agendar a navegação.
-  await page.waitForTimeout(1500);
+  // Aguarda o storage refletir a persistência via storageState do contexto
+  // (independe do documento atual, que pode ter navegado para chrome-error
+  // se a rota alvo /recepcao não existir no route tree).
+  for (let i = 0; i < 30; i++) {
+    const s = await context.storageState();
+    const ls = s.origins.find((o) => o.origin === new URL(LOGIN_URL).origin)?.localStorage ?? [];
+    if (ls.find((e) => e.name === TOKEN_KEY)?.value === "jwt-token-xyz") break;
+    await page.waitForTimeout(200);
+  }
 
   const stored = await readStorage(page);
   const tokenOk = stored.token === "jwt-token-xyz";
