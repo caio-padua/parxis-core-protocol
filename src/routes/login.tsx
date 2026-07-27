@@ -29,7 +29,10 @@ import { PaxterMedalhao } from "@/components/PaxterMedalhao";
 // Backend Padaxor (api-server) — autenticação de colaboradores.
 // Sobrescreve o VITE_API_URL quando o domínio próprio entrar no ar.
 // ------------------------------------------------------------------
+// Unificado em VITE_API_BASE_URL (mesma variável usada pelo portão da vitrine).
+// VITE_API_URL ainda é aceito como fallback para compatibilidade retroativa.
 const API_URL =
+  (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/+$/, "") ||
   (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
   "https://workspaceapi-server-production-f5ec.up.railway.app";
 
