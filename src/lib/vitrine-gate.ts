@@ -116,6 +116,14 @@ export function grantAccess(tipo: "paciente" | "clinica"): void {
   }
 }
 
+export function revokeAccess(tipo: "paciente" | "clinica"): void {
+  try {
+    localStorage.removeItem(getAccessKey(tipo));
+  } catch {
+    /* noop */
+  }
+}
+
 export interface VitrinePayload {
   tipo: "paciente" | "clinica";
   nome: string;
@@ -129,9 +137,9 @@ export interface VitrinePayload {
 
 export async function submitVitrineLead(
   payload: VitrinePayload,
-): Promise<{ ok: true } | { error: string }> {
+): Promise<{ ok: true } | { error: string; code?: "rate_limited" | "config" | "http" | "network" }> {
   if (!VITRINE_LEAD_ENDPOINT) {
-    return { error: "A demonstração ainda não está configurada." };
+    return { error: "A demonstração ainda não está configurada.", code: "config" };
   }
   try {
     const res = await fetch(VITRINE_LEAD_ENDPOINT, {
@@ -146,11 +154,17 @@ export async function submitVitrineLead(
     } catch {
       /* não-JSON */
     }
+    if (res.status === 429) {
+      return {
+        error: data?.error || "Muitas tentativas. Aguarde 1 minuto.",
+        code: "rate_limited",
+      };
+    }
     if (!res.ok) {
-      return { error: data?.error || `Erro ${res.status}` };
+      return { error: data?.error || `Erro ${res.status}`, code: "http" };
     }
     return { ok: true };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : "Falha na conexão." };
+    return { error: e instanceof Error ? e.message : "Falha na conexão.", code: "network" };
   }
 }
