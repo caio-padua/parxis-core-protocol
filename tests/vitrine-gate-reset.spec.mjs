@@ -38,10 +38,7 @@ async function fillGate(page) {
 async function submitGate(page) {
   await Promise.all([
     page.waitForResponse((r) => LEAD_ROUTE_RE.test(r.url()), { timeout: 10000 }),
-    page.evaluate(() => {
-      const form = document.querySelector("form");
-      if (form) form.requestSubmit();
-    }),
+    page.getByPlaceholder("(00) 00000-0000").press("Enter"),
   ]);
 }
 
