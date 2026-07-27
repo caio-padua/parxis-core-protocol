@@ -36,10 +36,12 @@ export const Route = createFileRoute("/api/public/health")({
           await timed("Banco de dados", async () => {
             if (!supabaseUrl || !supabaseKey) return { ok: false, detail: "sem credenciais" };
             const res = await fetch(`${supabaseUrl}/rest/v1/`, {
-              headers: { apikey: supabaseKey },
+              headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
               cache: "no-store",
             });
-            return { ok: res.ok, detail: `PostgREST HTTP ${res.status}` };
+            // Any HTTP response < 500 means PostgREST + DB are reachable.
+            const reachable = res.status > 0 && res.status < 500;
+            return { ok: reachable, detail: `PostgREST HTTP ${res.status}` };
           }),
         );
 
