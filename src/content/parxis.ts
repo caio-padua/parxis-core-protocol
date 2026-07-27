@@ -411,7 +411,16 @@ export const content = {
         phoneInvalid: { en: "Invalid phone. Use area code + number.", pt: "Telefone inválido. Use DDD + número." },
         consentRequired: { en: "You must accept the consent term to proceed.", pt: "É necessário aceitar o termo de consentimento para prosseguir." },
         configError: { en: "The demonstration is not yet configured. Please try again later.", pt: "A demonstração ainda não está configurada. Tente novamente em breve." },
+        rateLimited: { en: "Too many attempts. Please wait 1 minute.", pt: "Muitas tentativas. Aguarde 1 minuto." },
       },
+    },
+    already: {
+      title: { en: "You are already registered", pt: "Você já se registrou" },
+      lead: {
+        en: "This browser has already been granted access. Continue to the demonstration or reset to try again on another device.",
+        pt: "Este navegador já teve acesso liberado. Continue para a demonstração ou limpe para tentar novamente em outro dispositivo.",
+      },
+      reset: { en: "Reset access on this device", pt: "Limpar acesso neste dispositivo" },
     },
     content: {
       eyebrow: { en: "Welcome to the private demonstration", pt: "Bem-vindo à demonstração privada" },
