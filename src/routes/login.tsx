@@ -505,6 +505,32 @@ function LoginPage() {
           />
         </Link>
         <div className="flex items-center gap-3">
+          {storedSession && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="inline-flex items-center gap-2 rounded-md border border-[rgba(242,184,23,0.28)] bg-black/25 px-3 py-1.5 text-[10px] uppercase tracking-[0.32em] text-foreground/85 hover:text-[color:var(--gold)] hover:border-[color:var(--gold)] transition-colors"
+              aria-label={tr(COPY.logout, lang)}
+              title={storedSession.name ?? undefined}
+            >
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" />
+                <path d="M10 17l-5-5 5-5" />
+                <path d="M15 12H5" />
+              </svg>
+              {tr(COPY.logout, lang)}
+            </button>
+          )}
           <Link
             to="/"
             className="hidden md:inline-flex text-[11px] uppercase tracking-[0.32em] text-foreground/80 hover:text-[color:var(--gold)] transition-colors"
