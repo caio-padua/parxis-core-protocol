@@ -1,0 +1,1351 @@
+{
+  "generatedAt": "2026-07-27T04:03:34.283Z",
+  "releases": [
+    {
+      "commit": "7c647a2",
+      "date": "2026-07-27",
+      "title": "Changes",
+      "messages": [
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "scripts/generate-changelog.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "fc868f0",
+      "date": "2026-07-27",
+      "title": "Criou painel de releases",
+      "messages": [
+        "Criou painel de releases",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/content/releases.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/routeTree.gen.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/routes/releases.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "903e348",
+      "date": "2026-07-27",
+      "title": "Adicionou auto-refresh",
+      "messages": [
+        "Adicionou auto-refresh",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/status.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "7e9cb9d",
+      "date": "2026-07-27",
+      "title": "Adicionou health checks ao status",
+      "messages": [
+        "Adicionou health checks ao status",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routeTree.gen.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/routes/api/public/health.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/status.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "f88ee45",
+      "date": "2026-07-27",
+      "title": "Adicionou auto-teste na home",
+      "messages": [
+        "Adicionou auto-teste na home",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/status.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "7b8ec9f",
+      "date": "2026-07-27",
+      "title": "Adicionou página de status",
+      "messages": [
+        "Adicionou página de status",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routeTree.gen.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/routes/status.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "119689e",
+      "date": "2026-07-27",
+      "title": "Reverteu alteração de imagem",
+      "messages": [
+        "Reverteu alteração de imagem",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "e1d077f",
+      "date": "2026-07-27",
+      "title": "Atualizou fundo do site ângulo",
+      "messages": [
+        "Atualizou fundo do site ângulo",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-atelier-v16-angled.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "045d3a5",
+      "date": "2026-07-26",
+      "title": "Melhorou login com cena v15",
+      "messages": [
+        "Melhorou login com cena v15",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-atelier-v15-camelo-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "a245e10",
+      "date": "2026-07-26",
+      "title": "Adicionou bloco PADCON na login",
+      "messages": [
+        "Adicionou bloco PADCON na login",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "61041b5",
+      "date": "2026-07-26",
+      "title": "Ajustou layout do bloco PADCON",
+      "messages": [
+        "Ajustou layout do bloco PADCON",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "dd8b800",
+      "date": "2026-07-26",
+      "title": "Reduziu logo do rodapé",
+      "messages": [
+        "Reduziu logo do rodapé",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "c7c6082",
+      "date": "2026-07-26",
+      "title": "Alinhou ponto médio dos logos",
+      "messages": [
+        "Alinhou ponto médio dos logos",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "9d7ea93",
+      "date": "2026-07-26",
+      "title": "Equalizou altura dos logotipos",
+      "messages": [
+        "Equalizou altura dos logotipos",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "2438aed",
+      "date": "2026-07-26",
+      "title": "Corrigiu bloco do PADAXOR",
+      "messages": [
+        "Corrigiu bloco do PADAXOR",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "e6920de",
+      "date": "2026-07-26",
+      "title": "Removiu texto \"Sistema\" do rodapé",
+      "messages": [
+        "Removiu texto \"Sistema\" do rodapé",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "85aed63",
+      "date": "2026-07-26",
+      "title": "Equilibrou tamanho dos símbolos",
+      "messages": [
+        "Equilibrou tamanho dos símbolos",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "50968de",
+      "date": "2026-07-26",
+      "title": "Atualizou logo no rodapé esquerdo",
+      "messages": [
+        "Atualizou logo no rodapé esquerdo",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/padaxor-logo.png.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "edcc394",
+      "date": "2026-07-26",
+      "title": "Centralizou as linhas horizontais",
+      "messages": [
+        "Centralizou as linhas horizontais",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "a93b66c",
+      "date": "2026-07-26",
+      "title": "Corrigiu alinhamento e fontes",
+      "messages": [
+        "Corrigiu alinhamento e fontes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/content/parxis.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "76d1e7e",
+      "date": "2026-07-26",
+      "title": "Reordenou o footer block PADCON",
+      "messages": [
+        "Reordenou o footer block PADCON",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "9a7b937",
+      "date": "2026-07-26",
+      "title": "Reformou linha de logo renderizado",
+      "messages": [
+        "Reformou linha de logo renderizado",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "4f14697",
+      "date": "2026-07-26",
+      "title": "Alinhou rodapé em mobile/desktop",
+      "messages": [
+        "Alinhou rodapé em mobile/desktop",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "4765c28",
+      "date": "2026-07-26",
+      "title": "Restabeleceu texto à esquerda",
+      "messages": [
+        "Restabeleceu texto à esquerda",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "46f5eb2",
+      "date": "2026-07-26",
+      "title": "Ajustou logo e aumentou tamanho",
+      "messages": [
+        "Ajustou logo e aumentou tamanho",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/padcon-logo-cropped.png.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "8649ba1",
+      "date": "2026-07-26",
+      "title": "Ajustou layout rodapé layout",
+      "messages": [
+        "Ajustou layout rodapé layout",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "8194552",
+      "date": "2026-07-26",
+      "title": "Reorganizou o rodapé",
+      "messages": [
+        "Reorganizou o rodapé",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/padcon-logo.png.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/content/parxis.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "222e701",
+      "date": "2026-07-26",
+      "title": "Ajustou carimbo ao lado de ampolas",
+      "messages": [
+        "Ajustou carimbo ao lado de ampolas",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v14-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v14-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v14-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v14-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v14-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "0b27682",
+      "date": "2026-07-26",
+      "title": "Adicionou modo claro igual ao login",
+      "messages": [
+        "Adicionou modo claro igual ao login",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "442a9be",
+      "date": "2026-07-26",
+      "title": "Ajustou perspectiva do notebook",
+      "messages": [
+        "Ajustou perspectiva do notebook",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v13-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v13-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v13-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v13-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v13-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "4eda25c",
+      "date": "2026-07-26",
+      "title": "Ajustou background mobile",
+      "messages": [
+        "Ajustou background mobile",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "5615435",
+      "date": "2026-07-26",
+      "title": "Corrigiu fundo do login",
+      "messages": [
+        "Corrigiu fundo do login",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "180d390",
+      "date": "2026-07-26",
+      "title": "Corrigiu distorção do padcon",
+      "messages": [
+        "Corrigiu distorção do padcon",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v12-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v12-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v12-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v12-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v12-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "f515070",
+      "date": "2026-07-26",
+      "title": "Melhorou renderização v11",
+      "messages": [
+        "Melhorou renderização v11",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v11-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v11-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v11-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v11-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v11-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "05cdd4a",
+      "date": "2026-07-26",
+      "title": "Reduziu carimbo e refatorou IA",
+      "messages": [
+        "Reduziu carimbo e refatorou IA",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v10-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v10-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v10-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v10-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v10-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "fd450b1",
+      "date": "2026-07-26",
+      "title": "Ajustou carimbo e nitidez",
+      "messages": [
+        "Ajustou carimbo e nitidez",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v9-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v9-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v9-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v9-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v9-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "2d0eb1a",
+      "date": "2026-07-26",
+      "title": "Corrigiu layout da cena v8",
+      "messages": [
+        "Corrigiu layout da cena v8",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v8-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v8-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v8-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v8-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v8-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "7fe1ca9",
+      "date": "2026-07-26",
+      "title": "Ajustou carimbo discreto v7",
+      "messages": [
+        "Ajustou carimbo discreto v7",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v6-4k.webp.asset.json"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v6-fhd.webp.asset.json"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v6-mobile.webp.asset.json"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v6-qhd.webp.asset.json"
+        },
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v6-tablet.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v7-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v7-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v7-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v7-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v7-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "f327f7e",
+      "date": "2026-07-26",
+      "title": "Substituiu almofariz por carimbo",
+      "messages": [
+        "Substituiu almofariz por carimbo",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v6-4k.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v6-fhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v6-mobile.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v6-qhd.webp.asset.json"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v6-tablet.webp.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "2f85c13",
+      "date": "2026-07-26",
+      "title": "Adicionou carimbo de médico",
+      "messages": [
+        "Adicionou carimbo de médico",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "D",
+          "path": "src/assets/parxis-padcon-v4.png"
+        },
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v5.png.asset.json"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "de18109",
+      "date": "2026-07-26",
+      "title": "Adicionou tooltip acessível aos selos",
+      "messages": [
+        "Adicionou tooltip acessível aos selos",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "9db91de",
+      "date": "2026-07-26",
+      "title": "Adicionou navegação por teclado",
+      "messages": [
+        "Adicionou navegação por teclado",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "5e766e0",
+      "date": "2026-07-26",
+      "title": "Ajustou certificações e fundo",
+      "messages": [
+        "Ajustou certificações e fundo",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "A",
+          "path": "src/assets/parxis-padcon-v4.png"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/index.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "7555571",
+      "date": "2026-07-26",
+      "title": "Adicionou selos e detalhes",
+      "messages": [
+        "Adicionou selos e detalhes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/LangSwitcher.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "d1c47ba",
+      "date": "2026-07-26",
+      "title": "Ajustou bevel do painel mobile",
+      "messages": [
+        "Ajustou bevel do painel mobile",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "10575c7",
+      "date": "2026-07-26",
+      "title": "Bevel 3D no painel de login",
+      "messages": [
+        "Bevel 3D no painel de login",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "5a41562",
+      "date": "2026-07-26",
+      "title": "Refinou login com 3D leve e claridade",
+      "messages": [
+        "Refinou login com 3D leve e claridade",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "485fe65",
+      "date": "2026-07-26",
+      "title": "Ajustou bevel e sombras da placa",
+      "messages": [
+        "Ajustou bevel e sombras da placa",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "07a011b",
+      "date": "2026-07-26",
+      "title": "Adicionou medalhão e bevel",
+      "messages": [
+        "Adicionou medalhão e bevel",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/routes/login.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    },
+    {
+      "commit": "712311c",
+      "date": "2026-07-26",
+      "title": "Criou login Parxis com Google",
+      "messages": [
+        "Criou login Parxis com Google",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "bun.lock"
+        },
+        {
+          "status": "A",
+          "path": "package-lock.json"
+        },
+        {
+          "status": "M",
+          "path": "package.json"
+        },
+        {
+          "status": "A",
+          "path": "src/integrations/lovable/index.ts"
+        },
+        {
+          "status": "M",
+          "path": "src/routeTree.gen.ts"
+        },
+        {
+          "status": "A",
+          "path": "src/routes/login.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "560a9c0",
+      "date": "2026-07-26",
+      "title": "Validou frames do glint",
+      "messages": [
+        "Validou frames do glint",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "tests/visual-regression-glint.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "ce6aafa",
+      "date": "2026-07-25",
+      "title": "Adicionou checagem radial no GLINT",
+      "messages": [
+        "Adicionou checagem radial no GLINT",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "tests/visual-regression-glint.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "0517b2f",
+      "date": "2026-07-25",
+      "title": "Corrigiu glint para efeito de caneta",
+      "messages": [
+        "Corrigiu glint para efeito de caneta",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/PaxterMedalhao.tsx"
+        },
+        {
+          "status": "M",
+          "path": "tests/visual-regression-glint.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "07de932",
+      "date": "2026-07-25",
+      "title": "Corrigiu o teste de regressão",
+      "messages": [
+        "Corrigiu o teste de regressão",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/PaxterMedalhao.tsx"
+        },
+        {
+          "status": "M",
+          "path": "tests/visual-regression-glint.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "55d895c",
+      "date": "2026-07-25",
+      "title": "Adicionou snapshot do glint",
+      "messages": [
+        "Adicionou snapshot do glint",
+        "Changes",
+        "Changes",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": ".github/workflows/visual-regression.yml"
+        },
+        {
+          "status": "M",
+          "path": "tests/README.md"
+        },
+        {
+          "status": "A",
+          "path": "tests/visual-regression-glint.mjs"
+        }
+      ]
+    },
+    {
+      "commit": "2a12dbd",
+      "date": "2026-07-25",
+      "title": "Ajustou glint ao monograma",
+      "messages": [
+        "Ajustou glint ao monograma",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/PaxterMedalhao.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "0ab3f7a",
+      "date": "2026-07-25",
+      "title": "Adicionou path da letra P",
+      "messages": [
+        "Adicionou path da letra P",
+        "Changes"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/PaxterMedalhao.tsx"
+        }
+      ]
+    },
+    {
+      "commit": "bb85251",
+      "date": "2026-07-25",
+      "title": "Corrigiu sweep width do medalhão",
+      "messages": [
+        "Corrigiu sweep width do medalhão"
+      ],
+      "files": [
+        {
+          "status": "M",
+          "path": "src/components/PaxterMedalhao.tsx"
+        },
+        {
+          "status": "D",
+          "path": "src/components/PaxterMedallion.tsx"
+        },
+        {
+          "status": "M",
+          "path": "src/styles.css"
+        }
+      ]
+    }
+  ]
+}
