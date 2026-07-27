@@ -314,6 +314,19 @@ function LoginPage() {
 
   // Se já autenticado, salta direto ao app.
   useEffect(() => {
+    // 1) Sessão do api-server (token Padaxor) — prioridade.
+    const token = readStoredToken();
+    if (token) {
+      apiMe(token).then((prof) => {
+        if (prof) {
+          redirectByRole(prof.role);
+        } else {
+          clearStoredSession();
+        }
+      });
+      return;
+    }
+    // 2) Sessão Supabase remanescente (fluxo antigo / Google OAuth).
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) window.location.assign(APP_URL);
     });
@@ -360,13 +373,20 @@ function LoginPage() {
     setLoading(true);
     try {
       if (mode === "in") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          toast.error(error.message);
+        // Backend próprio: `username` (não `email`). O rótulo do campo
+        // permanece "Email institucional" por decisão de UX; o valor
+        // digitado é enviado como username.
+        try {
+          const { token, professional } = await apiLogin(email.trim(), password);
+          persistSession(token, professional);
+          toast.success(tr(COPY.success, lang));
+          redirectByRole(professional.role);
+        } catch (err) {
+          // Mensagem genérica preservando o comportamento de não revelar
+          // se o usuário existe: usa a resposta do backend tal como veio.
+          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
           return;
         }
-        toast.success(tr(COPY.success, lang));
-        window.location.assign(APP_URL);
       } else {
         const emailRedirectTo = `${window.location.origin}/login`;
         const { error } = await supabase.auth.signUp({
