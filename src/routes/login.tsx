@@ -201,6 +201,14 @@ const COPY = {
     pt: "Sua sessão expirou. Entre novamente para continuar.",
     en: "Your session has expired. Please sign in again.",
   },
+  sessionExpiredReason: {
+    pt: "Por segurança, o acesso de colaborador vale por 12 horas — depois disso pedimos uma nova autenticação.",
+    en: "For your security, collaborator sessions last 12 hours — after that we require a fresh sign-in.",
+  },
+  sessionExpiredAction: {
+    pt: "Ir para o login",
+    en: "Go to sign in",
+  },
 } as const;
 
 type Cert = {
