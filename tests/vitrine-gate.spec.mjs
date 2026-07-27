@@ -26,6 +26,8 @@ async function fillGate(page) {
   await page.getByPlaceholder("000.000.000-00").fill("39053344705"); // CPF válido de teste
   await page.getByPlaceholder("(00) 00000-0000").fill("11987654321");
   await page.locator('input[type="checkbox"]').check();
+  // Anti-spam time-trap: garante >2.5s desde o mount antes do submit.
+  await page.waitForTimeout(2800);
 }
 
 async function scenarioSuccess() {
