@@ -317,6 +317,31 @@ function LoginPage() {
   const [oauthLoading, setOauthLoading] = useState(false);
   const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
+  // Toast enriquecido de sessão expirada: motivo + botão que leva
+  // direto ao campo de usuário (foco + scroll). Fica visível por
+  // 12s para pacientes idosos terem tempo de ler.
+  const showSessionExpiredToast = () => {
+    toast.error(tr(COPY.sessionExpired, lang), {
+      id: "session-expired",
+      description: tr(COPY.sessionExpiredReason, lang),
+      duration: 12000,
+      action: {
+        label: tr(COPY.sessionExpiredAction, lang),
+        onClick: () => {
+          setMode("in");
+          setStoredSession(null);
+          try {
+            const el = document.getElementById("login-username") as HTMLInputElement | null;
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+            setTimeout(() => el?.focus({ preventScroll: true }), 350);
+          } catch {
+            /* noop */
+          }
+        },
+      },
+    });
+  };
+
   // Se já autenticado, salta direto ao app.
   useEffect(() => {
     // Toasts de retorno após logout manual ou expiração de sessão.
