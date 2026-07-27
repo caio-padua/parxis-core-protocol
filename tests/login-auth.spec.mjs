@@ -71,12 +71,6 @@ async function seedNoise(page) {
 
 async function newLoginPage(context) {
   const page = await context.newPage();
-  // Intercepta rotas do app que não existem no route tree (ex.: /recepcao)
-  // para que a navegação alvo seja observável em vez de terminar em
-  // chrome-error://chromewebdata quando o router lida com a rota ausente.
-  await context.route("**/recepcao**", async (route) =>
-    route.fulfill({ status: 200, contentType: "text/html", body: "<html><body>recepcao-stub</body></html>" }),
-  );
   await page.goto(LOGIN_URL, { waitUntil: "networkidle" });
   // Aguarda a hidratação do React: só então o form tem onSubmit anexado.
   await page.waitForFunction(() => {
