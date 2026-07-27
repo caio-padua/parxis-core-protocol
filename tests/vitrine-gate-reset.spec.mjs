@@ -36,9 +36,18 @@ async function fillGate(page) {
 }
 
 async function submitGate(page) {
+  // Clique real no botão de submit (scroll + click nativo via JS para escapar
+  // de qualquer overlay/animação). React captura o submit em bubble.
+  await page.evaluate(() => {
+    const btn = document.querySelector('form button[type="submit"]');
+    if (btn) {
+      btn.scrollIntoView({ block: "center" });
+      btn.click();
+    }
+  });
   await Promise.all([
     page.waitForResponse((r) => LEAD_ROUTE_RE.test(r.url()), { timeout: 10000 }),
-    page.getByPlaceholder("(00) 00000-0000").press("Enter"),
+    Promise.resolve(),
   ]);
 }
 
