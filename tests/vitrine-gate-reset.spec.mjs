@@ -41,16 +41,17 @@ async function submitGate(page) {
   const info = await page.evaluate(() => {
     const btn = document.querySelector('form button[type="submit"]');
     const form = document.querySelector("form");
-    if (btn) {
-      btn.scrollIntoView({ block: "center" });
-      btn.click();
+    let submitFired = false;
+    if (form) {
+      form.addEventListener("submit", () => { submitFired = true; }, { once: true, capture: true });
+      // Dispatcha um submit event bubbling para o React apanhar.
+      form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
     }
     return {
       hasForm: !!form,
       hasBtn: !!btn,
       btnDisabled: btn ? btn.disabled : null,
-      btnText: btn ? btn.textContent : null,
-      formAction: form ? form.getAttribute("onsubmit") : null,
+      submitFired,
     };
   });
   console.log("DEBUG submit info:", JSON.stringify(info));
