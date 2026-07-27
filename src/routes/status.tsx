@@ -89,6 +89,36 @@ function StatusPage() {
       });
     }
 
+    // api-server Padaxor — endpoint público /api/brt (heartbeat do backend).
+    const apiBase =
+      (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/+$/, "") ||
+      (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
+      "";
+    if (apiBase) {
+      const bStart = performance.now();
+      try {
+        const res = await fetch(`${apiBase}/api/brt`, { cache: "no-store" });
+        results.push({
+          name: "api-server /api/brt",
+          ok: res.ok,
+          detail: `HTTP ${res.status}`,
+          ms: Math.round(performance.now() - bStart),
+        });
+      } catch (err) {
+        results.push({
+          name: "api-server /api/brt",
+          ok: false,
+          detail: `Falha: ${(err as Error).message}`,
+        });
+      }
+    } else {
+      results.push({
+        name: "api-server /api/brt",
+        ok: false,
+        detail: "VITE_API_BASE_URL não configurada",
+      });
+    }
+
     // Check that CSS actually applied (Tailwind loaded)
     try {
       const probe = document.createElement("div");

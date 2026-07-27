@@ -11,6 +11,7 @@ import {
   validatePhone,
   isAccessGranted,
   grantAccess,
+  revokeAccess,
   submitVitrineLead,
   type VitrinePayload,
 } from "@/lib/vitrine-gate";
@@ -96,7 +97,11 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
     setLoading(false);
 
     if ("error" in result) {
-      toast.error(result.error);
+      if (result.code === "rate_limited") {
+        toast.error(tr(c.toasts.rateLimited, lang));
+      } else {
+        toast.error(result.error);
+      }
       return;
     }
 
@@ -104,7 +109,26 @@ export function VitrineGate({ tipo, children }: VitrineGateProps) {
     setGranted(true);
   };
 
-  if (granted) return <>{children}</>;
+  if (granted) {
+    return (
+      <>
+        {children}
+        <div className="fixed bottom-4 right-4 z-40 hidden sm:flex items-center gap-2 rounded-full border border-[color:var(--gold)]/30 bg-black/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-foreground/70 backdrop-blur">
+          <span>{tr(content.vitrine.already.title, lang)}</span>
+          <button
+            type="button"
+            onClick={() => {
+              revokeAccess(tipo);
+              setGranted(false);
+            }}
+            className="text-[color:var(--gold)] hover:underline"
+          >
+            {tr(content.vitrine.already.reset, lang)}
+          </button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="parxis-login-card rounded-xl p-5 sm:p-8 md:p-10 relative w-full max-w-[460px] mx-auto">
