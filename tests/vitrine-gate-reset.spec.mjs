@@ -72,6 +72,12 @@ async function run() {
     }
   });
   page.on("pageerror", (err) => console.log("[pageerror]", err.message));
+  page.on("request", (r) => {
+    if (/vitrine-leads/.test(r.url())) console.log("[req]", r.method(), r.url());
+  });
+  page.on("requestfailed", (r) =>
+    console.log("[reqfail]", r.url(), r.failure()?.errorText),
+  );
 
   let hits = 0;
   // Modo controlado pelo teste: primeiro 200, depois 429 (para o cenário 2),
