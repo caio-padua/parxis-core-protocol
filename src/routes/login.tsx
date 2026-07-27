@@ -348,7 +348,7 @@ function LoginPage() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get("expired") === "1") {
-        toast.error(tr(COPY.sessionExpired, lang));
+        showSessionExpiredToast();
       } else if (params.get("logout") === "1") {
         toast.success(tr(COPY.loggedOut, lang));
       }
@@ -369,7 +369,7 @@ function LoginPage() {
       // Se o JWT já expirou localmente, não tenta usá-lo: limpa e mostra login.
       if (isTokenExpired(token)) {
         clearStoredSession();
-        toast.error(tr(COPY.sessionExpired, lang));
+        showSessionExpiredToast();
         return;
       }
       let raw: string | null = null;
@@ -393,7 +393,7 @@ function LoginPage() {
           // Token inválido/expirado no servidor — limpa e permanece em /login.
           clearStoredSession();
           setStoredSession(null);
-          toast.error(tr(COPY.sessionExpired, lang));
+          showSessionExpiredToast();
         }
       });
       return;
