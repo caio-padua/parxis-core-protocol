@@ -1834,20 +1834,6 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     0 0 58px -16px rgba(242, 184, 23, 0.24);
 }
 
-/*
- * Estabilidade para automação e interação: assim que o usuário toca
- * qualquer campo do painel (foco), a levitação e o lift do hover são
- * pausados. Isso evita que o Playwright marque checkbox/botão como
- * "not stable" durante o preenchimento — e melhora a precisão do clique
- * para pacientes idosos com trêmulo/parkinsoniano.
- */
-.parxis-login-card:focus-within {
-  animation-play-state: paused;
-  transform: none;
-}
-.parxis-login-card:focus-within:hover {
-  transform: none;
-}
 
 /* Mobile: painel de login mais contido, bevel sutil e elegante */
 @media (max-width: 640px) {
