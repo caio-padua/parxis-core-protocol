@@ -2044,6 +2044,20 @@ html[data-motion="reduce"] .parxis-corner-pulse {
   }
 }
 
+/*
+ * Estabilidade para interação humana e automação (Playwright):
+ * assim que qualquer campo do painel recebe foco, a levitação contínua
+ * e o lift do hover são congelados. Sem isso, o card se move a cada
+ * frame e o Playwright rejeita cliques em checkbox/botão como
+ * "element is not stable". Colocado depois das regras mobile/hover
+ * para vencer a cascata sem !important.
+ */
+.parxis-login-card:focus-within,
+.parxis-login-card:focus-within:hover {
+  animation-play-state: paused;
+  transform: none;
+}
+
 
 
 /* ============ Certifications panel (login) ============ */
