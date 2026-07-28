@@ -1834,6 +1834,7 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     0 0 58px -16px rgba(242, 184, 23, 0.24);
 }
 
+
 /* Mobile: painel de login mais contido, bevel sutil e elegante */
 @media (max-width: 640px) {
   .parxis-login-card {
@@ -2041,6 +2042,20 @@ html[data-motion="reduce"] .parxis-corner-pulse {
     transform: none;
     transition: none;
   }
+}
+
+/*
+ * Estabilidade para interação humana e automação (Playwright):
+ * assim que qualquer campo do painel recebe foco, a levitação contínua
+ * e o lift do hover são congelados. Sem isso, o card se move a cada
+ * frame e o Playwright rejeita cliques em checkbox/botão como
+ * "element is not stable". Colocado depois das regras mobile/hover
+ * para vencer a cascata sem !important.
+ */
+.parxis-login-card:focus-within,
+.parxis-login-card:focus-within:hover {
+  animation-play-state: paused;
+  transform: none;
 }
 
 
