@@ -497,6 +497,8 @@ function LoginPage() {
       {/* Fundo atelier nítido — mesmo do site institucional */}
       <div className="parxis-fixed-bg" aria-hidden />
       <div className="parxis-fixed-veil" aria-hidden />
+      {/* Banner discreto de degradação do api-server (30s poll) */}
+      <ApiHealthBanner lang={lang} />
       {/* Véu extra bem sutil para deixar a tela mais clara e o fundo visível */}
       <div
         className="absolute inset-0 pointer-events-none"
