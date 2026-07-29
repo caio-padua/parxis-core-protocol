@@ -99,7 +99,9 @@ async function apiLogin(
         : res.status === 400
           ? "Usuário e senha são obrigatórios"
           : `Falha na autenticação (HTTP ${res.status})`);
-    throw new Error(message);
+    const err = new Error(message) as Error & { status?: number };
+    err.status = res.status;
+    throw err;
   }
   if (!payload?.token || !payload?.professional) {
     throw new Error("Resposta inesperada do servidor de autenticação.");
