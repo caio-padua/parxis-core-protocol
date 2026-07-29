@@ -290,38 +290,13 @@ const CERTS_COPY = {
 // URL definitiva do serviço @workspace/padcom no Railway (no ar desde 27/07).
 const APP_URL = "https://workspacepadcom-production.up.railway.app";
 
-function passwordSchema(lang: "pt" | "en") {
-  const m = (pt: string, en: string) => (lang === "pt" ? pt : en);
-  return z
-    .string()
-    .min(12, m("Mínimo de 12 caracteres.", "At least 12 characters."))
-    .max(128, m("No máximo 128 caracteres.", "At most 128 characters."))
-    .regex(/[A-Z]/, m("Inclua ao menos uma maiúscula.", "Include at least one uppercase letter."))
-    .regex(/[a-z]/, m("Inclua ao menos uma minúscula.", "Include at least one lowercase letter."))
-    .regex(/[0-9]/, m("Inclua ao menos um número.", "Include at least one number."))
-    .regex(/[^A-Za-z0-9]/, m("Inclua ao menos um símbolo.", "Include at least one symbol."));
-}
-
-function scorePassword(pw: string): number {
-  let s = 0;
-  if (pw.length >= 12) s++;
-  if (pw.length >= 16) s++;
-  if (/[A-Z]/.test(pw)) s++;
-  if (/[a-z]/.test(pw)) s++;
-  if (/[0-9]/.test(pw)) s++;
-  if (/[^A-Za-z0-9]/.test(pw)) s++;
-  return Math.min(s, 5);
-}
-
 function LoginPage() {
   const { lang } = useLang();
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"in" | "up">("in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [oauthLoading, setOauthLoading] = useState(false);
   const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
   // Toast enriquecido de sessão expirada: motivo + botão que leva
@@ -335,7 +310,6 @@ function LoginPage() {
       action: {
         label: tr(COPY.sessionExpiredAction, lang),
         onClick: () => {
-          setMode("in");
           setStoredSession(null);
           try {
             const el = document.getElementById("login-username") as HTMLInputElement | null;
