@@ -31,31 +31,51 @@ export function ApiHealthBanner({ lang = "pt" as "pt" | "en" }: { lang?: "pt" | 
     async function probe() {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+      const requestId = newRequestId();
+      const startedAt = performance.now();
       try {
         const res = await fetch(`${API_URL}/api/health`, {
           method: "GET",
-          headers: { Accept: "application/json", [REQUEST_ID_HEADER]: newRequestId() },
+          headers: { Accept: "application/json", [REQUEST_ID_HEADER]: requestId },
           signal: controller.signal,
           cache: "no-store",
         });
         clearTimeout(timer);
         if (cancelledRef.current) return;
+        const serverRequestId = res.headers.get(REQUEST_ID_HEADER) || requestId;
+        const durationMs = Math.round(performance.now() - startedAt);
         if (res.ok) {
+          if (failureCountRef.current > 0 || status !== "ok") {
+            console.info(
+              `[padaxor][health] ok status=${res.status} requestId=${serverRequestId} duration=${durationMs}ms`,
+            );
+          }
           failureCountRef.current = 0;
           setStatus("ok");
         } else if (res.status >= 500) {
           failureCountRef.current += 1;
+          console.warn(
+            `[padaxor][health] 5xx status=${res.status} requestId=${serverRequestId} duration=${durationMs}ms failures=${failureCountRef.current}`,
+          );
           if (failureCountRef.current >= FAILURE_THRESHOLD) setStatus("degraded");
         } else {
           // 4xx (inclusive 404 se endpoint ainda não existir): não é degradação
           // do servidor, é ausência de contrato. Fica "unknown" — sem banner.
+          console.info(
+            `[padaxor][health] 4xx status=${res.status} requestId=${serverRequestId} duration=${durationMs}ms (sem contrato — banner suprimido)`,
+          );
           failureCountRef.current = 0;
           setStatus("unknown");
         }
-      } catch {
+      } catch (err) {
         clearTimeout(timer);
         if (cancelledRef.current) return;
         failureCountRef.current += 1;
+        const durationMs = Math.round(performance.now() - startedAt);
+        const reason = (err as Error)?.name === "AbortError" ? "timeout" : "network";
+        console.warn(
+          `[padaxor][health] ${reason} requestId=${requestId} duration=${durationMs}ms failures=${failureCountRef.current}`,
+        );
         if (failureCountRef.current >= FAILURE_THRESHOLD) setStatus("degraded");
       }
     }

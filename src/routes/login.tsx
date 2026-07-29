@@ -82,6 +82,9 @@ async function apiLogin(
   password: string,
 ): Promise<{ token: string; professional: Professional; requestId: string }> {
   const requestId = newRequestId();
+  console.info(
+    `[padaxor][auth] POST /api/collaborator/login → dispatch requestId=${requestId}`,
+  );
   const res = await fetch(`${API_URL}/api/collaborator/login`, {
     method: "POST",
     headers: {
@@ -111,11 +114,20 @@ async function apiLogin(
     const err = new Error(message) as Error & { status?: number; requestId?: string };
     err.status = res.status;
     err.requestId = serverRequestId;
+    console.warn(
+      `[padaxor][auth] login failed status=${res.status} requestId=${serverRequestId} message="${message}"`,
+    );
     throw err;
   }
   if (!payload?.token || !payload?.professional) {
+    console.error(
+      `[padaxor][auth] unexpected payload requestId=${serverRequestId}`,
+    );
     throw new Error("Resposta inesperada do servidor de autenticação.");
   }
+  console.info(
+    `[padaxor][auth] login ok status=${res.status} requestId=${serverRequestId}`,
+  );
   return {
     token: payload.token,
     professional: payload.professional as Professional,
