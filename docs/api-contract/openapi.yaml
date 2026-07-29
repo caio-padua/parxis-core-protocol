@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: Padaxor api-server (contract)
+  version: 0.1.0
+  description: |
+    Contrato mínimo entre o frontend Padaxor (padaxor.lovable.app) e o
+    api-server (Railway). Fonte da verdade permanece no repositório do
+    api-server; este arquivo é o snapshot que o frontend consome. Divergências
+    devem ser reconciliadas antes de publicar mudanças no frontend.
+servers:
+  - url: https://workspaceapi-server-production-f5ec.up.railway.app
+    description: Produção (Railway)
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      description: Retorna 2xx quando o motor clínico está operacional.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+                  version: { type: string }
+  /api/collaborator/login:
+    post:
+      summary: Autenticação de colaborador
+      parameters:
+        - in: header
+          name: X-Request-Id
+          required: false
+          schema: { type: string, format: uuid }
+          description: Correlation ID. O servidor deve ecoar o mesmo valor.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string, minLength: 1 }
+                password: { type: string, minLength: 1 }
+      responses:
+        "200":
+          description: Sucesso
+          headers:
+            X-Request-Id: { schema: { type: string } }
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [token, professional]
+                properties:
+                  token: { type: string, description: "JWT com claim exp (12h)" }
+                  professional:
+                    type: object
+                    required: [id, name, role]
+                    properties:
+                      id: { type: integer }
+                      name: { type: string }
+                      role: { type: string }
+                      category: { type: string }
+                      isPrimaryDoctor: { type: boolean }
+        "400":
+          $ref: "#/components/responses/ErrorEnvelope"
+        "401":
+          $ref: "#/components/responses/ErrorEnvelope"
+        "409":
+          description: Conflito de índice único (login duplicado)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+  /api/collaborator/me:
+    get:
+      summary: Perfil do colaborador autenticado
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { type: object }
+        "401":
+          $ref: "#/components/responses/ErrorEnvelope"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+        code: { type: string }
+  responses:
+    ErrorEnvelope:
+      description: Erro
+      headers:
+        X-Request-Id: { schema: { type: string } }
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
