@@ -495,9 +495,31 @@ function LoginPage() {
           toast.success(tr(COPY.success, lang));
           redirectByRole(professional.role);
         } catch (err) {
-          // Mensagem genérica preservando o comportamento de não revelar
-          // se o usuário existe: usa a resposta do backend tal como veio.
-          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
+          const status = (err as { status?: number } | null)?.status;
+          if (status === 401) {
+            // Toast rico com orientação clara: revisar credenciais ou
+            // contatar o administrador (contas são criadas por indicação).
+            toast.error(tr(COPY.invalidCredentials, lang), {
+              duration: 12000,
+              description: tr(COPY.invalidCredentialsReason, lang),
+              action: {
+                label: tr(COPY.invalidCredentialsRetry, lang),
+                onClick: () => {
+                  setPassword("");
+                  document.getElementById("login-username")?.focus();
+                },
+              },
+              cancel: {
+                label: tr(COPY.invalidCredentialsContact, lang),
+                onClick: () => {
+                  window.location.assign("/#contato");
+                },
+              },
+            });
+          } else {
+            // Demais falhas (400, 5xx, rede): mensagem literal do backend.
+            toast.error(err instanceof Error ? err.message : "Falha na autenticação");
+          }
           return;
         }
       } else {
