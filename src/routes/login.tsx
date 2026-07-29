@@ -1,9 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { z } from "zod";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
@@ -161,28 +159,14 @@ const COPY = {
     en: "Private authentication for licensed physicians. Two-layer verification, passwords cross-checked against global breach corpora, and Sign in with Google at the highest available assurance.",
   },
   tabIn: { pt: "Entrar", en: "Sign in" },
-  tabUp: { pt: "Ativar acesso", en: "Activate access" },
   email: { pt: "Email institucional", en: "Institutional email" },
   password: { pt: "Senha", en: "Password" },
-  passwordHint: {
-    pt: "Mínimo 12 caracteres, com maiúscula, minúscula, número e símbolo.",
-    en: "At least 12 characters, with upper, lower, number and symbol.",
-  },
   submitIn: { pt: "Acessar Padaxor", en: "Enter Padaxor" },
-  submitUp: { pt: "Ativar meu acesso", en: "Activate my access" },
-  google: { pt: "Continuar com Google", en: "Continue with Google" },
-  divider: { pt: "ou credenciais Padaxor", en: "or Padaxor credentials" },
   forgot: { pt: "Esqueci minha senha", en: "I forgot my password" },
   loading: { pt: "Aguarde…", en: "Please wait…" },
-  toIn: { pt: "Já possuo credenciais · entrar", en: "I already have credentials · sign in" },
-  toUp: { pt: "Primeiro acesso · ativar", en: "First access · activate" },
   success: {
     pt: "Sessão iniciada. Redirecionando para o motor clínico…",
     en: "Session started. Redirecting to the clinical engine…",
-  },
-  signupSuccess: {
-    pt: "Verifique seu email para confirmar o acesso.",
-    en: "Please verify your email to confirm access.",
   },
   resetSent: {
     pt: "Enviamos um link seguro para o email informado.",
