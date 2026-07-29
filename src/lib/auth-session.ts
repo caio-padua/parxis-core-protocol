@@ -8,6 +8,33 @@
 export const TOKEN_STORAGE_KEY = "padaxor.auth.token";
 export const PROFILE_STORAGE_KEY = "padaxor.auth.professional";
 
+// ------------------------------------------------------------------
+// Correlation-ID — cada chamada ao api-server carrega um X-Request-Id.
+// Formato: UUID v4. O servidor deve ecoar o mesmo header na resposta;
+// se ecoar, preferimos o valor do servidor (autoritativo). Exibimos os
+// 8 primeiros caracteres nos toasts de erro para que o usuário consiga
+// citar um ID rastreável ao suporte / Dr. Code.
+// ------------------------------------------------------------------
+export const REQUEST_ID_HEADER = "X-Request-Id";
+
+export function newRequestId(): string {
+  try {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+  } catch {
+    /* noop */
+  }
+  // Fallback RFC4122-ish (não-cripto, mas único o bastante para correlação).
+  const rnd = () => Math.floor(Math.random() * 0xffffffff).toString(16).padStart(8, "0");
+  return `${rnd()}-${rnd().slice(0, 4)}-4${rnd().slice(0, 3)}-a${rnd().slice(0, 3)}-${rnd()}${rnd().slice(0, 4)}`;
+}
+
+export function shortRequestId(id: string | null | undefined): string {
+  if (!id) return "";
+  return id.replace(/[^a-zA-Z0-9]/g, "").slice(0, 8);
+}
+
 export type StoredProfessional = {
   id: number;
   name: string;
@@ -128,6 +155,7 @@ export async function authFetch(
   const headers = new Headers(init.headers);
   headers.set("Authorization", `Bearer ${token}`);
   if (!headers.has("Accept")) headers.set("Accept", "application/json");
+  if (!headers.has(REQUEST_ID_HEADER)) headers.set(REQUEST_ID_HEADER, newRequestId());
   const res = await fetch(input, { ...init, headers });
   if (res.status === 401) {
     logout("expired");

@@ -13,8 +13,12 @@ import {
   clearSession,
   persistSession as persistSharedSession,
   logout as logoutSession,
+  newRequestId,
+  REQUEST_ID_HEADER,
+  shortRequestId,
   type StoredProfessional,
 } from "@/lib/auth-session";
+import { ApiHealthBanner } from "@/components/ApiHealthBanner";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
 import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
@@ -76,12 +80,19 @@ function clearStoredSession() {
 async function apiLogin(
   username: string,
   password: string,
-): Promise<{ token: string; professional: Professional }> {
+): Promise<{ token: string; professional: Professional; requestId: string }> {
+  const requestId = newRequestId();
   const res = await fetch(`${API_URL}/api/collaborator/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      [REQUEST_ID_HEADER]: requestId,
+    },
     body: JSON.stringify({ username, password }),
   });
+  // Se o servidor ecoar o header, prefere o valor autoritativo dele.
+  const serverRequestId = res.headers.get(REQUEST_ID_HEADER) || requestId;
   const text = await res.text();
   let payload: any = null;
   try {
@@ -97,14 +108,19 @@ async function apiLogin(
         : res.status === 400
           ? "Usuário e senha são obrigatórios"
           : `Falha na autenticação (HTTP ${res.status})`);
-    const err = new Error(message) as Error & { status?: number };
+    const err = new Error(message) as Error & { status?: number; requestId?: string };
     err.status = res.status;
+    err.requestId = serverRequestId;
     throw err;
   }
   if (!payload?.token || !payload?.professional) {
     throw new Error("Resposta inesperada do servidor de autenticação.");
   }
-  return { token: payload.token, professional: payload.professional as Professional };
+  return {
+    token: payload.token,
+    professional: payload.professional as Professional,
+    requestId: serverRequestId,
+  };
 }
 
 async function apiMe(token: string): Promise<Professional | null> {
@@ -419,12 +435,18 @@ function LoginPage() {
         redirectByRole(professional.role);
       } catch (err) {
         const status = (err as { status?: number } | null)?.status;
+        const requestId = (err as { requestId?: string } | null)?.requestId;
+        const shortId = shortRequestId(requestId);
         if (status === 401) {
           // Toast rico com orientação clara: revisar credenciais ou
           // contatar o administrador (contas são criadas por indicação).
+          // O ID curto (8 chars) permite ao usuário citar o incidente
+          // ao suporte — o Dr. Code casa 1-para-1 com o log do servidor.
           toast.error(tr(COPY.invalidCredentials, lang), {
             duration: 12000,
-            description: tr(COPY.invalidCredentialsReason, lang),
+            description: shortId
+              ? `${tr(COPY.invalidCredentialsReason, lang)} · ID: ${shortId}`
+              : tr(COPY.invalidCredentialsReason, lang),
             action: {
               label: tr(COPY.invalidCredentialsRetry, lang),
               onClick: () => {
@@ -441,7 +463,8 @@ function LoginPage() {
           });
         } else {
           // Demais falhas (400, 5xx, rede): mensagem literal do backend.
-          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
+          const base = err instanceof Error ? err.message : "Falha na autenticação";
+          toast.error(shortId ? `${base} · ID: ${shortId}` : base);
         }
         return;
       }
@@ -474,6 +497,8 @@ function LoginPage() {
       {/* Fundo atelier nítido — mesmo do site institucional */}
       <div className="parxis-fixed-bg" aria-hidden />
       <div className="parxis-fixed-veil" aria-hidden />
+      {/* Banner discreto de degradação do api-server (30s poll) */}
+      <ApiHealthBanner lang={lang} />
       {/* Véu extra bem sutil para deixar a tela mais clara e o fundo visível */}
       <div
         className="absolute inset-0 pointer-events-none"
