@@ -214,6 +214,22 @@ const COPY = {
     pt: "Ir para o login",
     en: "Go to sign in",
   },
+  invalidCredentials: {
+    pt: "Credenciais não reconhecidas",
+    en: "Credentials not recognized",
+  },
+  invalidCredentialsReason: {
+    pt: "O usuário ou a senha não conferem. Confira maiúsculas, minúsculas e o layout do teclado e tente novamente. Se o problema persistir, fale com o administrador do seu Círculo — as contas Padaxor são criadas por indicação.",
+    en: "The username or password does not match. Check letter case and keyboard layout, then try again. If it persists, contact your Circle administrator — Padaxor accounts are created by invitation.",
+  },
+  invalidCredentialsRetry: {
+    pt: "Tentar novamente",
+    en: "Try again",
+  },
+  invalidCredentialsContact: {
+    pt: "Falar com o administrador",
+    en: "Contact administrator",
+  },
 } as const;
 
 type Cert = {
