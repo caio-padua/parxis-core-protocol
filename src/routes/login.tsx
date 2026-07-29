@@ -19,6 +19,13 @@ import {
   type StoredProfessional,
 } from "@/lib/auth-session";
 import { ApiHealthBanner } from "@/components/ApiHealthBanner";
+import {
+  checkLockout,
+  recordFailure,
+  clearLockout,
+  formatRemaining,
+} from "@/lib/login-lockout";
+import { getFlags } from "@/lib/feature-flags";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
 import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
