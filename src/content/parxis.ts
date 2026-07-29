@@ -8,7 +8,7 @@ type B = { en: string; pt: string };
 
 export const content = {
   nav: {
-    brand: { en: "Parxis", pt: "Parxis" },
+    brand: { en: "Padaxor", pt: "Padaxor" },
     tagline: { en: "By Referral", pt: "Por Indicação" },
     links: {
       manifesto: { en: "Manifesto", pt: "Manifesto" },
@@ -451,17 +451,17 @@ export const content = {
       en: "A PAWARDS MedCore® product — a PADCOM company. Granted by referral, kept by standard.",
       pt: "Um produto PAWARDS MedCore® — uma empresa PADCOM. Concedido por indicação, mantido pelo padrão.",
     },
-    domain: { en: "parxis.com.br", pt: "parxis.com.br" },
-    email: { en: "contact@parxis.com.br", pt: "contato@parxis.com.br" },
+    domain: { en: "padaxor.com.br", pt: "padaxor.com.br" },
+    email: { en: "contact@padaxor.com.br", pt: "contato@padaxor.com.br" },
     established: { en: "Établi 2026", pt: "Établi 2026" },
     place: { en: "São Paulo · Brazil", pt: "São Paulo · Brasil" },
-    rights: { en: "© 2026 Parxis · All rights reserved", pt: "© 2026 Parxis · Todos os direitos reservados" },
+    rights: { en: "© 2026 Padaxor · All rights reserved", pt: "© 2026 Padaxor · Todos os direitos reservados" },
     signature: { en: "Made with precision", pt: "Feito com precisão" },
     columns: {
       house: {
         title: { en: "The House", pt: "A Casa" },
         lines: [
-          { en: "Parxis · Clinical Intelligence System", pt: "Parxis · Sistema de Inteligência Clínica" },
+          { en: "Padaxor · Clinical Intelligence System", pt: "Padaxor · Sistema de Inteligência Clínica" },
           { en: "By PAWARDS MedCore®", pt: "Por PAWARDS MedCore®" },
           { en: "Établi 2026", pt: "Établi 2026" },
           { en: "São Paulo · Brazil", pt: "São Paulo · Brasil" },
@@ -470,8 +470,8 @@ export const content = {
       contact: {
         title: { en: "Private Office", pt: "Escritório Privado" },
         lines: [
-          { en: "parxis.com.br", pt: "parxis.com.br" },
-          { en: "contact@parxis.com.br", pt: "contato@parxis.com.br" },
+          { en: "padaxor.com.br", pt: "padaxor.com.br" },
+          { en: "contact@padaxor.com.br", pt: "contato@padaxor.com.br" },
           { en: "Av. Brigadeiro Faria Lima, 3477", pt: "Av. Brigadeiro Faria Lima, 3477" },
           { en: "Itaim Bibi · São Paulo · SP", pt: "Itaim Bibi · São Paulo · SP" },
         ],

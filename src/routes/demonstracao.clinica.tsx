@@ -6,13 +6,13 @@ import { VitrineGate } from "@/components/VitrineGate";
 export const Route = createFileRoute("/demonstracao/clinica")({
   head: () => ({
     meta: [
-      { title: "Parxis · Demonstração para Clínicas" },
+      { title: "Padaxor · Demonstração para Clínicas" },
       {
         name: "description",
         content:
-          "Demonstração privada do Parxis para clínicas. Veja como o motor clínico opera prescrições, protocolos e documentos.",
+          "Demonstração privada do Padaxor para clínicas. Veja como o motor clínico opera prescrições, protocolos e documentos.",
       },
-      { property: "og:title", content: "Parxis · Demonstração para Clínicas" },
+      { property: "og:title", content: "Padaxor · Demonstração para Clínicas" },
       {
         property: "og:description",
         content: "Demonstração privada do Parxis para clínicas.",

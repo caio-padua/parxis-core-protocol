@@ -779,11 +779,24 @@ function CTA() {
     }
 
     setLoading(true);
-    const { error } = await supabase.from("leads").insert(payload);
+    const API_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/+$/, "")
+      || "https://workspaceapi-server-production-f5ec.up.railway.app";
+    const [supabaseResult] = await Promise.allSettled([
+      supabase.from("leads").insert(payload),
+      fetch(`${API_BASE}/api/vitrine-contatos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, source: "padaxor-homepage" }),
+      }),
+    ]);
     setLoading(false);
 
-    if (error) {
-      console.error(error);
+    const supabaseError =
+      supabaseResult.status === "rejected"
+        ? supabaseResult.reason
+        : (supabaseResult.value as { error?: unknown } | undefined)?.error;
+    if (supabaseError) {
+      console.error(supabaseError);
       toast.error(tr(c.toasts.error, lang));
       return;
     }

@@ -7,7 +7,7 @@ import type { Session } from "@supabase/supabase-js";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Parxis · Painel de Leads" },
+      { title: "Padaxor · Painel de Leads" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
