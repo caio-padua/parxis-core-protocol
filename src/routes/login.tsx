@@ -19,6 +19,13 @@ import {
   type StoredProfessional,
 } from "@/lib/auth-session";
 import { ApiHealthBanner } from "@/components/ApiHealthBanner";
+import {
+  checkLockout,
+  recordFailure,
+  clearLockout,
+  formatRemaining,
+} from "@/lib/login-lockout";
+import { getFlags } from "@/lib/feature-flags";
 import parxisWordmark from "@/assets/parxis-wordmark.png";
 import atelierAsset from "@/assets/parxis-atelier-v15-camelo-4k.webp.asset.json";
 import atelierMobileAsset from "@/assets/parxis-atelier-v15-camelo-mobile.webp.asset.json";
@@ -435,6 +442,26 @@ function LoginPage() {
       toast.error(lang === "pt" ? "Informe o usuário." : "Enter your username.");
       return;
     }
+    // Lockout local — barra ANTES da rede quando o usuário local já
+    // ultrapassou a janela de tentativas. Server-side rate-limit é
+    // responsabilidade do api-server; este é apenas o guard-rail cliente.
+    const flags = getFlags();
+    if (flags.clientLockout) {
+      const state = checkLockout(email);
+      if (state.locked) {
+        const remaining = formatRemaining(state.remainingMs, lang);
+        toast.error(
+          lang === "pt"
+            ? `Muitas tentativas. Tente novamente em ${remaining}.`
+            : `Too many attempts. Try again in ${remaining}.`,
+          { duration: 10000 },
+        );
+        console.warn(
+          `[padaxor][auth] lockout active username="${email.trim().toLowerCase()}" remainingMs=${state.remainingMs}`,
+        );
+        return;
+      }
+    }
     setLoading(true);
     try {
       // Backend próprio: `username` (não `email`). O rótulo do campo
@@ -442,6 +469,7 @@ function LoginPage() {
       // digitado é enviado como username.
       try {
         const { token, professional } = await apiLogin(email.trim(), password);
+        clearLockout(email);
         persistSession(token, professional);
         toast.success(tr(COPY.success, lang));
         redirectByRole(professional.role);
@@ -449,6 +477,19 @@ function LoginPage() {
         const status = (err as { status?: number } | null)?.status;
         const requestId = (err as { requestId?: string } | null)?.requestId;
         const shortId = shortRequestId(requestId);
+        if (flags.clientLockout && (status === 401 || status === 400)) {
+          const after = recordFailure(email);
+          if (after.locked) {
+            const remaining = formatRemaining(after.remainingMs, lang);
+            toast.error(
+              lang === "pt"
+                ? `Conta protegida por 15 min após muitas tentativas. Aguarde ${remaining}.`
+                : `Account locked for 15 min after too many attempts. Wait ${remaining}.`,
+              { duration: 12000 },
+            );
+            return;
+          }
+        }
         if (status === 401) {
           // Toast rico com orientação clara: revisar credenciais ou
           // contatar o administrador (contas são criadas por indicação).
