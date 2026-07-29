@@ -99,7 +99,9 @@ async function apiLogin(
         : res.status === 400
           ? "Usuário e senha são obrigatórios"
           : `Falha na autenticação (HTTP ${res.status})`);
-    throw new Error(message);
+    const err = new Error(message) as Error & { status?: number };
+    err.status = res.status;
+    throw err;
   }
   if (!payload?.token || !payload?.professional) {
     throw new Error("Resposta inesperada do servidor de autenticação.");
@@ -211,6 +213,22 @@ const COPY = {
   sessionExpiredAction: {
     pt: "Ir para o login",
     en: "Go to sign in",
+  },
+  invalidCredentials: {
+    pt: "Credenciais não reconhecidas",
+    en: "Credentials not recognized",
+  },
+  invalidCredentialsReason: {
+    pt: "O usuário ou a senha não conferem. Confira maiúsculas, minúsculas e o layout do teclado e tente novamente. Se o problema persistir, fale com o administrador do seu Círculo — as contas Padaxor são criadas por indicação.",
+    en: "The username or password does not match. Check letter case and keyboard layout, then try again. If it persists, contact your Circle administrator — Padaxor accounts are created by invitation.",
+  },
+  invalidCredentialsRetry: {
+    pt: "Tentar novamente",
+    en: "Try again",
+  },
+  invalidCredentialsContact: {
+    pt: "Falar com o administrador",
+    en: "Contact administrator",
   },
 } as const;
 
@@ -477,9 +495,31 @@ function LoginPage() {
           toast.success(tr(COPY.success, lang));
           redirectByRole(professional.role);
         } catch (err) {
-          // Mensagem genérica preservando o comportamento de não revelar
-          // se o usuário existe: usa a resposta do backend tal como veio.
-          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
+          const status = (err as { status?: number } | null)?.status;
+          if (status === 401) {
+            // Toast rico com orientação clara: revisar credenciais ou
+            // contatar o administrador (contas são criadas por indicação).
+            toast.error(tr(COPY.invalidCredentials, lang), {
+              duration: 12000,
+              description: tr(COPY.invalidCredentialsReason, lang),
+              action: {
+                label: tr(COPY.invalidCredentialsRetry, lang),
+                onClick: () => {
+                  setPassword("");
+                  document.getElementById("login-username")?.focus();
+                },
+              },
+              cancel: {
+                label: tr(COPY.invalidCredentialsContact, lang),
+                onClick: () => {
+                  window.location.assign("/#contato");
+                },
+              },
+            });
+          } else {
+            // Demais falhas (400, 5xx, rede): mensagem literal do backend.
+            toast.error(err instanceof Error ? err.message : "Falha na autenticação");
+          }
           return;
         }
       } else {
