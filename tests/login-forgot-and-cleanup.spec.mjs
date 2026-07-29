@@ -58,7 +58,10 @@ async function testForgotInvalidEmail(context) {
 
   // Preenche usuário com algo que NÃO é email (fluxo real: usuário do api-server).
   await page.locator("form input").nth(0).fill("dra.padua");
-  await page.getByRole("button", { name: /Esqueci minha senha|I forgot my password/i }).click();
+  await page
+    .locator('button:has-text("Esqueci minha senha"), button:has-text("I forgot my password")')
+    .first()
+    .click({ force: true });
 
   await page
     .getByText(/Informe o email|Enter the email/i)
@@ -84,7 +87,10 @@ async function testForgotValidEmail(context) {
   });
 
   await page.locator("form input").nth(0).fill("dra.padua@parxis.com.br");
-  await page.getByRole("button", { name: /Esqueci minha senha|I forgot my password/i }).click();
+  await page
+    .locator('button:has-text("Esqueci minha senha"), button:has-text("I forgot my password")')
+    .first()
+    .click({ force: true });
 
   // Aguarda o toast de confirmação (COPY.resetSent).
   await page
