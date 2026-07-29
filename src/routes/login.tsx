@@ -624,26 +624,6 @@ function LoginPage() {
             </h2>
             <div className="parxis-gold-rule w-16 mx-auto my-5" />
 
-            <button
-              type="button"
-              onClick={onGoogle}
-              disabled={oauthLoading}
-              className="parxis-login-google w-full"
-            >
-              <GoogleIcon />
-              <span>
-                {oauthLoading ? tr(COPY.loading, lang) : tr(COPY.google, lang)}
-              </span>
-            </button>
-
-            <div className="my-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
-              <span className="text-[10px] uppercase tracking-[0.42em] text-muted-foreground">
-                {tr(COPY.divider, lang)}
-              </span>
-              <div className="h-px flex-1 bg-[rgba(242,184,23,0.18)]" />
-            </div>
-
             <form onSubmit={onSubmit} className="space-y-4" noValidate>
               <label className="block">
                 <span className="block text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)] mb-2">
@@ -734,14 +714,6 @@ function LoginPage() {
                 </span>
               </button>
             </form>
-
-            <button
-              type="button"
-              onClick={() => setMode(mode === "in" ? "up" : "in")}
-              className="mt-6 w-full text-[11px] uppercase tracking-[0.32em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
-            >
-              {mode === "in" ? tr(COPY.toUp, lang) : tr(COPY.toIn, lang)}
-            </button>
           </div>
 
           <CertificationsPanel lang={lang} />
