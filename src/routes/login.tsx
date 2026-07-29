@@ -1,9 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { z } from "zod";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useLang, tr } from "@/contexts/LanguageContext";
 import { LangSwitcher } from "@/components/LangSwitcher";
 import { cn } from "@/lib/utils";
@@ -161,28 +159,14 @@ const COPY = {
     en: "Private authentication for licensed physicians. Two-layer verification, passwords cross-checked against global breach corpora, and Sign in with Google at the highest available assurance.",
   },
   tabIn: { pt: "Entrar", en: "Sign in" },
-  tabUp: { pt: "Ativar acesso", en: "Activate access" },
   email: { pt: "Email institucional", en: "Institutional email" },
   password: { pt: "Senha", en: "Password" },
-  passwordHint: {
-    pt: "Mínimo 12 caracteres, com maiúscula, minúscula, número e símbolo.",
-    en: "At least 12 characters, with upper, lower, number and symbol.",
-  },
   submitIn: { pt: "Acessar Padaxor", en: "Enter Padaxor" },
-  submitUp: { pt: "Ativar meu acesso", en: "Activate my access" },
-  google: { pt: "Continuar com Google", en: "Continue with Google" },
-  divider: { pt: "ou credenciais Padaxor", en: "or Padaxor credentials" },
   forgot: { pt: "Esqueci minha senha", en: "I forgot my password" },
   loading: { pt: "Aguarde…", en: "Please wait…" },
-  toIn: { pt: "Já possuo credenciais · entrar", en: "I already have credentials · sign in" },
-  toUp: { pt: "Primeiro acesso · ativar", en: "First access · activate" },
   success: {
     pt: "Sessão iniciada. Redirecionando para o motor clínico…",
     en: "Session started. Redirecting to the clinical engine…",
-  },
-  signupSuccess: {
-    pt: "Verifique seu email para confirmar o acesso.",
-    en: "Please verify your email to confirm access.",
   },
   resetSent: {
     pt: "Enviamos um link seguro para o email informado.",
@@ -306,38 +290,13 @@ const CERTS_COPY = {
 // URL definitiva do serviço @workspace/padcom no Railway (no ar desde 27/07).
 const APP_URL = "https://workspacepadcom-production.up.railway.app";
 
-function passwordSchema(lang: "pt" | "en") {
-  const m = (pt: string, en: string) => (lang === "pt" ? pt : en);
-  return z
-    .string()
-    .min(12, m("Mínimo de 12 caracteres.", "At least 12 characters."))
-    .max(128, m("No máximo 128 caracteres.", "At most 128 characters."))
-    .regex(/[A-Z]/, m("Inclua ao menos uma maiúscula.", "Include at least one uppercase letter."))
-    .regex(/[a-z]/, m("Inclua ao menos uma minúscula.", "Include at least one lowercase letter."))
-    .regex(/[0-9]/, m("Inclua ao menos um número.", "Include at least one number."))
-    .regex(/[^A-Za-z0-9]/, m("Inclua ao menos um símbolo.", "Include at least one symbol."));
-}
-
-function scorePassword(pw: string): number {
-  let s = 0;
-  if (pw.length >= 12) s++;
-  if (pw.length >= 16) s++;
-  if (/[A-Z]/.test(pw)) s++;
-  if (/[a-z]/.test(pw)) s++;
-  if (/[0-9]/.test(pw)) s++;
-  if (/[^A-Za-z0-9]/.test(pw)) s++;
-  return Math.min(s, 5);
-}
-
 function LoginPage() {
   const { lang } = useLang();
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"in" | "up">("in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [oauthLoading, setOauthLoading] = useState(false);
   const [storedSession, setStoredSession] = useState<{ token: string; name?: string } | null>(null);
 
   // Toast enriquecido de sessão expirada: motivo + botão que leva
@@ -351,7 +310,6 @@ function LoginPage() {
       action: {
         label: tr(COPY.sessionExpiredAction, lang),
         onClick: () => {
-          setMode("in");
           setStoredSession(null);
           try {
             const el = document.getElementById("login-username") as HTMLInputElement | null;
@@ -439,102 +397,53 @@ function LoginPage() {
     logoutSession("manual");
   }
 
-  const pwScore = useMemo(() => scorePassword(password), [password]);
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  async function onGoogle() {
-    setOauthLoading(true);
-    try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: `${window.location.origin}/login`,
-      });
-      if (result.error) {
-        toast.error(result.error.message ?? "OAuth error");
-        setOauthLoading(false);
-        return;
-      }
-      if (result.redirected) return; // browser will redirect
-      // Session set — go to app
-      toast.success(tr(COPY.success, lang));
-      window.location.assign(APP_URL);
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : String(e));
-      setOauthLoading(false);
-    }
-  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
-    // No modo "in", o backend aceita username livre (não exige e-mail).
-    // No modo "up" (fluxo Supabase legado), mantemos validação de e-mail.
-    if (mode === "up" && !emailValid) {
-      toast.error(lang === "pt" ? "Email inválido." : "Invalid email.");
-      return;
-    }
-    if (mode === "in" && email.trim().length === 0) {
+    // Backend próprio aceita username livre (não exige e-mail).
+    if (email.trim().length === 0) {
       toast.error(lang === "pt" ? "Informe o usuário." : "Enter your username.");
       return;
     }
-    if (mode === "up") {
-      const parsed = passwordSchema(lang).safeParse(password);
-      if (!parsed.success) {
-        toast.error(parsed.error.issues[0]?.message ?? "Password too weak");
-        return;
-      }
-    }
     setLoading(true);
     try {
-      if (mode === "in") {
-        // Backend próprio: `username` (não `email`). O rótulo do campo
-        // permanece "Email institucional" por decisão de UX; o valor
-        // digitado é enviado como username.
-        try {
-          const { token, professional } = await apiLogin(email.trim(), password);
-          persistSession(token, professional);
-          toast.success(tr(COPY.success, lang));
-          redirectByRole(professional.role);
-        } catch (err) {
-          const status = (err as { status?: number } | null)?.status;
-          if (status === 401) {
-            // Toast rico com orientação clara: revisar credenciais ou
-            // contatar o administrador (contas são criadas por indicação).
-            toast.error(tr(COPY.invalidCredentials, lang), {
-              duration: 12000,
-              description: tr(COPY.invalidCredentialsReason, lang),
-              action: {
-                label: tr(COPY.invalidCredentialsRetry, lang),
-                onClick: () => {
-                  setPassword("");
-                  document.getElementById("login-username")?.focus();
-                },
+      // Backend próprio: `username` (não `email`). O rótulo do campo
+      // permanece "Email institucional" por decisão de UX; o valor
+      // digitado é enviado como username.
+      try {
+        const { token, professional } = await apiLogin(email.trim(), password);
+        persistSession(token, professional);
+        toast.success(tr(COPY.success, lang));
+        redirectByRole(professional.role);
+      } catch (err) {
+        const status = (err as { status?: number } | null)?.status;
+        if (status === 401) {
+          // Toast rico com orientação clara: revisar credenciais ou
+          // contatar o administrador (contas são criadas por indicação).
+          toast.error(tr(COPY.invalidCredentials, lang), {
+            duration: 12000,
+            description: tr(COPY.invalidCredentialsReason, lang),
+            action: {
+              label: tr(COPY.invalidCredentialsRetry, lang),
+              onClick: () => {
+                setPassword("");
+                document.getElementById("login-username")?.focus();
               },
-              cancel: {
-                label: tr(COPY.invalidCredentialsContact, lang),
-                onClick: () => {
-                  window.location.assign("/#contato");
-                },
+            },
+            cancel: {
+              label: tr(COPY.invalidCredentialsContact, lang),
+              onClick: () => {
+                window.location.assign("/#contato");
               },
-            });
-          } else {
-            // Demais falhas (400, 5xx, rede): mensagem literal do backend.
-            toast.error(err instanceof Error ? err.message : "Falha na autenticação");
-          }
-          return;
+            },
+          });
+        } else {
+          // Demais falhas (400, 5xx, rede): mensagem literal do backend.
+          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
         }
-      } else {
-        const emailRedirectTo = `${window.location.origin}/login`;
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo },
-        });
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-        toast.success(tr(COPY.signupSuccess, lang));
-        setMode("in");
+        return;
       }
     } finally {
       setLoading(false);
@@ -660,7 +569,7 @@ function LoginPage() {
               {tr(COPY.brand, lang)}
             </p>
             <h2 className="mt-3 font-serif text-[28px] md:text-[32px] text-center leading-tight">
-              {mode === "in" ? tr(COPY.tabIn, lang) : tr(COPY.tabUp, lang)}
+              {tr(COPY.tabIn, lang)}
             </h2>
             <div className="parxis-gold-rule w-16 mx-auto my-5" />
 
@@ -672,8 +581,8 @@ function LoginPage() {
                 <div className="parxis-login-field">
                   <input
                     id="login-username"
-                    type={mode === "in" ? "text" : "email"}
-                    autoComplete={mode === "in" ? "username" : "email"}
+                    type="text"
+                    autoComplete="username"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -687,22 +596,20 @@ function LoginPage() {
                   <span className="text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
                     {tr(COPY.password, lang)}
                   </span>
-                  {mode === "in" && (
-                    <button
+                  <button
                       type="button"
                       onClick={onForgot}
                       className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
                     >
                       {tr(COPY.forgot, lang)}
-                    </button>
-                  )}
+                  </button>
                 </span>
                 <div className="parxis-login-field relative">
                   <input
                     type={showPw ? "text" : "password"}
-                    autoComplete={mode === "in" ? "current-password" : "new-password"}
+                    autoComplete="current-password"
                     required
-                    minLength={mode === "up" ? 12 : 8}
+                    minLength={8}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
@@ -717,27 +624,6 @@ function LoginPage() {
                     {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
                   </button>
                 </div>
-                {mode === "up" && (
-                  <div className="mt-3">
-                    <div className="flex gap-1">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="h-[4px] flex-1 rounded-full transition-colors"
-                          style={{
-                            background:
-                              i < pwScore
-                                ? "linear-gradient(90deg, #C9B070, #FBEBAA)"
-                                : "rgba(242,184,23,0.12)",
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground/90">
-                      {tr(COPY.passwordHint, lang)}
-                    </p>
-                  </div>
-                )}
               </label>
 
               <button
@@ -746,11 +632,7 @@ function LoginPage() {
                 className="parxis-btn parxis-btn-primary w-full mt-2"
               >
                 <span>
-                  {loading
-                    ? tr(COPY.loading, lang)
-                    : mode === "in"
-                    ? tr(COPY.submitIn, lang)
-                    : tr(COPY.submitUp, lang)}
+                  {loading ? tr(COPY.loading, lang) : tr(COPY.submitIn, lang)}
                 </span>
               </button>
             </form>
