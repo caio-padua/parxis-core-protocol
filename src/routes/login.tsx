@@ -128,16 +128,16 @@ function redirectByRole(role: string) {
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Parxis · Acesso Clínico Reservado" },
+      { title: "Padaxor · Acesso Clínico Reservado" },
       {
         name: "description",
         content:
-          "Entrada privada ao motor clínico Parxis. Acesso reservado a médicos licenciados — autenticação com verificação forte e Sign in with Google.",
+          "Entrada privada ao motor clínico Padaxor. Acesso reservado a médicos licenciados — autenticação com verificação forte e Sign in with Google.",
       },
-      { property: "og:title", content: "Parxis · Acesso Clínico Reservado" },
+      { property: "og:title", content: "Padaxor · Acesso Clínico Reservado" },
       {
         property: "og:description",
-        content: "Entrada privada dos médicos licenciados no Parxis.",
+        content: "Entrada privada dos médicos licenciados no Padaxor.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -149,7 +149,7 @@ export const Route = createFileRoute("/login")({
 
 const COPY = {
   eyebrow: { pt: "Acesso reservado", en: "Reserved access" },
-  brand: { pt: "Círculo Parxis", en: "Parxis Circle" },
+  brand: { pt: "Círculo Padaxor", en: "Padaxor Circle" },
   headline: {
     pt: "Entre no motor clínico.",
     en: "Enter the clinical engine.",
@@ -166,10 +166,10 @@ const COPY = {
     pt: "Mínimo 12 caracteres, com maiúscula, minúscula, número e símbolo.",
     en: "At least 12 characters, with upper, lower, number and symbol.",
   },
-  submitIn: { pt: "Acessar Parxis", en: "Enter Parxis" },
+  submitIn: { pt: "Acessar Padaxor", en: "Enter Padaxor" },
   submitUp: { pt: "Ativar meu acesso", en: "Activate my access" },
   google: { pt: "Continuar com Google", en: "Continue with Google" },
-  divider: { pt: "ou credenciais Parxis", en: "or Parxis credentials" },
+  divider: { pt: "ou credenciais Padaxor", en: "or Padaxor credentials" },
   forgot: { pt: "Esqueci minha senha", en: "I forgot my password" },
   loading: { pt: "Aguarde…", en: "Please wait…" },
   toIn: { pt: "Já possuo credenciais · entrar", en: "I already have credentials · sign in" },

@@ -79,14 +79,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Parxis — Motor Clínico para Protocolos Injetáveis" },
-      { name: "description", content: "Parxis é o motor clínico de excelência para clínicas de medicina integrativa: protocolos injetáveis, anamnese guiada, RAS assinado, receituário e apresentação premium — em uma única plataforma." },
-      { name: "author", content: "Parxis" },
-      { property: "og:title", content: "Parxis — Motor Clínico para Protocolos Injetáveis" },
+      { title: "Padaxor — Motor Clínico para Protocolos Injetáveis" },
+      { name: "description", content: "Padaxor é o motor clínico de excelência para clínicas de medicina integrativa: protocolos injetáveis, anamnese guiada, RAS assinado, receituário e apresentação premium — em uma única plataforma." },
+      { name: "author", content: "Padaxor" },
+      { property: "og:title", content: "Padaxor — Motor Clínico para Protocolos Injetáveis" },
       { property: "og:description", content: "A plataforma clínica das clínicas integrativas de alto padrão. Protocolos injetáveis com rigor, elegância e assinatura eletrônica." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Parxis" },
+      { name: "twitter:site", content: "@Padaxor" },
     ],
     links: [
       {

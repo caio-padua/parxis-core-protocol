@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 export const Route = createFileRoute("/status")({
   head: () => ({
     meta: [
-      { title: "Status — Parxis" },
-      { name: "description", content: "Página de status do site de vendas Parxis." },
+      { title: "Status — Padaxor" },
+      { name: "description", content: "Página de status do site de vendas Padaxor." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Status — Parxis" },
-      { property: "og:description", content: "Verificação de disponibilidade do site Parxis." },
+      { property: "og:title", content: "Status — Padaxor" },
+      { property: "og:description", content: "Verificação de disponibilidade do site Padaxor." },
     ],
   }),
   component: StatusPage,
