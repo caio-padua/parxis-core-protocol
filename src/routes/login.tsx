@@ -569,7 +569,7 @@ function LoginPage() {
               {tr(COPY.brand, lang)}
             </p>
             <h2 className="mt-3 font-serif text-[28px] md:text-[32px] text-center leading-tight">
-              {mode === "in" ? tr(COPY.tabIn, lang) : tr(COPY.tabUp, lang)}
+              {tr(COPY.tabIn, lang)}
             </h2>
             <div className="parxis-gold-rule w-16 mx-auto my-5" />
 
@@ -581,8 +581,8 @@ function LoginPage() {
                 <div className="parxis-login-field">
                   <input
                     id="login-username"
-                    type={mode === "in" ? "text" : "email"}
-                    autoComplete={mode === "in" ? "username" : "email"}
+                    type="text"
+                    autoComplete="username"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -596,22 +596,20 @@ function LoginPage() {
                   <span className="text-[11px] uppercase tracking-[0.32em] text-[color:var(--gold)]">
                     {tr(COPY.password, lang)}
                   </span>
-                  {mode === "in" && (
-                    <button
+                  <button
                       type="button"
                       onClick={onForgot}
                       className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground hover:text-[color:var(--gold)] transition-colors"
                     >
                       {tr(COPY.forgot, lang)}
-                    </button>
-                  )}
+                  </button>
                 </span>
                 <div className="parxis-login-field relative">
                   <input
                     type={showPw ? "text" : "password"}
-                    autoComplete={mode === "in" ? "current-password" : "new-password"}
+                    autoComplete="current-password"
                     required
-                    minLength={mode === "up" ? 12 : 8}
+                    minLength={8}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
@@ -626,27 +624,6 @@ function LoginPage() {
                     {showPw ? (lang === "pt" ? "Ocultar" : "Hide") : (lang === "pt" ? "Ver" : "Show")}
                   </button>
                 </div>
-                {mode === "up" && (
-                  <div className="mt-3">
-                    <div className="flex gap-1">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="h-[4px] flex-1 rounded-full transition-colors"
-                          style={{
-                            background:
-                              i < pwScore
-                                ? "linear-gradient(90deg, #C9B070, #FBEBAA)"
-                                : "rgba(242,184,23,0.12)",
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground/90">
-                      {tr(COPY.passwordHint, lang)}
-                    </p>
-                  </div>
-                )}
               </label>
 
               <button
@@ -655,11 +632,7 @@ function LoginPage() {
                 className="parxis-btn parxis-btn-primary w-full mt-2"
               >
                 <span>
-                  {loading
-                    ? tr(COPY.loading, lang)
-                    : mode === "in"
-                    ? tr(COPY.submitIn, lang)
-                    : tr(COPY.submitUp, lang)}
+                  {loading ? tr(COPY.loading, lang) : tr(COPY.submitIn, lang)}
                 </span>
               </button>
             </form>
