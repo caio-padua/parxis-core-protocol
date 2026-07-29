@@ -284,8 +284,9 @@ const CERTS_COPY = {
   close: { pt: "Fechar", en: "Close" },
 } as const;
 
-// const APP_URL = "https://app.parxis.com.br"; // domínio ainda não aponta para servidor real
-const APP_URL = ""; // aguardando URL definitiva do Railway (serviço "padcom")
+// const APP_URL = "https://app.parxis.com.br"; // domínio nunca existiu — não foi comprado
+// URL definitiva do serviço @workspace/padcom no Railway (no ar desde 27/07).
+const APP_URL = "https://workspacepadcom-production.up.railway.app";
 
 function passwordSchema(lang: "pt" | "en") {
   const m = (pt: string, en: string) => (lang === "pt" ? pt : en);
@@ -402,10 +403,12 @@ function LoginPage() {
       });
       return;
     }
-    // 2) Sessão Supabase remanescente (fluxo antigo / Google OAuth).
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) window.location.assign(APP_URL);
-    });
+    // 2) Auto-redirect de sessão Supabase remanescente REMOVIDO.
+    //    A autenticação migrou para o api-server (POST /api/collaborator/login);
+    //    manter esse redirecionamento prendia usuários com sessão antiga do
+    //    Supabase e os jogava para fora antes de conseguirem digitar as
+    //    credenciais atuais. Logout de sessão Supabase remanescente fica no
+    //    onLogout() explícito.
   }, [lang]);
 
   function onLogout() {
