@@ -397,102 +397,53 @@ function LoginPage() {
     logoutSession("manual");
   }
 
-  const pwScore = useMemo(() => scorePassword(password), [password]);
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  async function onGoogle() {
-    setOauthLoading(true);
-    try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: `${window.location.origin}/login`,
-      });
-      if (result.error) {
-        toast.error(result.error.message ?? "OAuth error");
-        setOauthLoading(false);
-        return;
-      }
-      if (result.redirected) return; // browser will redirect
-      // Session set — go to app
-      toast.success(tr(COPY.success, lang));
-      window.location.assign(APP_URL);
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : String(e));
-      setOauthLoading(false);
-    }
-  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
-    // No modo "in", o backend aceita username livre (não exige e-mail).
-    // No modo "up" (fluxo Supabase legado), mantemos validação de e-mail.
-    if (mode === "up" && !emailValid) {
-      toast.error(lang === "pt" ? "Email inválido." : "Invalid email.");
-      return;
-    }
-    if (mode === "in" && email.trim().length === 0) {
+    // Backend próprio aceita username livre (não exige e-mail).
+    if (email.trim().length === 0) {
       toast.error(lang === "pt" ? "Informe o usuário." : "Enter your username.");
       return;
     }
-    if (mode === "up") {
-      const parsed = passwordSchema(lang).safeParse(password);
-      if (!parsed.success) {
-        toast.error(parsed.error.issues[0]?.message ?? "Password too weak");
-        return;
-      }
-    }
     setLoading(true);
     try {
-      if (mode === "in") {
-        // Backend próprio: `username` (não `email`). O rótulo do campo
-        // permanece "Email institucional" por decisão de UX; o valor
-        // digitado é enviado como username.
-        try {
-          const { token, professional } = await apiLogin(email.trim(), password);
-          persistSession(token, professional);
-          toast.success(tr(COPY.success, lang));
-          redirectByRole(professional.role);
-        } catch (err) {
-          const status = (err as { status?: number } | null)?.status;
-          if (status === 401) {
-            // Toast rico com orientação clara: revisar credenciais ou
-            // contatar o administrador (contas são criadas por indicação).
-            toast.error(tr(COPY.invalidCredentials, lang), {
-              duration: 12000,
-              description: tr(COPY.invalidCredentialsReason, lang),
-              action: {
-                label: tr(COPY.invalidCredentialsRetry, lang),
-                onClick: () => {
-                  setPassword("");
-                  document.getElementById("login-username")?.focus();
-                },
+      // Backend próprio: `username` (não `email`). O rótulo do campo
+      // permanece "Email institucional" por decisão de UX; o valor
+      // digitado é enviado como username.
+      try {
+        const { token, professional } = await apiLogin(email.trim(), password);
+        persistSession(token, professional);
+        toast.success(tr(COPY.success, lang));
+        redirectByRole(professional.role);
+      } catch (err) {
+        const status = (err as { status?: number } | null)?.status;
+        if (status === 401) {
+          // Toast rico com orientação clara: revisar credenciais ou
+          // contatar o administrador (contas são criadas por indicação).
+          toast.error(tr(COPY.invalidCredentials, lang), {
+            duration: 12000,
+            description: tr(COPY.invalidCredentialsReason, lang),
+            action: {
+              label: tr(COPY.invalidCredentialsRetry, lang),
+              onClick: () => {
+                setPassword("");
+                document.getElementById("login-username")?.focus();
               },
-              cancel: {
-                label: tr(COPY.invalidCredentialsContact, lang),
-                onClick: () => {
-                  window.location.assign("/#contato");
-                },
+            },
+            cancel: {
+              label: tr(COPY.invalidCredentialsContact, lang),
+              onClick: () => {
+                window.location.assign("/#contato");
               },
-            });
-          } else {
-            // Demais falhas (400, 5xx, rede): mensagem literal do backend.
-            toast.error(err instanceof Error ? err.message : "Falha na autenticação");
-          }
-          return;
+            },
+          });
+        } else {
+          // Demais falhas (400, 5xx, rede): mensagem literal do backend.
+          toast.error(err instanceof Error ? err.message : "Falha na autenticação");
         }
-      } else {
-        const emailRedirectTo = `${window.location.origin}/login`;
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo },
-        });
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-        toast.success(tr(COPY.signupSuccess, lang));
-        setMode("in");
+        return;
       }
     } finally {
       setLoading(false);
