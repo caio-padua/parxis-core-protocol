@@ -284,7 +284,8 @@ const CERTS_COPY = {
   close: { pt: "Fechar", en: "Close" },
 } as const;
 
-const APP_URL = "https://app.parxis.com.br";
+// const APP_URL = "https://app.parxis.com.br"; // domínio ainda não aponta para servidor real
+const APP_URL = ""; // aguardando URL definitiva do Railway (serviço "padcom")
 
 function passwordSchema(lang: "pt" | "en") {
   const m = (pt: string, en: string) => (lang === "pt" ? pt : en);
